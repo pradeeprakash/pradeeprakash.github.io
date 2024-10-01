@@ -7,114 +7,202 @@
     <title>Pradeep Prakash - Senior Software Engineer</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0e0e0e;
+            color: #e0e0e0;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
         }
+
         header {
-            background-color: #333;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             color: #fff;
-            padding: 20px;
+            padding: 40px 20px;
             text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1.5px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
         section {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            margin: 30px auto;
+            background: #1c1c1e;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
-        h1, h2 {
-            color: #333;
+
+        h2, h3 {
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            color: #00e676;
         }
+
         ul {
             list-style-type: none;
             padding: 0;
         }
+
         ul li {
-            padding: 10px 0;
+            margin-bottom: 10px;
         }
+
         .contact-info {
             text-align: center;
             margin-bottom: 30px;
         }
+
         .contact-info a {
-            color: #0073e6;
+            color: #00e676;
             text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #fff;
+        }
+
+        /* Button Styling */
+        a.button {
+            background-color: #00e676;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        a.button:hover {
+            background-color: #009d57;
+        }
+
+        .tech-skill {
+            display: inline-block;
+            background-color: #333;
+            color: #00e676;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Pradeep Prakash</h1>
-        <p>Senior Software Engineer</p>
-    </header>
 
-    <section>
-        <div class="contact-info">
-            <p>Bengaluru | <a href="mailto:pradeep00327@gmail.com">pradeep00327@gmail.com</a> | +91 86674 12047</p>
-            <p><a href="http://www.linkedin.com/in/pradeep-p-5a9913143" target="_blank">LinkedIn</a></p>
-        </div>
+<header>
+    <h1>Pradeep Prakash</h1>
+    <p>Senior Software Engineer</p>
+</header>
 
-        <h2>Summary</h2>
-        <p>Senior Software Engineer with 6 years of specialized expertise in JavaScript technologies, focusing on JavaScript, React.js, and Node.js. Proven success in delivering robust solutions and optimizing system performance, with a strong commitment to innovation and staying updated with industry advancements.</p>
+<section>
+    <div class="contact-info">
+        <p>Bengaluru | <a href="mailto:pradeep00327@gmail.com">pradeep00327@gmail.com</a> | +91 86674 12047</p>
+        <p><a href="https://www.linkedin.com/in/pradeep-prakash24" target="_blank">LinkedIn</a></p>
+    </div>
 
-        <h2>Skills</h2>
-        <h3>Front-End Technologies:</h3>
-        <ul>
-            <li>JavaScript, React.js, Next.js, Vue.js, Webpack, HTML, CSS3, Electron, Material-UI</li>
-            <li>Progressive Web Apps (PWA), User Interface/User Experience (UI/UX) Design, Web Accessibility (Accessibility or WCAG)</li>
-        </ul>
-        <h3>Back-End Technologies:</h3>
-        <ul>
-            <li>Node.js, MongoDB, SQL, RabbitMQ, Kubernetes, RESTful APIs, GraphQL, JSON Web Tokens (JWT), Microservices Architecture</li>
-        </ul>
-        <h3>Tools and Miscellaneous Skills:</h3>
-        <ul>
-            <li>Git, Data Structures and Algorithms, Docker, SCRUM, EcmaScript, Internationalization (i18n), Confluence, Debugging, Troubleshooting, Management Skills, Functional Testing, Unit Testing</li>
-        </ul>
+    <h2>Summary</h2>
+    <p>Senior Software Engineer with 6 years of specialized expertise in JavaScript technologies, focusing on JavaScript, React.js, and Node.js. Proven success in delivering robust solutions and optimizing system performance, with a strong commitment to innovation and staying updated with industry advancements.</p>
 
-        <h2>Experience</h2>
-        <h3>Software Engineer II, Fynd</h3>
-        <p>Sep 2022 – Present</p>
-        <ul>
-            <li>Led the team responsible for the development and successful launch of the Fynd Coupons website and its associated browser extension, now serving 97k active users.</li>
-            <li>Developed the Haptik Extension that integrates with Meta to power the Jiomart WhatsApp Bot, enabling users to seamlessly browse and purchase products.</li>
-            <li>Provided development support for 25+ existing extensions, ensuring scalability and performance optimization.</li>
-            <li>Reduced system downtime by 40% by implementing scalable solutions.</li>
-        </ul>
+    <h2>Skills</h2>
+    <h3>Front-End Technologies</h3>
+    <div>
+        <span class="tech-skill">JavaScript</span>
+        <span class="tech-skill">React.js</span>
+        <span class="tech-skill">Next.js</span>
+        <span class="tech-skill">Vue.js</span>
+        <span class="tech-skill">Webpack</span>
+        <span class="tech-skill">HTML</span>
+        <span class="tech-skill">CSS3</span>
+        <span class="tech-skill">Electron</span>
+        <span class="tech-skill">Material-UI</span>
+    </div>
 
-        <h3>Senior Software Engineer, Byjus</h3>
-        <p>July 2021 – Aug 2022</p>
-        <ul>
-            <li>Contributed to Byjus' Teacher Tech platform, streamlining teacher onboarding and class scheduling.</li>
-            <li>Led the design and development of Tutor-CMS, optimizing the scheduling process and course management.</li>
-        </ul>
+    <h3>Back-End Technologies</h3>
+    <div>
+        <span class="tech-skill">Node.js</span>
+        <span class="tech-skill">MongoDB</span>
+        <span class="tech-skill">SQL</span>
+        <span class="tech-skill">RabbitMQ</span>
+        <span class="tech-skill">Kubernetes</span>
+        <span class="tech-skill">REST APIs</span>
+        <span class="tech-skill">GraphQL</span>
+        <span class="tech-skill">JWT</span>
+        <span class="tech-skill">Microservices Architecture</span>
+    </div>
 
-        <h3>Software Engineer, Acube Tech</h3>
-        <p>May 2020 – Jun 2021</p>
-        <ul>
-            <li>Led the development of the Rxnt healthcare platform, ensuring scalability and user-friendly interfaces.</li>
-        </ul>
+    <h2>Experience</h2>
 
-        <h3>Product Engineer, Codingmart Technologies</h3>
-        <p>Oct 2018 – May 2020</p>
-        <ul>
-            <li>Led the development of the Integrated Entertainment Platform for BookMyShow, optimizing data flow and system performance.</li>
-        </ul>
+    <h3>Software Engineer II, Fynd</h3>
+    <p>Sep 2022 – Present</p>
+    <ul>
+        <li>Led the development and launch of Fynd Coupons website and browser extension, now serving 97k active users.</li>
+        <li>Developed the Haptik Extension, powering Jiomart WhatsApp Bot, increasing customer engagement and product purchases.</li>
+        <li>Architected and implemented robust solutions for 6 Fynd extensions, ensuring scalability and security.</li>
+        <li>Reduced system downtime by 40% through optimized, scalable solutions.</li>
+    </ul>
 
-        <h2>Awards</h2>
-        <ul>
-            <li>Fynd Star (Sep 2023) – For driving team success and innovation.</li>
-            <li>Highest Standard (Jul 2022) – Recognized for delivering high-quality tutor audit frontend development at Byjus.</li>
-            <li>Power of One (Jan 2020) – Awarded for developing key product features single-handedly at Codingmart.</li>
-        </ul>
+    <h3>Senior Software Engineer, Byjus</h3>
+    <p>July 2021 – Aug 2022</p>
+    <ul>
+        <li>Key contributor to Byju’s Teacher Tech platform, improving teacher onboarding and scheduling.</li>
+        <li>Led the development of Tutor-CMS, optimizing course creation and management processes.</li>
+    </ul>
 
-        <h2>Education</h2>
-        <h3>K.S. Rangasamy College of Technology</h3>
-        <p>Bachelor of Engineering (B.E.) in Computer Science – June 2015 – May 2019</p>
-    </section>
+    <h3>Software Engineer, Acube Tech</h3>
+    <p>May 2020 – Jun 2021</p>
+    <ul>
+        <li>Led development of the Rxnt healthcare platform, enhancing patient-to-expert connections and platform scalability.</li>
+    </ul>
+
+    <h3>Product Engineer, Codingmart Technologies</h3>
+    <p>Oct 2018 – May 2020</p>
+    <ul>
+        <li>Developed Integrated Entertainment Platform for BookMyShow, optimizing system performance and data handling.</li>
+    </ul>
+
+    <h2>Awards</h2>
+    <ul>
+        <li>Fynd Star (Sep 2023) – Recognized for driving team success and innovation.</li>
+        <li>Highest Standard (Jul 2022) – Delivered high-quality tutor audit frontend development at Byjus.</li>
+        <li>Power of One (Jan 2020) – Single-handedly developed critical product features at Codingmart.</li>
+    </ul>
+
+    <h2>Education</h2>
+    <h3>K.S. Rangasamy College of Technology</h3>
+    <p>Bachelor of Engineering (B.E.) in Computer Science, June 2015 – May 2019</p>
+
+    <div class="contact-info">
+        <a href="https://github.com/your-github-profile" class="button">Visit My GitHub</a>
+    </div>
+</section>
+
 </body>
 </html>
