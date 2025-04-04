@@ -3,65 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pradeep Prakash - Senior Software Engineer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0e0e0e;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scrollbar during animations */
+        }
+        
+        header {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            padding: 50px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInHeader 1s ease-out 0.2s forwards;
+        }
+
+        @keyframes fadeInHeader {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: 1.8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        header p {
+            font-size: 1.3rem;
+            margin-top: 15px;
+            font-style: italic;
+            color: #ddd;
+        }
+
+        section {
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: rgba(28, 28, 30, 0.8); /* Transparent glass effect */
+            backdrop-filter: blur(10px); /* Apply blur to the background */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            border: 2px solid transparent; /* Initially transparent border */
+            background-clip: padding-box; /* Prevent background from showing under the border */
+            position: relative; /* For pseudo-element border */
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 14px;
+            border: 2px solid #203a43;
+            z-index: -1;
+            animation: glowing-border 5s linear infinite;
+        }
+
+
+        section {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2, h3 {
+            border-bottom: 2px solid #444;
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+            color: #00e676;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .contact-info a {
+            color: #00e676;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .contact-info a:hover {
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        a.button {
+            background-color: #00e676;
+            border: none;
+            color: #fff;
+            padding: 12px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 17px;
+            margin-top: 25px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        a.button:hover {
+            background-color: #009d57;
+            transform: scale(1.03);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .tech-skill {
+            display: inline-block;
+            background-color: #333;
+            color: #00e676;
+            padding: 8px 15px;
+            border-radius: 25px;
+            margin-right: 12px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            opacity: 0.9;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .tech-skill:hover {
+            background-color: #444;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 15px;
+            }
+
+            header h1 {
+                font-size: 2.3rem;
+            }
+
+            header p {
+                font-size: 1.1rem;
+            }
+
+            section {
+                padding: 30px;
+                margin: 30px 15px;
+            }
+
+            .tech-skill {
+                font-size: 0.9rem;
+                margin-right: 8px;
+                margin-bottom: 8px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-200 font-sans">
-    <!-- Header -->
-    <header class="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-12 text-center shadow-lg">
-        <h1 class="text-4xl font-extrabold">Pradeep Prakash</h1>
-        <p class="text-lg mt-2">Senior Software Engineer</p>
+<body>
+
+    <header>
+        <h1>Pradeep Prakash</h1>
+        <p>Senior Software Engineer</p>
     </header>
 
-    <!-- Main Section -->
-    <main class="max-w-5xl mx-auto my-10 px-6">
-        <section class="bg-gray-800 p-8 rounded-lg shadow-lg">
-            <!-- Contact -->
-            <div class="text-center text-lg mb-6">
-                <p>Bengaluru | <a href="mailto:pradeep00327@gmail.com" class="text-green-400 hover:text-white">pradeep00327@gmail.com</a></p>
-                <p><a href="https://www.linkedin.com/in/pradeep-prakash24" target="_blank" class="text-blue-400 hover:text-white">LinkedIn</a></p>
-            </div>
-
-            <!-- Summary -->
-            <h2 class="text-xl font-bold text-green-400 border-b border-gray-600 pb-2 mb-4">Summary</h2>
-            <p>Senior Software Engineer with 6+ years of expertise in JavaScript, React.js, and Node.js, delivering scalable solutions.</p>
-        </section>
-
-        <!-- Skills -->
-        <section class="bg-gray-800 p-8 mt-6 rounded-lg shadow-lg">
-            <h2 class="text-xl font-bold text-green-400 border-b border-gray-600 pb-2 mb-4">Skills</h2>
-            <div class="flex flex-wrap gap-3">
-                <span class="px-4 py-2 bg-gray-700 rounded-full text-green-300">JavaScript</span>
-                <span class="px-4 py-2 bg-gray-700 rounded-full text-green-300">React.js</span>
-                <span class="px-4 py-2 bg-gray-700 rounded-full text-green-300">Node.js</span>
-                <span class="px-4 py-2 bg-gray-700 rounded-full text-green-300">MongoDB</span>
-            </div>
-        </section>
-
-        <!-- Experience -->
-        <section class="bg-gray-800 p-8 mt-6 rounded-lg shadow-lg">
-            <h2 class="text-xl font-bold text-green-400 border-b border-gray-600 pb-2 mb-4">Experience</h2>
-            <div>
-                <h3 class="text-lg font-semibold">Software Engineer II, Fynd</h3>
-                <p class="text-sm text-gray-400">Sep 2022 – Present</p>
-                <ul class="list-disc list-inside mt-2">
-                    <li>Led development of Fynd Coupons website, serving 97k+ users.</li>
-                    <li>Architected scalable solutions for multiple extensions.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Education -->
-        <section class="bg-gray-800 p-8 mt-6 rounded-lg shadow-lg">
-            <h2 class="text-xl font-bold text-green-400 border-b border-gray-600 pb-2 mb-4">Education</h2>
-            <p><strong>K.S. Rangasamy College of Technology</strong></p>
-            <p>Bachelor of Engineering in Computer Science (2015 – 2019)</p>
-        </section>
-
-        <!-- Resume Button -->
-        <div class="text-center mt-8">
-            <a href="https://pradeeprakash.github.io/Pradeep_Sr_Engineer_Resume.pdf" class="bg-green-500 px-6 py-3 rounded-full text-white hover:bg-green-600 shadow-md">View My Resume</a>
+    <section id="summary" class="active">
+        <div class="contact-info">
+            <p>Bengaluru | <a href="mailto:pradeep00327@gmail.com">pradeep00327@gmail.com</a> | +91 86674 12047</p>
+            <p><a href="https://www.linkedin.com/in/pradeep-prakash24" target="_blank">LinkedIn</a></p>
         </div>
-    </main>
+
+        <h2>Summary</h2>
+        <p>Senior Software Engineer with 6 years of specialized expertise in JavaScript technologies, focusing on JavaScript, React.js, and Node.js. Proven success in delivering robust solutions and optimizing system performance, with a strong commitment to innovation and staying updated with industry advancements.</p>
+    </section>
+
+    <section id="skills" class="glass-card">
+        <h2>Skills</h2>
+        <h3>Front-End Technologies</h3>
+        <div>
+            <span class="tech-skill">JavaScript</span>
+            <span class="tech-skill">React.js</span>
+            <span class="tech-skill">Next.js</span>
+            <span class="tech-skill">Vue.js</span>
+            <span class="tech-skill">Webpack</span>
+            <span class="tech-skill">HTML</span>
+            <span class="tech-skill">CSS3</span>
+            <span class="tech-skill">Electron</span>
+            <span class="tech-skill">Material-UI</span>
+        </div>
+
+        <h3>Back-End Technologies</h3>
+        <div>
+            <span class="tech-skill">Node.js</span>
+            <span class="tech-skill">MongoDB</span>
+            <span class="tech-skill">SQL</span>
+            <span class="tech-skill">RabbitMQ</span>
+            <span class="tech-skill">Kubernetes</span>
+            <span class="tech-skill">REST APIs</span>
+            <span class="tech-skill">GraphQL</span>
+            <span class="tech-skill">JWT</span>
+            <span class="tech-skill">Microservices Architecture</span>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2>Experience</h2>
+
+        <h3>Software Engineer II, Fynd</h3>
+        <p>Sep 2022 – Present</p>
+        <ul>
+            <li>Led the development and launch of Fynd Coupons website and browser extension, now serving 97k active users.</li>
+            <li>Developed the Haptik Extension, powering Jiomart WhatsApp Bot, increasing customer engagement and product purchases.</li>
+            <li>Architected and implemented robust solutions for 6 Fynd extensions, ensuring scalability and security.</li>
+            <li>Reduced system downtime by 40% through optimized, scalable solutions.</li>
+        </ul>
+
+        <h3>Senior Software Engineer, Byjus</h3>
+        <p>July 2021 – Aug 2022</p>
+        <ul>
+            <li>Key contributor to Byju’s Teacher Tech platform, improving teacher onboarding and scheduling.</li>
+            <li>Led the development of Tutor-CMS, optimizing course creation and management processes.</li>
+        </ul>
+
+        <h3>Software Engineer, Acube Tech</h3>
+        <p>May 2020 – Jun 2021</p>
+        <ul>
+            <li>Led development of the Rxnt healthcare platform, enhancing patient-to-expert connections and platform scalability.</li>
+        </ul>
+
+        <h3>Product Engineer, Codingmart Technologies</h3>
+        <p>Oct 2018 – May 2020</p>
+        <ul>
+            <li>Developed Integrated Entertainment Platform for BookMyShow, optimizing system performance and data handling.</li>
+        </ul>
+    </section>
+
+    <section id="awards">
+        <h2>Awards</h2>
+        <ul>
+            <li>Fynd Star (Sep 2023) – Recognized for driving team success and innovation.</li>
+            <li>Highest Standard (Jul 2022) – Delivered high-quality tutor audit frontend development at Byjus.</li>
+            <li>Power of One (Jan 2020) – Single-handedly developed critical product features at Codingmart.</li>
+        </ul>
+    </section>
+
+    <section id="education">
+        <h2>Education</h2>
+        <h3>K.S. Rangasamy College of Technology</h3>
+        <p>Bachelor of Engineering (B.E.) in Computer Science, June 2015 – May 2019</p>
+    </section>
+
+    <section class="contact">
+        <div class="contact-info">
+            <a href="https://pradeeprakash.github.io/Pradeep_Sr_Engineer_Resume.pdf" class="button" target="_blank">View My Resume</a>
+        </div>
+    </section>
+
+
 </body>
 </html>
