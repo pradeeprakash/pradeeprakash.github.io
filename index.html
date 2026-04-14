@@ -1,311 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pradeep Prakash | Senior Software Engineer</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f8f9fa;
-      color: #212529;
-      line-height: 1.6;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    /* HEADER */
-    header {
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: #fff;
-      padding: 2rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    header::before {
-      content: '';
-      position: absolute;
-      top: -20%;
-      left: -20%;
-      width: 140%;
-      height: 140%;
-      background: rgba(255, 255, 255, 0.1);
-      filter: blur(60px);
-      transform: rotate(45deg);
-      z-index: 0;
-    }
-    header h1, header p, .socials, .resume-btn {
-      position: relative;
-      z-index: 2;
-    }
-    .socials a {
-      color: white;
-      margin: 0 10px;
-      font-size: 1.2rem;
-    }
-    .resume-btn a {
-      background: #fcd34d;
-      color: #212529;
-      text-decoration: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      font-weight: 600;
-      margin-top: 1rem;
-      display: inline-block;
-      transition: background 0.3s;
-    }
-    .resume-btn a:hover {
-      background: #facc15;
-    }
-
-    /* NAVBAR */
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      padding: 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(10px);
-      transition: background 0.3s;
-    }
-    
-    body.dark nav {
-      background: rgba(0, 0, 0, 0.3);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    nav a {
-      color: #212529;
-      font-weight: 600;
-      text-decoration: none;
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: color 0.3s;
-    }
-    
-    body.dark nav a {
-      color: #ffffff;
-    }
-    
-    nav a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 0%;
-      height: 2px;
-      background: #6a11cb;
-      transition: width 0.3s ease;
-    }
-    
-    nav a:hover::after {
-      width: 100%;
-    }
-    
-    nav a:hover {
-      color: #6a11cb;
-    }
-    
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem 0.5rem;
-        gap: 1rem;
-      }
-    }
-
-
-    /* SECTIONS */
-    section {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    h2 {
-      color: #343a40;
-      border-bottom: 2px solid #dee2e6;
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-    }
-    ul {
-      list-style: none;
-      padding-left: 1rem;
-    }
-    ul li::before {
-      content: "•";
-      color: #343a40;
-      font-weight: bold;
-      display: inline-block;
-      width: 1rem;
-      margin-left: -1rem;
-    }
-    .card {
-      background: white;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      background: #343a40;
-      color: white;
-    }
-
-    /* DARK MODE */
-    body.dark {
-      background: #121212;
-      color: #e0e0e0;
-    }
-    body.dark .card {
-      background: #1e1e1e;
-    }
-    body.dark nav {
-      background: rgba(0, 0, 0, 0.4);
-    }
-
-    .toggle-theme {
-      position: fixed;
-      right: 1rem;
-      bottom: 1rem;
-      background: #6a11cb;
-      color: white;
-      border: none;
-      padding: 0.75rem 1rem;
-      border-radius: 100px;
-      cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      transition: background 0.3s;
-      z-index: 20;
-    }
-    .toggle-theme:hover {
-      background: #4c0bc4;
-    }
-
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        gap: 1rem;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pradeep Prakash — Full-Stack Engineer</title>
+  <meta name="description" content="Full-stack engineer with 7+ years building scalable backend systems, fault-tolerant data pipelines, event-driven services, and intuitive frontend applications with React.">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <h1>Pradeep Prakash</h1>
-    <p>Bengaluru | <a href="mailto:pradeep00327@gmail.com" style="color: #fcd34d;">pradeep00327@gmail.com</a> | +91 86674 12047</p>
-    <div class="socials">
-      <a href="https://www.linkedin.com/in/pradeep-prakash24" target="_blank"><i class="fab fa-linkedin"></i></a>
-    </div>
-    <div class="resume-btn">
-      <a href="https://pradeeprakash.github.io/Pradeep_Sr_Engineer_Resume.pdf" target="_blank">📄 Download Resume</a>
-    </div>
-  </header>
+  <!-- Matrix rain canvas (behind everything) -->
+  <canvas id="matrix-canvas" aria-hidden="true"></canvas>
 
-  <nav>
-    <a href="#summary"><i class="fas fa-user"></i> Summary</a>
-    <a href="#skills"><i class="fas fa-cogs"></i> Skills</a>
-    <a href="#experience"><i class="fas fa-briefcase"></i> Experience</a>
-    <a href="#awards"><i class="fas fa-award"></i> Awards</a>
-    <a href="#education"><i class="fas fa-graduation-cap"></i> Education</a>
+  <!-- CRT scanline overlay -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo"><span class="prompt-symbol">❯</span> <span class="nav-logo-text">pp</span><span class="nav-logo-dim">.dev</span></div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="#about" class="nav-link active">./about</a>
+      <a href="#experience" class="nav-link">./experience</a>
+      <a href="#skills" class="nav-link">./skills</a>
+      <a href="#contact" class="nav-link">./contact</a>
+    </div>
   </nav>
 
-  <section id="summary">
-    <h2>Summary</h2>
-    <div class="card">
-      Senior Software Engineer with 6 years of specialized expertise in JavaScript technologies, focusing on JavaScript, React.js, and Node.js.
+  <!-- Terminal window wrapper -->
+  <div class="terminal">
+    <!-- Title bar -->
+    <div class="terminal-titlebar">
+      <div class="terminal-dots">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+      </div>
+      <span class="terminal-title">pradeep@portfolio ~ </span>
     </div>
-  </section>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="card">
-      <strong>Front-End:</strong> JavaScript, React.js, Next.js, Vue.js, HTML, CSS3, Webpack, TypeScript, Electron, Material-UI, PWA, UI/UX, Accessibility<br><br>
-      <strong>Back-End:</strong> Node.js, MongoDB, SQL, RabbitMQ, RESTful APIs, GraphQL, JWT, Microservices<br><br>
-      <strong>Tools:</strong> Git, Docker, Kubernetes, SCRUM, Confluence, DSA, i18n, Unit Testing
-    </div>
-  </section>
+    <!-- Terminal body -->
+    <div class="terminal-body">
 
-  <section id="experience">
-    <h2>Experience</h2>
-    <div class="card">
-      <h3>Software Engineer II – Fynd (Sep 2022 – Present)</h3>
-      <ul>
-        <li>Led Fynd Coupons website & extension, now serving 97k+ users</li>
-        <li>Built Haptik Extension for Jiomart WhatsApp Bot integration</li>
-        <li>Supported 25+ extensions with performance improvements</li>
-        <li>Architected and launched 6 scalable extensions</li>
-        <li>Reduced downtime by 40% via robust engineering</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Senior Software Engineer – Byjus (Jul 2021 – Aug 2022)</h3>
-      <ul>
-        <li>Key contributor to Byju’s Teacher Tech platform</li>
-        <li>Led Tutor-CMS development for class & batch scheduling</li>
-        <li>Enhanced UX and streamlined operations with stakeholders</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Software Engineer – Acube Tech (May 2020 – Jun 2021)</h3>
-      <ul>
-        <li>Developed Rxnt healthcare platform using React, Node, MongoDB</li>
-        <li>Enhanced patient-expert experience and platform scalability</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Product Engineer – Codingmart (Oct 2018 – May 2020)</h3>
-      <ul>
-        <li>Built Integrated Entertainment Platform for BookMyShow</li>
-        <li>Used RabbitMQ, React, Node, Golang for scalable microservices</li>
-      </ul>
-    </div>
-  </section>
+      <!-- HERO -->
+      <section class="section hero" id="hero" aria-label="Introduction">
+        <div class="terminal-line faded">Last login: Mon Apr 14 09:32:01 on ttys001</div>
+        <div class="prompt-line">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <span class="typed-command" data-text="whoami"></span>
+        </div>
+        <div class="hero-name">
+          <span class="glitch" data-text="Pradeep Prakash">> Pradeep Prakash</span>
+        </div>
+        <div class="hero-subtitle">Full-Stack Engineer · Distributed Systems · 7+ Years</div>
+        <div class="prompt-line">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <span class="typed-command" data-text="cat mission.txt"></span>
+        </div>
+        <div class="hero-mission">
+          Building scalable backend systems, fault-tolerant data pipelines,<br>
+          event-driven services, and intuitive frontend applications.
+        </div>
+        <div class="prompt-line">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <span class="cursor">▋</span>
+        </div>
+      </section>
 
-  <section id="awards">
-    <h2>Awards</h2>
-    <div class="card">
-      <ul>
-        <li><strong>Fynd Star (Mar 2024):</strong> For outstanding leadership</li>
-        <li><strong>Fynd Star (Sep 2023):</strong> Continuous self-improvement</li>
-        <li><strong>Highest Standard (Jul 2022):</strong> High-quality delivery at Byjus</li>
-        <li><strong>Power of One (Jan 2020):</strong> Single-handed development at Codingmart</li>
-      </ul>
+      <!-- ABOUT -->
+      <section class="section" id="about" aria-label="About me">
+        <div class="prompt-line section-trigger">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <span class="typed-command" data-text="cat about.json"></span>
+        </div>
+        <div class="section-content about-json">
+          <pre class="json-block"><span class="json-bracket">{</span>
+  <span class="json-key">"name"</span>: <span class="json-string">"Pradeep Prakash"</span>,
+  <span class="json-key">"role"</span>: <span class="json-string">"Software Engineer III"</span>,
+  <span class="json-key">"company"</span>: <span class="json-string">"Fynd (Reliance Retail)"</span>,
+  <span class="json-key">"location"</span>: <span class="json-string">"Bengaluru, India"</span>,
+  <span class="json-key">"experience"</span>: <span class="json-string">"7+ years"</span>,
+  <span class="json-key">"focus"</span>: [
+    <span class="json-string">"fault-tolerant data pipelines"</span>,
+    <span class="json-string">"event-driven services"</span>,
+    <span class="json-string">"responsive UI with React"</span>,
+    <span class="json-string">"full-stack system ownership"</span>
+  ],
+  <span class="json-key">"status"</span>: <span class="json-status">"open_to_opportunities"</span>
+<span class="json-bracket">}</span></pre>
+        </div>
+        <div class="prompt-line about-summary-prompt">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <span class="typed-command" data-text="cat summary.txt"></span>
+        </div>
+        <div class="about-summary">
+          Full-stack engineer with 7+ years of experience building scalable backend systems and intuitive frontend applications. Expertise in designing fault-tolerant data pipelines, event-driven services, and responsive UI using React. Comfortable owning systems end-to-end across design, development, scaling, and production reliability. Strong in Node.js, TypeScript, React, Kafka, MongoDB, PostgreSQL, Redis, and Kubernetes on GCP/AWS.
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section class="section" id="experience" aria-label="Work experience">
+        <div class="prompt-line section-trigger">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <span class="typed-command" data-text="history --verbose"></span>
+        </div>
+        <div class="section-content experience-timeline">
+          <!-- Fynd -->
+          <div class="exp-card exp-card-current">
+            <div class="exp-dot"></div>
+            <div class="exp-header">
+              <div class="exp-title-row">
+                <span class="exp-role">Software Engineer III</span>
+                <span class="exp-company">@ Fynd (Reliance Retail)</span>
+              </div>
+              <span class="exp-date">Sep 2022 → Present</span>
+            </div>
+            <div class="exp-tags">
+              <span class="tag">Node.js</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">React</span>
+              <span class="tag">MongoDB</span>
+              <span class="tag">Redis</span>
+              <span class="tag">Kafka</span>
+              <span class="tag">Kubernetes</span>
+              <span class="tag">GCP</span>
+            </div>
+            <div class="exp-bullets">
+              <div class="exp-bullet"><span class="bullet-arrow">→</span> Architected 6-stage fault-tolerant ingestion pipeline — 200–500 rec/s at p99 200–400ms, 1M+ records migrated with zero duplication</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span> Cut peak pod memory ~80% (1.5 GB → 300 MB) via cursor-based streaming and adaptive chunk sizing</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span> Designed worker orchestration — token-bucket concurrency, back-pressure, priority queuing for 5–10 concurrent migrations</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span> Tech-led Fynd Migrate (Shopify → Fynd) across 3–5 engineers; serves 50+ merchants, removed ~70% operational effort</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span> Owned Fynd Coupons 0 → 97K MAU; 200–500 req/s at p99 150–300ms, 99.9% availability</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span> Reduced production incidents by 40% via circuit breakers, health-signal probes, bounded error propagation</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span> Established design-doc and code-review standards; mentored 3–6 engineers on distributed-systems fundamentals</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span> Built React-based internal tools and dashboards for migration monitoring, improving pipeline visibility and reducing debugging time</div>
+              <div class="exp-bullet exp-award"><span class="bullet-arrow">★</span> Fynd Star 2023, 2024, 2025, 2026</div>
+            </div>
+          </div>
+          <!-- Byju's -->
+          <div class="exp-card exp-card-past">
+            <div class="exp-header">
+              <div class="exp-title-row">
+                <span class="exp-role">Senior Software Engineer</span>
+                <span class="exp-company">@ Byju's</span>
+              </div>
+              <span class="exp-date">Jul 2021 → Aug 2022</span>
+            </div>
+            <div class="exp-tags">
+              <span class="tag tag-dim">Node.js</span>
+              <span class="tag tag-dim">PostgreSQL</span>
+              <span class="tag tag-dim">Redis</span>
+              <span class="tag tag-dim">React</span>
+              <span class="tag tag-dim">Microservices</span>
+            </div>
+            <div class="exp-bullets">
+              <div class="exp-bullet"><span class="bullet-arrow dim">→</span> Designed Teacher Tech — onboarding, scheduling, payroll for 10,000+ tutors; payroll 3–4 days → 1 day</div>
+              <div class="exp-bullet"><span class="bullet-arrow dim">→</span> Built Tutor CMS with React for course and batch management — dozens of eng-tickets/month → near-zero manual dependency</div>
+            </div>
+          </div>
+          <!-- Earlier roles -->
+          <div class="exp-card exp-card-early">
+            <div class="exp-early-line">Software Engineer <span class="exp-company-dim">@ Acube Tech</span> <span class="exp-date-dim">May 2020 – Jun 2021</span></div>
+            <div class="exp-early-detail">Healthcare teleconsultation platform — concurrent real-time patient↔expert sessions</div>
+            <div class="exp-early-line">Product Engineer <span class="exp-company-dim">@ Codingmart</span> <span class="exp-date-dim">Oct 2018 – May 2020</span></div>
+            <div class="exp-early-detail">Event-driven microservices on RabbitMQ for BookMyShow's ticketing stack</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section class="section" id="skills" aria-label="Technical skills">
+        <div class="prompt-line section-trigger">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <span class="typed-command" data-text="top -systems"></span>
+        </div>
+        <div class="section-content skills-monitor">
+          <div class="skills-header">SYSTEM PROFICIENCY MONITOR — updated in real-time</div>
+          <div class="skills-grid">
+            <div class="skill-category">
+              <div class="skill-category-label">▸ LANGUAGES</div>
+              <div class="skill-bar" data-skill="Node.js" data-level="90"></div>
+              <div class="skill-bar" data-skill="TypeScript" data-level="85"></div>
+              <div class="skill-bar" data-skill="SQL" data-level="75"></div>
+            </div>
+            <div class="skill-category">
+              <div class="skill-category-label">▸ FRONTEND</div>
+              <div class="skill-bar" data-skill="React" data-level="80"></div>
+              <div class="skill-bar" data-skill="HTML/CSS" data-level="80"></div>
+            </div>
+            <div class="skill-category">
+              <div class="skill-category-label">▸ DATA & INFRA</div>
+              <div class="skill-bar" data-skill="MongoDB" data-level="90"></div>
+              <div class="skill-bar" data-skill="PostgreSQL" data-level="80"></div>
+              <div class="skill-bar" data-skill="Redis" data-level="85"></div>
+            </div>
+            <div class="skill-category">
+              <div class="skill-category-label">▸ STREAMING</div>
+              <div class="skill-bar" data-skill="Kafka" data-level="85"></div>
+              <div class="skill-bar" data-skill="RabbitMQ" data-level="75"></div>
+            </div>
+            <div class="skill-category">
+              <div class="skill-category-label">▸ PLATFORM</div>
+              <div class="skill-bar" data-skill="Kubernetes" data-level="80"></div>
+              <div class="skill-bar" data-skill="Docker" data-level="90"></div>
+              <div class="skill-bar" data-skill="GCP/AWS" data-level="75"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section" id="contact" aria-label="Contact information">
+        <div class="prompt-line section-trigger">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <span class="typed-command" data-text="whoami --contact"></span>
+        </div>
+        <div class="section-content contact-output">
+          <div class="contact-line"><span class="contact-label">EMAIL</span><a href="mailto:pradeep00327@gmail.com" class="contact-value contact-link">pradeep00327@gmail.com</a></div>
+          <div class="contact-line"><span class="contact-label">LINKEDIN</span><a href="https://linkedin.com/in/pradeep-prakash24" target="_blank" rel="noopener" class="contact-value contact-link">linkedin.com/in/pradeep-prakash24</a></div>
+          <div class="contact-line"><span class="contact-label">GITHUB</span><a href="https://github.com/pradeeprakash" target="_blank" rel="noopener" class="contact-value contact-link">github.com/pradeeprakash</a></div>
+          <div class="contact-line"><span class="contact-label">RESUME</span><a href="assets/Pradeep_Sr_Engineer_Resume.pdf" download class="contact-value contact-link contact-resume">📄 download resume.pdf</a></div>
+        </div>
+        <div class="contact-farewell">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <span class="farewell-text">Connection closed. Thanks for visiting.</span>
+          <span class="cursor">▋</span>
+        </div>
+      </section>
+
     </div>
-  </section>
+  </div>
 
-  <section id="education">
-    <h2>Education</h2>
-    <div class="card">
-      <p><strong>K.S. Rangasamy College of Technology</strong> – B.E. in Computer Science (2015 – 2019)<br>GPA: 7.6/10</p>
-      <p><strong>M.A.M Excel HSS</strong> – Higher Secondary (2014 – 2015)<br>GPA: 9.1/10</p>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Pradeep Prakash | Built with ❤️</p>
-  </footer>
-
-  <button class="toggle-theme" onclick="document.body.classList.toggle('dark')">🌓 Toggle Theme</button>
+  <script src="js/matrix.js"></script>
+  <script src="js/typing.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/scroll.js"></script>
 </body>
 </html>
