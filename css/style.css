@@ -1,0 +1,882 @@
+/* ============================================================
+   TERMINAL PORTFOLIO — CSS Foundation
+   ============================================================ */
+
+/* --- CSS Variables --- */
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-terminal: #0d0d0d;
+  --bg-card: #111111;
+  --bg-titlebar: #1a1a1a;
+  --green: #00ff88;
+  --green-dim: #00ff8844;
+  --yellow: #ffd93d;
+  --red: #ff6b6b;
+  --blue: #6b9fff;
+  --white: #e0e0e0;
+  --gray: #888888;
+  --dark-gray: #555555;
+  --font-mono: 'Courier New', 'Consolas', 'Monaco', monospace;
+}
+
+/* --- Base Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--white);
+  font-family: var(--font-mono);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* --- Matrix Canvas --- */
+#matrix-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Hide matrix canvas on mobile (class toggled by JS) */
+#matrix-canvas.mobile {
+  display: none;
+}
+
+/* --- CRT Scanline Overlay --- */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(13, 13, 13, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--green-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  font-size: 14px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.prompt-symbol {
+  color: var(--green);
+}
+
+.nav-logo-text {
+  color: var(--white);
+  font-weight: bold;
+}
+
+.nav-logo-dim {
+  color: var(--dark-gray);
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-link {
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  color: var(--green);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--green);
+  transition: width 0.3s;
+}
+
+.nav-link.active::after,
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--green);
+  transition: all 0.3s;
+}
+
+/* ============================================================
+   TERMINAL WINDOW
+   ============================================================ */
+.terminal {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
+.terminal-titlebar {
+  background: var(--bg-titlebar);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--green-dim);
+  border-radius: 8px 8px 0 0;
+  position: sticky;
+  top: 52px;
+  z-index: 10;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot-red {
+  background: #ff5f56;
+}
+
+.dot-yellow {
+  background: #ffbd2e;
+}
+
+.dot-green {
+  background: #27c93f;
+}
+
+.terminal-title {
+  color: var(--dark-gray);
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.terminal-body {
+  background: var(--bg-terminal);
+  padding: 24px;
+  border-radius: 0 0 8px 8px;
+  border: 1px solid rgba(0, 255, 136, 0.05);
+  border-top: none;
+}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section {
+  padding: 60px 0;
+  min-height: 60vh;
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ============================================================
+   PROMPT STYLING
+   ============================================================ */
+.prompt {
+  color: var(--green);
+}
+
+.prompt-colon {
+  color: var(--dark-gray);
+}
+
+.prompt-path {
+  color: var(--blue);
+}
+
+.prompt-dollar {
+  color: var(--white);
+}
+
+.typed-command {
+  color: var(--white);
+}
+
+.prompt-line {
+  margin-bottom: 4px;
+}
+
+.terminal-line.faded {
+  color: var(--dark-gray);
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+/* ============================================================
+   CURSOR
+   ============================================================ */
+.cursor {
+  animation: blink 1s step-end infinite;
+  color: var(--green);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero-name {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+  margin: 12px 0;
+}
+
+.hero-subtitle {
+  color: var(--gray);
+  font-size: 1rem;
+  margin-bottom: 24px;
+}
+
+.hero-mission {
+  color: var(--white);
+  line-height: 1.7;
+  opacity: 0.9;
+  margin-bottom: 24px;
+}
+
+/* ============================================================
+   GLITCH EFFECT
+   ============================================================ */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-active::before,
+.glitch-active::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.glitch-active::before {
+  color: var(--red);
+  text-shadow: -2px 0 var(--red);
+  clip-path: inset(0 0 60% 0);
+  animation: glitch 300ms linear infinite alternate;
+}
+
+.glitch-active::after {
+  color: var(--blue);
+  text-shadow: 2px 0 var(--blue);
+  clip-path: inset(60% 0 0 0);
+  animation: glitch 300ms linear infinite alternate-reverse;
+}
+
+@keyframes glitch {
+  0% {
+    clip-path: inset(10% 0 80% 0);
+    transform: translateX(-2px);
+  }
+  20% {
+    clip-path: inset(50% 0 20% 0);
+    transform: translateX(2px);
+  }
+  40% {
+    clip-path: inset(20% 0 60% 0);
+    transform: translateX(-1px);
+  }
+  60% {
+    clip-path: inset(70% 0 10% 0);
+    transform: translateX(1px);
+  }
+  80% {
+    clip-path: inset(30% 0 40% 0);
+    transform: translateX(-2px);
+  }
+  100% {
+    clip-path: inset(5% 0 70% 0);
+    transform: translateX(2px);
+  }
+}
+
+/* ============================================================
+   ABOUT — JSON BLOCK
+   ============================================================ */
+.json-block {
+  background: var(--bg-card);
+  border: 1px solid var(--green-dim);
+  border-radius: 4px;
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.8;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+}
+
+.json-key {
+  color: var(--red);
+}
+
+.json-string {
+  color: var(--yellow);
+}
+
+.json-bracket {
+  color: var(--gray);
+}
+
+.json-status {
+  color: var(--green);
+}
+
+.about-summary-prompt {
+  margin-top: 1.2em;
+}
+
+.about-summary {
+  color: var(--fg);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-top: 0.6em;
+  padding-left: 0.5em;
+  border-left: 2px solid var(--green-dim);
+  opacity: 0.85;
+}
+
+/* ============================================================
+   EXPERIENCE TIMELINE
+   ============================================================ */
+.experience-timeline {
+  padding-left: 20px;
+}
+
+.exp-card {
+  background: var(--bg-card);
+  border-left: 2px solid;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 0 6px 6px 0;
+  position: relative;
+  transform: translateX(0);
+  transition: all 0.3s;
+}
+
+.exp-card-current {
+  border-left-color: var(--green);
+}
+
+.exp-card-current:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
+  border-left-color: var(--green);
+}
+
+.exp-card-past {
+  border-left-color: var(--dark-gray);
+}
+
+.exp-card-early {
+  border-left: 2px solid #333;
+  padding: 12px 20px;
+  color: var(--dark-gray);
+  background: var(--bg-card);
+}
+
+.exp-dot {
+  position: absolute;
+  left: -7px;
+  top: 20px;
+  width: 12px;
+  height: 12px;
+  background: var(--green);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--green);
+}
+
+.exp-header {
+  margin-bottom: 10px;
+}
+
+.exp-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.exp-role {
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.exp-card-current .exp-company {
+  color: var(--green);
+}
+
+.exp-card-past .exp-company {
+  color: var(--gray);
+}
+
+.exp-company {
+  font-size: 14px;
+}
+
+.exp-date {
+  color: var(--gray);
+  font-size: 11px;
+  background: var(--bg-titlebar);
+  padding: 2px 8px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.exp-tags {
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tag {
+  background: rgba(0, 255, 136, 0.08);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 3px;
+  padding: 2px 10px;
+  font-size: 11px;
+  color: var(--green);
+  display: inline-block;
+  margin: 2px;
+}
+
+.tag-dim {
+  opacity: 0.6;
+}
+
+.exp-bullets {
+  margin-top: 10px;
+}
+
+.exp-bullet {
+  font-size: 13px;
+  color: #ccc;
+  line-height: 1.7;
+  margin-bottom: 6px;
+}
+
+.bullet-arrow {
+  color: var(--green);
+  margin-right: 8px;
+}
+
+.bullet-arrow.dim {
+  color: var(--dark-gray);
+}
+
+.exp-award .bullet-arrow {
+  color: var(--yellow);
+}
+
+.exp-early-line {
+  line-height: 2;
+  font-size: 13px;
+}
+
+.exp-early-detail {
+  font-size: 12px;
+  color: var(--gray);
+  padding-left: 1em;
+  margin-bottom: 0.4em;
+}
+
+.exp-company-dim {
+  color: var(--gray);
+}
+
+.exp-date-dim {
+  color: var(--dark-gray);
+  font-size: 11px;
+}
+
+/* ============================================================
+   SKILLS MONITOR
+   ============================================================ */
+.skills-monitor {
+  background: var(--bg-card);
+  border: 1px solid var(--green-dim);
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.skills-header {
+  color: var(--gray);
+  font-size: 11px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.skill-category {
+  margin-bottom: 8px;
+}
+
+.skill-category-label {
+  color: var(--yellow);
+  font-size: 11px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.skill-bar {
+  font-size: 13px;
+  line-height: 1.6;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.skill-bar .skill-name {
+  color: #ccc;
+  min-width: 100px;
+}
+
+.skill-bar .bar-filled {
+  color: var(--green);
+}
+
+.skill-bar .bar-empty {
+  color: #333;
+}
+
+.skill-bar .bar-percent {
+  color: var(--gray);
+  font-size: 11px;
+  min-width: 35px;
+  text-align: right;
+}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-output {
+  background: var(--bg-card);
+  border: 1px solid var(--green-dim);
+  border-radius: 4px;
+  padding: 24px;
+}
+
+.contact-line {
+  line-height: 2.5;
+  font-size: 14px;
+}
+
+.contact-label {
+  color: var(--red);
+  margin-right: 16px;
+  min-width: 90px;
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.contact-link {
+  color: var(--blue);
+  text-decoration: underline;
+  transition: all 0.3s;
+  display: inline-block;
+}
+
+.contact-link:hover {
+  color: var(--green);
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+  transform: translateX(4px);
+}
+
+.contact-resume {
+  color: var(--yellow);
+}
+
+.contact-farewell {
+  margin-top: 24px;
+  color: var(--dark-gray);
+}
+
+.farewell-text {
+  color: var(--gray);
+}
+
+/* ============================================================
+   SECTION CONTENT — Hidden / Visible Animations
+   ============================================================ */
+.section-content {
+  margin-top: 16px;
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.5s ease;
+}
+
+.slide-in-left {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+
+.slide-in-left.visible {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+
+/* JSON line-by-line reveal (About section) */
+.json-line {
+  display: block;
+  white-space: pre;
+}
+
+.json-line.hidden {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.json-line.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Contact farewell transition */
+.contact-farewell.hidden {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.contact-farewell.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* ============================================================
+   SCREEN FLICKER
+   ============================================================ */
+.flicker {
+  filter: brightness(0.4);
+  transition: none;
+}
+
+/* ============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================ */
+
+/* blink — already defined above for .cursor */
+
+/* shimmer — subtle brightness pulse on skill bars */
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* fadeIn */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* slideInLeft */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+   MOBILE RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Hamburger shown on mobile */
+  .nav-hamburger {
+    display: flex;
+  }
+
+  /* Nav links hidden by default on mobile */
+  .nav-links {
+    display: none;
+  }
+
+  /* Nav links open state */
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(13, 13, 13, 0.98);
+    padding: 16px;
+    gap: 16px;
+    border-bottom: 1px solid var(--green-dim);
+  }
+
+  /* Hide titlebar on mobile */
+  .terminal-titlebar {
+    display: none;
+  }
+
+  .terminal-body {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .terminal {
+    padding-top: 52px;
+  }
+
+  .hero-name {
+    font-size: 1.8rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .exp-card {
+    margin-left: 0;
+  }
+
+  .json-block {
+    font-size: 12px;
+  }
+
+  .prompt {
+    font-size: 12px;
+  }
+
+  .exp-title-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .contact-line {
+    font-size: 12px;
+  }
+
+  .contact-label {
+    min-width: 70px;
+    font-size: 10px;
+  }
+
+  .section {
+    min-height: auto;
+    padding: 40px 0;
+  }
+
+  .hero {
+    min-height: 100vh;
+  }
+
+  .experience-timeline {
+    padding-left: 12px;
+  }
+
+  .exp-dot {
+    display: none;
+  }
+}
