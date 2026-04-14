@@ -116,6 +116,27 @@
     if (lineEls.length) {
       await revealAboutLines(lineEls);
     }
+
+    // Type "cat summary.txt" and reveal the summary paragraph
+    var section = sectionContent.parentElement;
+    if (!section) return;
+    var summaryPrompt = section.querySelector('.about-summary-prompt');
+    var summaryCmd    = summaryPrompt ? summaryPrompt.querySelector('.typed-command') : null;
+    var summaryEl     = section.querySelector('.about-summary');
+
+    if (summaryPrompt) {
+      summaryPrompt.classList.remove('hidden');
+      summaryPrompt.classList.add('visible');
+    }
+    if (summaryCmd && summaryCmd.dataset.text) {
+      await delay(300);
+      await window.typeText(summaryCmd, summaryCmd.dataset.text, 55);
+    }
+    if (summaryEl) {
+      await delay(150);
+      summaryEl.classList.remove('hidden');
+      summaryEl.classList.add('visible');
+    }
   }
 
   // Experience — stagger cards with slide-in-left
@@ -322,7 +343,13 @@
       el.classList.add('hidden');
     });
 
-    // 2. Hide individual staggered items
+    // 2. Hide about summary prompt and text (revealed by animateAbout)
+    var aboutSummaryPrompt = document.querySelector('.about-summary-prompt');
+    var aboutSummary       = document.querySelector('.about-summary');
+    if (aboutSummaryPrompt) aboutSummaryPrompt.classList.add('hidden');
+    if (aboutSummary)       aboutSummary.classList.add('hidden');
+
+    // 3. Hide individual staggered items
     document.querySelectorAll('.exp-card').forEach(function (card) {
       card.classList.add('hidden', 'slide-in-left');
     });
