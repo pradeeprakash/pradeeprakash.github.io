@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OG image generator · Pradeep Prakash</title>
+  <style>
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-weight: 100 800;
+      src: url('../assets/fonts/jetbrains-mono-variable.woff2') format('woff2-variations');
+    }
+    :root {
+      --bg:      #0a0a0a;
+      --green:   #22d88b;
+      --green-bright: #5bffb0;
+      --white:   #e0e0e0;
+      --gray:    #a8a8a8;
+      --dark:    #7a7a7a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #222;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px;
+    }
+    .instructions {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      background: #111;
+      color: #ccc;
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: system-ui, sans-serif;
+      max-width: 380px;
+      line-height: 1.5;
+    }
+    .instructions code {
+      background: #000;
+      padding: 1px 4px;
+      border-radius: 2px;
+      color: var(--green);
+    }
+    .og {
+      width: 1200px;
+      height: 630px;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, #0f1a14 0%, #080a09 55%),
+        var(--bg);
+      color: var(--white);
+      padding: 80px 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+    .og::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent 0, transparent 2px,
+        rgba(0, 0, 0, 0.05) 2px, rgba(0, 0, 0, 0.05) 4px
+      );
+      pointer-events: none;
+    }
+    .prompt-row {
+      color: var(--green);
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 30px;
+      letter-spacing: 0.01em;
+    }
+    .prompt-row .cmd { color: var(--white); }
+    .name {
+      font-size: 88px;
+      font-weight: 700;
+      color: var(--green-bright);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 20px;
+      text-shadow: 0 0 32px rgba(91, 255, 176, 0.25);
+    }
+    .name .arrow { color: var(--green); margin-right: 14px; }
+    .subtitle {
+      color: var(--gray);
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.4;
+      max-width: 920px;
+    }
+    .subtitle .sep { color: var(--dark); margin: 0 10px; }
+    .status {
+      margin-top: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 20px;
+      background: rgba(34, 216, 139, 0.08);
+      border: 1px solid rgba(34, 216, 139, 0.3);
+      border-radius: 999px;
+      color: var(--green);
+      font-size: 20px;
+      width: fit-content;
+    }
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green-bright);
+      box-shadow: 0 0 10px rgba(91, 255, 176, 0.7);
+    }
+    .footer {
+      position: absolute;
+      right: 90px;
+      bottom: 80px;
+      color: var(--dark);
+      font-size: 20px;
+      font-weight: 500;
+    }
+    .footer .dim { color: #4a4a4a; }
+    .cursor {
+      display: inline-block;
+      width: 16px;
+      height: 28px;
+      background: var(--green);
+      margin-left: 10px;
+      vertical-align: -5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="instructions">
+    <strong>OG image generator</strong><br>
+    Open this page, ensure the JetBrains Mono font has loaded, then take a
+    <strong>1200×630</strong> screenshot of the <code>.og</code> block.<br>
+    Example (macOS): use Chrome DevTools → device toolbar → 1200×630 →
+    <code>⌘⇧P</code> "Capture node screenshot" on the <code>.og</code> element.
+    Compress the result with <code>squoosh.app</code> or <code>pngquant</code>
+    (target &lt;60 KB) and save as <code>assets/og.png</code>.
+  </div>
+
+  <div class="og">
+    <div class="prompt-row">
+      pradeep@portfolio:~$ <span class="cmd">whoami</span><span class="cursor"></span>
+    </div>
+    <div class="name"><span class="arrow">&gt;</span>Pradeep Prakash</div>
+    <div class="subtitle">
+      Staff Full-Stack Engineer<span class="sep">·</span>Backend-leaning<span class="sep">·</span>Bengaluru / Remote
+    </div>
+    <div class="status">
+      <span class="status-dot"></span>
+      open to opportunities
+    </div>
+    <div class="footer"><span class="dim">❯ </span>pp.dev</div>
+  </div>
+</body>
+</html>

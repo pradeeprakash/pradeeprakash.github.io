@@ -5,33 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pradeep Prakash — Staff Full-Stack Engineer</title>
   <meta name="description" content="Staff full-stack engineer, backend-leaning. 7+ years building fault-tolerant data pipelines, event-driven services, and React applications. Bengaluru — open to remote.">
+  <meta name="author" content="Pradeep Prakash">
+  <meta name="theme-color" content="#0a0a0a">
 
   <!-- Social preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Pradeep Prakash">
+  <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Pradeep Prakash — Staff Full-Stack Engineer">
   <meta property="og:description" content="7+ years building fault-tolerant data pipelines, event-driven services, and React apps. Bengaluru — open to remote.">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="assets/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pradeep Prakash — Staff Full-Stack Engineer">
+  <meta name="twitter:description" content="7+ years building fault-tolerant data pipelines, event-driven services, and React apps.">
+  <meta name="twitter:image" content="assets/og.jpg">
 
-  <!-- Inline SVG favicon — green prompt glyph -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='14' font-family='monospace' fill='%2300ff88'%3E%E2%9D%AF%3C/text%3E%3C/svg%3E">
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='14' font-family='monospace' fill='%2322d88b'%3E%E2%9D%AF%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+
+  <!-- Fonts (self-hosted, preloaded) -->
+  <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- JSON-LD Person schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Pradeep Prakash",
+    "jobTitle": "Staff Full-Stack Engineer",
+    "worksFor": { "@type": "Organization", "name": "Fynd (Reliance Retail)" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Bengaluru", "addressCountry": "IN" },
+    "sameAs": [
+      "https://linkedin.com/in/pradeep-prakash24",
+      "https://github.com/pradeeprakash"
+    ]
+  }
+  </script>
+
 </head>
 <body>
+  <a class="skip-link" href="#about">Skip to content</a>
+
   <!-- CRT scanline overlay -->
   <div class="scanlines" aria-hidden="true"></div>
 
+  <!-- Boot overlay (desktop, first-visit only; JS-gated) -->
+  <div class="boot-overlay" id="boot-overlay" aria-hidden="true">
+    <div class="boot-lines" id="boot-lines"></div>
+    <div class="boot-skip-hint">(press any key to skip)</div>
+  </div>
+
   <!-- Navigation -->
   <nav class="nav" id="nav">
-    <div class="nav-logo"><span class="prompt-symbol" aria-hidden="true">❯</span> <span class="nav-logo-text">pp</span><span class="nav-logo-dim">.dev</span></div>
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <div class="nav-logo">
+      <span class="prompt-symbol" aria-hidden="true">❯</span>
+      <span class="nav-logo-text">pp</span><span class="nav-logo-dim">.dev</span>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
       <span></span><span></span><span></span>
     </button>
-    <div class="nav-links" id="nav-links">
-      <a href="#about" class="nav-link active">./about</a>
-      <a href="#experience" class="nav-link">./experience</a>
-      <a href="#skills" class="nav-link">./skills</a>
-      <a href="#contact" class="nav-link">./contact</a>
+    <div class="nav-right">
+      <div class="nav-links" id="nav-links">
+        <a href="#about" class="nav-link active">./about</a>
+        <a href="#experience" class="nav-link">./experience</a>
+        <a href="#skills" class="nav-link">./skills</a>
+        <a href="#contact" class="nav-link">./contact</a>
+      </div>
+      <button class="nav-kbd-hint" type="button" aria-label="Open command palette">
+        <kbd>⌘K</kbd>
+      </button>
     </div>
   </nav>
 
@@ -45,6 +94,9 @@
         <span class="dot dot-green"></span>
       </div>
       <span class="terminal-title">pradeep@portfolio ~ </span>
+      <span class="terminal-status" aria-hidden="true">
+        tty1<span class="dim">·</span>uptime 7y<span class="dim">·</span>bengaluru
+      </span>
     </div>
 
     <!-- Terminal body -->
@@ -61,6 +113,10 @@
           <span aria-hidden="true">&gt; </span>Pradeep Prakash
         </div>
         <div class="hero-subtitle">Staff Full-Stack Engineer · Backend-leaning · Bengaluru / Remote · 7+ years</div>
+        <div class="hero-status" aria-label="Availability">
+          <span class="hero-status-dot" aria-hidden="true"></span>
+          open to opportunities
+        </div>
         <div class="prompt-line">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
           <span class="typed-command" data-text="cat mission.txt"></span>
@@ -68,6 +124,19 @@
         <div class="hero-mission">
           Building scalable backend systems, fault-tolerant data pipelines,<br>
           event-driven services, and the React frontends that surface them.
+        </div>
+        <div class="hero-cta-row">
+          <a class="hero-cta" href="assets/Pradeep_Sr_Engineer_Resume.pdf" download data-command="resume">
+            <span>[pdf]&nbsp;download resume</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <span class="hero-quicklinks">
+            <a href="https://github.com/pradeeprakash" target="_blank" rel="noopener" data-command="github">github</a>
+            <span class="sep" aria-hidden="true">·</span>
+            <a href="https://linkedin.com/in/pradeep-prakash24" target="_blank" rel="noopener" data-command="linkedin">linkedin</a>
+            <span class="sep" aria-hidden="true">·</span>
+            <a href="mailto:pradeep00327@gmail.com" data-command="email">email</a>
+          </span>
         </div>
         <div class="prompt-line">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
@@ -77,6 +146,7 @@
 
       <!-- ABOUT -->
       <section class="section" id="about" aria-label="About me">
+        <div class="cd-breadcrumb" data-cd="about"></div>
         <div class="prompt-line section-trigger">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
           <span class="typed-command" data-text="cat about.json"></span>
@@ -109,6 +179,7 @@
 
       <!-- EXPERIENCE -->
       <section class="section" id="experience" aria-label="Work experience">
+        <div class="cd-breadcrumb" data-cd="experience"></div>
         <div class="prompt-line section-trigger">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
           <span class="typed-command" data-text="cat experience.log"></span>
@@ -121,6 +192,7 @@
               <div class="exp-title-row">
                 <span class="exp-role">Software Engineer III</span>
                 <span class="exp-company">@ Fynd (Reliance Retail)</span>
+                <span class="exp-current-pill">[current]</span>
               </div>
               <span class="exp-date">Sep 2022 → Present</span>
             </div>
@@ -135,15 +207,15 @@
               <span class="tag">GCP</span>
             </div>
             <div class="exp-bullets">
-              <div class="exp-bullet"><span class="bullet-arrow">→</span> Architected 6-stage fault-tolerant ingestion pipeline — 200–500 rec/s at p99 200–400ms, 1M+ records migrated with zero duplication</div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span> Cut peak pod memory ~80% (1.5 GB → 300 MB) via cursor-based streaming and adaptive chunk sizing</div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span> Designed worker orchestration — token-bucket concurrency, back-pressure, priority queuing for 5–10 concurrent migrations</div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span> Tech-led Fynd Migrate (Shopify → Fynd) across 3–5 engineers; serves 50+ merchants, removed ~70% operational effort</div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span> Owned Fynd Coupons 0 → 97K MAU; 200–500 req/s at p99 150–300ms, 99.9% availability</div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span> Reduced production incidents by 40% via circuit breakers, health-signal probes, bounded error propagation</div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span> Established design-doc and code-review standards; mentored 3–6 engineers on distributed-systems fundamentals</div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span> Built React-based internal tools and dashboards for migration monitoring, improving pipeline visibility and reducing debugging time</div>
-              <div class="exp-bullet exp-award"><span class="bullet-arrow">★</span> Fynd Star 2023, 2024, 2025, 2026</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span>Architected 6-stage fault-tolerant ingestion pipeline — 200–500 rec/s at p99 200–400ms, 1M+ records migrated with zero duplication</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span>Cut peak pod memory ~80% (1.5 GB → 300 MB) via cursor-based streaming and adaptive chunk sizing</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span>Designed worker orchestration — token-bucket concurrency, back-pressure, priority queuing for 5–10 concurrent migrations</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span>Tech-led Fynd Migrate (Shopify → Fynd) across 3–5 engineers; serves 50+ merchants, removed ~70% operational effort</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span>Owned Fynd Coupons 0 → 97K MAU; 200–500 req/s at p99 150–300ms, 99.9% availability</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span>Reduced production incidents by 40% via circuit breakers, health-signal probes, bounded error propagation</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span>Established design-doc and code-review standards; mentored 3–6 engineers on distributed-systems fundamentals</div>
+              <div class="exp-bullet"><span class="bullet-arrow">→</span>Built React-based internal tools and dashboards for migration monitoring, improving pipeline visibility and reducing debugging time</div>
+              <div class="exp-bullet exp-award"><span class="bullet-arrow">★</span>Fynd Star 2023, 2024, 2025, 2026</div>
             </div>
           </div>
           <!-- Byju's -->
@@ -163,8 +235,8 @@
               <span class="tag tag-dim">Microservices</span>
             </div>
             <div class="exp-bullets">
-              <div class="exp-bullet"><span class="bullet-arrow dim">→</span> Designed and owned Teacher Tech — internal platform for onboarding, scheduling, audit, and payroll across 10,000+ tutors; cut payroll cycle from 3–4 days → 1 day and removed engineering bottleneck for 3 ops teams</div>
-              <div class="exp-bullet"><span class="bullet-arrow dim">→</span> Built Tutor CMS with React for course and batch management, taking routine academic-content updates from dozens of eng-tickets/month → near-zero manual dependency</div>
+              <div class="exp-bullet"><span class="bullet-arrow dim">→</span>Designed and owned Teacher Tech — internal platform for onboarding, scheduling, audit, and payroll across 10,000+ tutors; cut payroll cycle from 3–4 days → 1 day and removed engineering bottleneck for 3 ops teams</div>
+              <div class="exp-bullet"><span class="bullet-arrow dim">→</span>Built Tutor CMS with React for course and batch management, taking routine academic-content updates from dozens of eng-tickets/month → near-zero manual dependency</div>
             </div>
           </div>
           <!-- Earlier roles -->
@@ -179,6 +251,7 @@
 
       <!-- SKILLS -->
       <section class="section" id="skills" aria-label="Technical skills">
+        <div class="cd-breadcrumb" data-cd="skills"></div>
         <div class="prompt-line section-trigger">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
           <span class="typed-command" data-text="cat skills.md"></span>
@@ -228,15 +301,32 @@
 
       <!-- CONTACT -->
       <section class="section" id="contact" aria-label="Contact information">
+        <div class="cd-breadcrumb" data-cd="contact"></div>
         <div class="prompt-line section-trigger">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
           <span class="typed-command" data-text="cat contact.txt"></span>
         </div>
         <div class="section-content contact-output">
-          <div class="contact-line"><span class="contact-label">EMAIL</span><a href="mailto:pradeep00327@gmail.com" class="contact-value contact-link">pradeep00327@gmail.com</a></div>
-          <div class="contact-line"><span class="contact-label">LINKEDIN</span><a href="https://linkedin.com/in/pradeep-prakash24" target="_blank" rel="noopener" class="contact-value contact-link">linkedin.com/in/pradeep-prakash24</a></div>
-          <div class="contact-line"><span class="contact-label">GITHUB</span><a href="https://github.com/pradeeprakash" target="_blank" rel="noopener" class="contact-value contact-link">github.com/pradeeprakash</a></div>
-          <div class="contact-line"><span class="contact-label">RESUME</span><a href="assets/Pradeep_Sr_Engineer_Resume.pdf" download class="contact-value contact-link contact-resume">[pdf] download resume</a></div>
+          <div class="contact-line">
+            <span class="contact-label">EMAIL</span>
+            <a href="mailto:pradeep00327@gmail.com" class="contact-value contact-link" data-command="email">pradeep00327@gmail.com</a>
+            <button class="contact-action" type="button" data-command="email" aria-label="Copy email">[copy]</button>
+          </div>
+          <div class="contact-line">
+            <span class="contact-label">LINKEDIN</span>
+            <a href="https://linkedin.com/in/pradeep-prakash24" target="_blank" rel="noopener" class="contact-value contact-link" data-command="linkedin">linkedin.com/in/pradeep-prakash24</a>
+            <button class="contact-action" type="button" data-command="linkedin" aria-label="Open LinkedIn">[open]</button>
+          </div>
+          <div class="contact-line">
+            <span class="contact-label">GITHUB</span>
+            <a href="https://github.com/pradeeprakash" target="_blank" rel="noopener" class="contact-value contact-link" data-command="github">github.com/pradeeprakash</a>
+            <button class="contact-action" type="button" data-command="github" aria-label="Open GitHub">[open]</button>
+          </div>
+          <div class="contact-line">
+            <span class="contact-label">RESUME</span>
+            <a href="assets/Pradeep_Sr_Engineer_Resume.pdf" download class="contact-value contact-link contact-resume" data-command="resume">[pdf] download resume</a>
+            <button class="contact-action" type="button" data-command="resume" aria-label="Download resume">[get]</button>
+          </div>
         </div>
         <div class="contact-farewell">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
@@ -248,8 +338,49 @@
     </div>
   </div>
 
-  <script src="js/typing.js"></script>
-  <script src="js/effects.js"></script>
-  <script src="js/scroll.js"></script>
+  <!-- Mobile Quick Actions (shown on ≤ 768px only) -->
+  <button class="mobile-fab" id="mobile-fab" type="button" aria-label="Open quick actions" aria-expanded="false" aria-controls="mobile-sheet">
+    <span class="fab-glyph" aria-hidden="true">❯_</span>
+    <span>Menu</span>
+  </button>
+  <div class="mobile-sheet-backdrop" id="mobile-sheet-backdrop" aria-hidden="true"></div>
+  <div class="mobile-sheet" id="mobile-sheet" role="dialog" aria-modal="true" aria-labelledby="mobile-sheet-title" aria-hidden="true">
+    <div class="mobile-sheet-handle" aria-hidden="true"></div>
+    <div class="mobile-sheet-title" id="mobile-sheet-title">Quick actions</div>
+    <button class="mobile-action" type="button" data-command="resume">
+      <span class="glyph">[pdf]</span><span>Download resume</span><span class="arrow" aria-hidden="true">→</span>
+    </button>
+    <button class="mobile-action" type="button" data-command="email">
+      <span class="glyph">✉</span><span>Copy email</span><span class="arrow" aria-hidden="true">→</span>
+    </button>
+    <button class="mobile-action" type="button" data-command="linkedin">
+      <span class="glyph">in</span><span>LinkedIn</span><span class="arrow" aria-hidden="true">↗</span>
+    </button>
+    <button class="mobile-action" type="button" data-command="github">
+      <span class="glyph">gh</span><span>GitHub</span><span class="arrow" aria-hidden="true">↗</span>
+    </button>
+  </div>
+
+  <!-- Command palette (desktop; populated by js/palette.js) -->
+  <div class="palette-backdrop" id="palette-backdrop" role="dialog" aria-modal="true" aria-label="Command palette" aria-hidden="true">
+    <div class="palette">
+      <div class="palette-inputrow">
+        <span class="palette-prefix">$</span>
+        <input type="text" class="palette-input" id="palette-input" placeholder="type a command or section…" aria-label="Command palette input" autocomplete="off" spellcheck="false">
+      </div>
+      <ul class="palette-list" id="palette-list" role="listbox" aria-label="Commands"></ul>
+      <div class="palette-footer">
+        <span><kbd>esc</kbd> close</span>
+        <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> run</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/typing.js" defer></script>
+  <script src="js/effects.js" defer></script>
+  <script src="js/palette.js" defer></script>
+  <script src="js/shell.js" defer></script>
+  <script src="js/scroll.js" defer></script>
 </body>
 </html>
