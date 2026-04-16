@@ -568,6 +568,7 @@ body {
    ============================================================ */
 .experience-timeline {
   padding-left: 20px;
+  position: relative;
 }
 
 .exp-card {
@@ -611,13 +612,14 @@ body {
 
 .exp-dot {
   position: absolute;
-  left: -7px;
+  left: 13px;
   top: 20px;
   width: 12px;
   height: 12px;
   background: var(--green);
   border-radius: 50%;
   box-shadow: 0 0 8px var(--green);
+  will-change: transform;
 }
 
 .exp-dot.pulse::after {

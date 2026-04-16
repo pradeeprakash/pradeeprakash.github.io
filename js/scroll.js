@@ -72,15 +72,15 @@
     sectionContent.classList.remove('hidden');
     sectionContent.classList.add('visible');
     var cards = sectionContent.querySelectorAll('.exp-card');
+    var timelineDot = sectionContent.querySelector('.exp-dot');
     for (var i = 0; i < cards.length; i++) {
       var card = cards[i];
       card.classList.remove('hidden');
       card.classList.add('visible');
-      // Pulse on the current-role card + its dot exactly once
+      // Pulse on the current-role card + the timeline dot exactly once
       if (card.classList.contains('exp-card-current') && !isReduced()) {
         card.classList.add('pulse');
-        var dot = card.querySelector('.exp-dot');
-        if (dot) dot.classList.add('pulse');
+        if (timelineDot) timelineDot.classList.add('pulse');
       }
       await delay(80);
     }
@@ -220,6 +220,34 @@
   }
 
   // ----------------------------------------------------------
+  // Experience timeline dot — slides down the line with scroll
+  // ----------------------------------------------------------
+  function initTimelineDot() {
+    if (isReduced()) return;
+    var timeline = document.querySelector('.experience-timeline');
+    var dot = timeline ? timeline.querySelector('.exp-dot') : null;
+    if (!timeline || !dot) return;
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var rect = timeline.getBoundingClientRect();
+      var anchor = window.innerHeight * 0.4;
+      var y = Math.max(0, Math.min(rect.height - 32, (anchor - rect.top) - 20));
+      dot.style.transform = 'translateY(' + y + 'px)';
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+
+  // ----------------------------------------------------------
   // Mobile hamburger
   // ----------------------------------------------------------
   function initHamburger() {
@@ -272,6 +300,7 @@
     initNavObserver();
     initSmoothScroll();
     initHamburger();
+    initTimelineDot();
   }
 
   if (document.readyState === 'loading') {
