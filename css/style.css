@@ -1339,7 +1339,7 @@ html:not(.js-ready) .nav-kbd-hint {
     --t-slow: 280ms;
   }
 
-  .nav-hamburger { display: flex; }
+  .nav-hamburger { display: flex; margin-left: auto; }
   .nav-links { display: none; }
   .nav-kbd-hint { display: none; }
 
@@ -1419,7 +1419,7 @@ html:not(.js-ready) .nav-kbd-hint {
   .hero { min-height: 100vh; }
 
   .experience-timeline { padding-left: 12px; }
-  .exp-dot { display: none; }
+  .exp-dot { left: 7px; }
 
   .mobile-fab { display: inline-flex; }
   .mobile-sheet-backdrop { display: block; pointer-events: none; }
