@@ -3,14 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pradeep Prakash — Full-Stack Engineer</title>
-  <meta name="description" content="Full-stack engineer with 7+ years building scalable backend systems, fault-tolerant data pipelines, event-driven services, and intuitive frontend applications with React.">
+  <title>Pradeep Prakash — Staff Full-Stack Engineer</title>
+  <meta name="description" content="Staff full-stack engineer, backend-leaning. 7+ years building fault-tolerant data pipelines, event-driven services, and React applications. Bengaluru — open to remote.">
+
+  <!-- Social preview -->
+  <meta property="og:title" content="Pradeep Prakash — Staff Full-Stack Engineer">
+  <meta property="og:description" content="7+ years building fault-tolerant data pipelines, event-driven services, and React apps. Bengaluru — open to remote.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Inline SVG favicon — green prompt glyph -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='14' font-family='monospace' fill='%2300ff88'%3E%E2%9D%AF%3C/text%3E%3C/svg%3E">
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Matrix rain canvas (behind everything) -->
-  <canvas id="matrix-canvas" aria-hidden="true"></canvas>
-
   <!-- CRT scanline overlay -->
   <div class="scanlines" aria-hidden="true"></div>
 
@@ -51,16 +58,16 @@
           <span class="typed-command" data-text="whoami"></span>
         </div>
         <div class="hero-name">
-          <span class="glitch" data-text="Pradeep Prakash"><span aria-hidden="true">&gt; </span>Pradeep Prakash</span>
+          <span aria-hidden="true">&gt; </span>Pradeep Prakash
         </div>
-        <div class="hero-subtitle">Full-Stack Engineer · Distributed Systems · 7+ Years</div>
+        <div class="hero-subtitle">Staff Full-Stack Engineer · Backend-leaning · Bengaluru / Remote · 7+ years</div>
         <div class="prompt-line">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
           <span class="typed-command" data-text="cat mission.txt"></span>
         </div>
         <div class="hero-mission">
           Building scalable backend systems, fault-tolerant data pipelines,<br>
-          event-driven services, and intuitive frontend applications.
+          event-driven services, and the React frontends that surface them.
         </div>
         <div class="prompt-line">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
@@ -77,14 +84,15 @@
         <div class="section-content about-json">
           <pre class="json-block"><span class="json-bracket">{</span>
   <span class="json-key">"name"</span>: <span class="json-string">"Pradeep Prakash"</span>,
-  <span class="json-key">"role"</span>: <span class="json-string">"Software Engineer III"</span>,
+  <span class="json-key">"role"</span>: <span class="json-string">"Staff Full-Stack Engineer (backend-leaning)"</span>,
   <span class="json-key">"company"</span>: <span class="json-string">"Fynd (Reliance Retail)"</span>,
   <span class="json-key">"location"</span>: <span class="json-string">"Bengaluru, India"</span>,
+  <span class="json-key">"remote"</span>: <span class="json-string">"open_to_remote"</span>,
   <span class="json-key">"experience"</span>: <span class="json-string">"7+ years"</span>,
   <span class="json-key">"focus"</span>: [
     <span class="json-string">"fault-tolerant data pipelines"</span>,
     <span class="json-string">"event-driven services"</span>,
-    <span class="json-string">"responsive UI with React"</span>,
+    <span class="json-string">"React frontends for internal platforms"</span>,
     <span class="json-string">"full-stack system ownership"</span>
   ],
   <span class="json-key">"status"</span>: <span class="json-status">"open_to_opportunities"</span>
@@ -95,7 +103,7 @@
           <span class="typed-command" data-text="cat summary.txt"></span>
         </div>
         <div class="about-summary">
-          Full-stack engineer with 7+ years of experience building scalable backend systems and intuitive frontend applications. Expertise in designing fault-tolerant data pipelines, event-driven services, and responsive UI using React. Comfortable owning systems end-to-end across design, development, scaling, and production reliability. Strong in Node.js, TypeScript, React, Kafka, MongoDB, PostgreSQL, Redis, and Kubernetes on GCP/AWS.
+          Staff-level full-stack engineer (backend-leaning) with 7+ years building scalable backend systems and the React frontends that surface them. Expertise in designing fault-tolerant data pipelines, event-driven services, and operationally mature production systems. Strong in Node.js, TypeScript, Kafka, MongoDB, PostgreSQL, Redis, and Kubernetes on GCP/AWS; comfortable owning systems end-to-end across design, scaling, and reliability.
         </div>
       </section>
 
@@ -103,7 +111,7 @@
       <section class="section" id="experience" aria-label="Work experience">
         <div class="prompt-line section-trigger">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
-          <span class="typed-command" data-text="history --verbose"></span>
+          <span class="typed-command" data-text="cat experience.log"></span>
         </div>
         <div class="section-content experience-timeline">
           <!-- Fynd -->
@@ -155,8 +163,8 @@
               <span class="tag tag-dim">Microservices</span>
             </div>
             <div class="exp-bullets">
-              <div class="exp-bullet"><span class="bullet-arrow dim">→</span> Designed Teacher Tech — onboarding, scheduling, payroll for 10,000+ tutors; payroll 3–4 days → 1 day</div>
-              <div class="exp-bullet"><span class="bullet-arrow dim">→</span> Built Tutor CMS with React for course and batch management — dozens of eng-tickets/month → near-zero manual dependency</div>
+              <div class="exp-bullet"><span class="bullet-arrow dim">→</span> Designed and owned Teacher Tech — internal platform for onboarding, scheduling, audit, and payroll across 10,000+ tutors; cut payroll cycle from 3–4 days → 1 day and removed engineering bottleneck for 3 ops teams</div>
+              <div class="exp-bullet"><span class="bullet-arrow dim">→</span> Built Tutor CMS with React for course and batch management, taking routine academic-content updates from dozens of eng-tickets/month → near-zero manual dependency</div>
             </div>
           </div>
           <!-- Earlier roles -->
@@ -173,38 +181,46 @@
       <section class="section" id="skills" aria-label="Technical skills">
         <div class="prompt-line section-trigger">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
-          <span class="typed-command" data-text="top -systems"></span>
+          <span class="typed-command" data-text="cat skills.md"></span>
         </div>
-        <div class="section-content skills-monitor">
-          <div class="skills-header">SYSTEM PROFICIENCY MONITOR — updated in real-time</div>
-          <div class="skills-grid">
-            <div class="skill-category">
-              <div class="skill-category-label">▸ LANGUAGES</div>
-              <div class="skill-bar" data-skill="Node.js" data-level="90"></div>
-              <div class="skill-bar" data-skill="TypeScript" data-level="85"></div>
-              <div class="skill-bar" data-skill="SQL" data-level="75"></div>
+        <div class="section-content skills-list">
+          <div class="skill-category">
+            <div class="skill-category-label">▸ BACKEND &amp; RUNTIME</div>
+            <div class="skill-tags">
+              <span class="tag">Node.js</span>
+              <span class="tag">TypeScript</span>
             </div>
-            <div class="skill-category">
-              <div class="skill-category-label">▸ FRONTEND</div>
-              <div class="skill-bar" data-skill="React" data-level="80"></div>
-              <div class="skill-bar" data-skill="HTML/CSS" data-level="80"></div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-category-label">▸ DATA</div>
+            <div class="skill-tags">
+              <span class="tag">MongoDB</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Redis</span>
+              <span class="tag">SQL</span>
             </div>
-            <div class="skill-category">
-              <div class="skill-category-label">▸ DATA & INFRA</div>
-              <div class="skill-bar" data-skill="MongoDB" data-level="90"></div>
-              <div class="skill-bar" data-skill="PostgreSQL" data-level="80"></div>
-              <div class="skill-bar" data-skill="Redis" data-level="85"></div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-category-label">▸ STREAMING &amp; MESSAGING</div>
+            <div class="skill-tags">
+              <span class="tag">Kafka</span>
+              <span class="tag">RabbitMQ</span>
             </div>
-            <div class="skill-category">
-              <div class="skill-category-label">▸ STREAMING</div>
-              <div class="skill-bar" data-skill="Kafka" data-level="85"></div>
-              <div class="skill-bar" data-skill="RabbitMQ" data-level="75"></div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-category-label">▸ PLATFORM &amp; INFRA</div>
+            <div class="skill-tags">
+              <span class="tag">Kubernetes</span>
+              <span class="tag">Docker</span>
+              <span class="tag">GCP</span>
+              <span class="tag">AWS</span>
             </div>
-            <div class="skill-category">
-              <div class="skill-category-label">▸ PLATFORM</div>
-              <div class="skill-bar" data-skill="Kubernetes" data-level="80"></div>
-              <div class="skill-bar" data-skill="Docker" data-level="90"></div>
-              <div class="skill-bar" data-skill="GCP/AWS" data-level="75"></div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-category-label">▸ FRONTEND</div>
+            <div class="skill-tags">
+              <span class="tag">React</span>
+              <span class="tag">HTML/CSS</span>
             </div>
           </div>
         </div>
@@ -214,13 +230,13 @@
       <section class="section" id="contact" aria-label="Contact information">
         <div class="prompt-line section-trigger">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
-          <span class="typed-command" data-text="whoami --contact"></span>
+          <span class="typed-command" data-text="cat contact.txt"></span>
         </div>
         <div class="section-content contact-output">
           <div class="contact-line"><span class="contact-label">EMAIL</span><a href="mailto:pradeep00327@gmail.com" class="contact-value contact-link">pradeep00327@gmail.com</a></div>
           <div class="contact-line"><span class="contact-label">LINKEDIN</span><a href="https://linkedin.com/in/pradeep-prakash24" target="_blank" rel="noopener" class="contact-value contact-link">linkedin.com/in/pradeep-prakash24</a></div>
           <div class="contact-line"><span class="contact-label">GITHUB</span><a href="https://github.com/pradeeprakash" target="_blank" rel="noopener" class="contact-value contact-link">github.com/pradeeprakash</a></div>
-          <div class="contact-line"><span class="contact-label">RESUME</span><a href="assets/Pradeep_Sr_Engineer_Resume.pdf" download class="contact-value contact-link contact-resume">📄 download resume.pdf</a></div>
+          <div class="contact-line"><span class="contact-label">RESUME</span><a href="assets/Pradeep_Sr_Engineer_Resume.pdf" download class="contact-value contact-link contact-resume">[pdf] download resume</a></div>
         </div>
         <div class="contact-farewell">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
@@ -232,7 +248,6 @@
     </div>
   </div>
 
-  <script src="js/matrix.js"></script>
   <script src="js/typing.js"></script>
   <script src="js/effects.js"></script>
   <script src="js/scroll.js"></script>

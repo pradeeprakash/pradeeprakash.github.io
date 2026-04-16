@@ -14,8 +14,8 @@
   --red: #ff6b6b;
   --blue: #6b9fff;
   --white: #e0e0e0;
-  --gray: #888888;
-  --dark-gray: #555555;
+  --gray: #a8a8a8;
+  --dark-gray: #7a7a7a;
   --font-mono: 'Courier New', 'Consolas', 'Monaco', monospace;
 }
 
@@ -38,22 +38,6 @@ body {
   font-family: var(--font-mono);
   line-height: 1.6;
   overflow-x: hidden;
-}
-
-/* --- Matrix Canvas --- */
-#matrix-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Hide matrix canvas on mobile (class toggled by JS) */
-#matrix-canvas.mobile {
-  display: none;
 }
 
 /* --- CRT Scanline Overlay --- */
@@ -295,6 +279,7 @@ body {
   color: white;
   text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
   margin: 12px 0;
+  display: inline-block;
 }
 
 .hero-subtitle {
@@ -308,66 +293,6 @@ body {
   line-height: 1.7;
   opacity: 0.9;
   margin-bottom: 24px;
-}
-
-/* ============================================================
-   GLITCH EFFECT
-   ============================================================ */
-.glitch {
-  position: relative;
-  display: inline-block;
-}
-
-.glitch-active::before,
-.glitch-active::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.glitch-active::before {
-  color: var(--red);
-  text-shadow: -2px 0 var(--red);
-  clip-path: inset(0 0 60% 0);
-  animation: glitch 300ms linear infinite alternate;
-}
-
-.glitch-active::after {
-  color: var(--blue);
-  text-shadow: 2px 0 var(--blue);
-  clip-path: inset(60% 0 0 0);
-  animation: glitch 300ms linear infinite alternate-reverse;
-}
-
-@keyframes glitch {
-  0% {
-    clip-path: inset(10% 0 80% 0);
-    transform: translateX(-2px);
-  }
-  20% {
-    clip-path: inset(50% 0 20% 0);
-    transform: translateX(2px);
-  }
-  40% {
-    clip-path: inset(20% 0 60% 0);
-    transform: translateX(-1px);
-  }
-  60% {
-    clip-path: inset(70% 0 10% 0);
-    transform: translateX(1px);
-  }
-  80% {
-    clip-path: inset(30% 0 40% 0);
-    transform: translateX(-2px);
-  }
-  100% {
-    clip-path: inset(5% 0 70% 0);
-    transform: translateX(2px);
-  }
 }
 
 /* ============================================================
@@ -494,7 +419,7 @@ body {
 
 .exp-date {
   color: var(--gray);
-  font-size: 11px;
+  font-size: 12px;
   background: var(--bg-titlebar);
   padding: 2px 8px;
   border-radius: 3px;
@@ -510,10 +435,10 @@ body {
 
 .tag {
   background: rgba(0, 255, 136, 0.08);
-  border: 1px solid rgba(0, 255, 136, 0.2);
+  border: 1px solid rgba(0, 255, 136, 0.25);
   border-radius: 3px;
   padding: 2px 10px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--green);
   display: inline-block;
   margin: 2px;
@@ -528,8 +453,8 @@ body {
 }
 
 .exp-bullet {
-  font-size: 13px;
-  color: #ccc;
+  font-size: 14px;
+  color: #d4d4d4;
   line-height: 1.7;
   margin-bottom: 6px;
 }
@@ -553,7 +478,7 @@ body {
 }
 
 .exp-early-detail {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--gray);
   padding-left: 1em;
   margin-bottom: 0.4em;
@@ -565,71 +490,38 @@ body {
 
 .exp-date-dim {
   color: var(--dark-gray);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 /* ============================================================
-   SKILLS MONITOR
+   SKILLS — categorised tag lists
    ============================================================ */
-.skills-monitor {
+.skills-list {
   background: var(--bg-card);
   border: 1px solid var(--green-dim);
   border-radius: 4px;
   padding: 20px;
-}
-
-.skills-header {
-  color: var(--gray);
-  font-size: 11px;
-  margin-bottom: 16px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.skills-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 20px 28px;
 }
 
 .skill-category {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .skill-category-label {
   color: var(--yellow);
-  font-size: 11px;
-  margin-bottom: 8px;
+  font-size: 12px;
+  margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.skill-bar {
-  font-size: 13px;
-  line-height: 1.6;
+.skill-tags {
   display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.skill-bar .skill-name {
-  color: #ccc;
-  min-width: 100px;
-}
-
-.skill-bar .bar-filled {
-  color: var(--green);
-}
-
-.skill-bar .bar-empty {
-  color: #333;
-}
-
-.skill-bar .bar-percent {
-  color: var(--gray);
-  font-size: 11px;
-  min-width: 35px;
-  text-align: right;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 /* ============================================================
@@ -652,7 +544,7 @@ body {
   margin-right: 16px;
   min-width: 90px;
   display: inline-block;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 1px;
 }
 
@@ -741,21 +633,6 @@ body {
 }
 
 /* ============================================================
-   SCREEN FLICKER
-   ============================================================ */
-.flicker {
-  filter: brightness(0.4);
-  transition: none;
-}
-
-/* ============================================================
-   KEYFRAME ANIMATIONS
-   ============================================================ */
-
-/* blink — already defined above for .cursor */
-
-
-/* ============================================================
    MOBILE RESPONSIVE
    ============================================================ */
 @media (max-width: 768px) {
@@ -801,7 +678,7 @@ body {
     font-size: 1.8rem;
   }
 
-  .skills-grid {
+  .skills-list {
     grid-template-columns: 1fr;
   }
 
@@ -810,11 +687,11 @@ body {
   }
 
   .json-block {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .prompt {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .exp-title-row {
@@ -823,12 +700,12 @@ body {
   }
 
   .contact-line {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .contact-label {
-    min-width: 70px;
-    font-size: 10px;
+    min-width: 72px;
+    font-size: 11px;
   }
 
   .section {

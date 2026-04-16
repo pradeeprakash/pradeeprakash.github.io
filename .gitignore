@@ -1,0 +1,39 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Claude Code / tooling output
+.claude/
+.playwright-mcp/
+.superpowers/
+playwright-report/
+test-results/
+
+# Local dev servers / caches
+.cache/
+node_modules/
+
+# Smoke-test & debug screenshots (assets/ images are NOT ignored)
+/smoke-*.png
+/hero-*.png
+/mobile-*.png
+/about-*.png
+/experience-*.png
+/skills-*.png
+/contact-*.png
+/fullpage-*.png
+
+# Local env
+.env
+.env.local

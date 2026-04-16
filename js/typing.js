@@ -64,15 +64,10 @@ async function runHeroSequence() {
   await delay(400);
   await typeText(firstCommand, firstCommand.dataset.text, 60);
 
-  // 3. Show name with glitch effect
+  // 3. Fade in name
   await delay(200);
-  const glitchEl = heroName.querySelector('.glitch');
   heroName.classList.remove('hidden');
   heroName.classList.add('visible');
-  if (glitchEl) {
-    glitchEl.classList.add('glitch-active');
-    setTimeout(() => glitchEl.classList.remove('glitch-active'), 300);
-  }
 
   // 4. Fade in subtitle
   await delay(400);

@@ -14,64 +14,6 @@
   }
 
   /* ----------------------------------------------------------
-     SKILL BAR BUILDER
-     Renders ASCII-style progress bar into a .skill-bar element
-     before animation starts (bars start at 0 fill).
-  ---------------------------------------------------------- */
-  var BAR_TOTAL = 20; // total block characters in each bar
-
-  function buildSkillBar(bar) {
-    var skill   = bar.dataset.skill   || '';
-    var level   = parseInt(bar.dataset.level, 10) || 0;
-    var filled  = Math.round((level / 100) * BAR_TOTAL);
-    var empty   = BAR_TOTAL - filled;
-
-    // Build DOM structure: name | bar chars | percent
-    var nameSpan    = document.createElement('span');
-    nameSpan.className = 'skill-name';
-    nameSpan.textContent = skill;
-
-    var filledSpan  = document.createElement('span');
-    filledSpan.className = 'bar-filled';
-    filledSpan.dataset.filled = filled;
-    filledSpan.textContent = '';          // starts empty; filled on .fill
-
-    var emptySpan   = document.createElement('span');
-    emptySpan.className = 'bar-empty';
-    emptySpan.dataset.empty = empty;
-    emptySpan.textContent = '░'.repeat(BAR_TOTAL); // shows full empty bar
-
-    var percentSpan = document.createElement('span');
-    percentSpan.className = 'bar-percent';
-    percentSpan.textContent = level + '%';
-
-    bar.innerHTML = '';
-    bar.appendChild(nameSpan);
-    bar.appendChild(filledSpan);
-    bar.appendChild(emptySpan);
-    bar.appendChild(percentSpan);
-  }
-
-  function animateSkillBar(bar) {
-    var filledSpan = bar.querySelector('.bar-filled');
-    var emptySpan  = bar.querySelector('.bar-empty');
-    if (!filledSpan || !emptySpan) return;
-
-    var total  = BAR_TOTAL;
-    var target = parseInt(filledSpan.dataset.filled, 10) || 0;
-    var current = 0;
-
-    function tick() {
-      if (current >= target) return;
-      current++;
-      filledSpan.textContent = '█'.repeat(current);
-      emptySpan.textContent  = '░'.repeat(total - current);
-      setTimeout(tick, 30);
-    }
-    tick();
-  }
-
-  /* ----------------------------------------------------------
      ABOUT — line-by-line JSON reveal
      Splits the pre's innerHTML by newlines, wraps each line in
      a <div class="json-line hidden">, then staggers .visible.
@@ -153,16 +95,15 @@
     }
   }
 
-  // Skills — reveal monitor, then fill bars
+  // Skills — stagger-reveal categorised tag groups
   async function animateSkills(sectionContent) {
     sectionContent.classList.remove('hidden');
     sectionContent.classList.add('visible');
-    var bars = sectionContent.querySelectorAll('.skill-bar');
-    for (var i = 0; i < bars.length; i++) {
-      bars[i].classList.remove('hidden');
-      bars[i].classList.add('visible');
-      animateSkillBar(bars[i]);
-      await delay(80);
+    var categories = sectionContent.querySelectorAll('.skill-category');
+    for (var i = 0; i < categories.length; i++) {
+      categories[i].classList.remove('hidden');
+      categories[i].classList.add('visible');
+      await delay(100);
     }
   }
 
@@ -359,11 +300,9 @@
     var farewell = document.querySelector('.contact-farewell');
     if (farewell) farewell.classList.add('hidden');
 
-    // 3. Hide individual skill bars (revealed with stagger)
-    document.querySelectorAll('.skill-bar').forEach(function (bar) {
-      // Build inner bar markup now (before hiding) so layout is stable
-      buildSkillBar(bar);
-      bar.classList.add('hidden');
+    // 3. Hide individual skill categories (revealed with stagger)
+    document.querySelectorAll('.skill-category').forEach(function (cat) {
+      cat.classList.add('hidden');
     });
 
     // 4. Prepare about JSON lines
