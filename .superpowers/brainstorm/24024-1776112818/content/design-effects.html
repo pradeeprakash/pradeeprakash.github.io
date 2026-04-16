@@ -1,0 +1,93 @@
+<h2>Design: Effects & Animations</h2>
+<p class="subtitle">Section 3 of 4 — The spectacle layer</p>
+
+<div class="section">
+  <h3>Matrix Rain Background</h3>
+  <div style="padding: 16px; background: rgba(0,255,136,0.03); border: 1px solid rgba(0,255,136,0.1); border-radius: 8px; line-height: 1.8; color: #ccc;">
+    <ul style="margin: 0; padding-left: 20px;">
+      <li>Full-viewport <code>&lt;canvas&gt;</code> behind everything — green katakana/latin characters falling</li>
+      <li>Subtle and slow — <strong>low opacity (0.03–0.05)</strong> so it doesn't overwhelm content</li>
+      <li>Characters speed up briefly when user scrolls (parallax response)</li>
+      <li>Fades out on mobile to save battery / reduce distraction</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Typing Animations</h3>
+  <div style="padding: 16px; background: rgba(0,255,136,0.03); border: 1px solid rgba(0,255,136,0.1); border-radius: 8px; line-height: 1.8; color: #ccc;">
+    <ul style="margin: 0; padding-left: 20px;">
+      <li>Hero: full typing sequence for <code>$ whoami</code> and <code>$ cat mission.txt</code> on page load</li>
+      <li>Section headers: each <code>$ command</code> types out when it scrolls into view (IntersectionObserver)</li>
+      <li>Typing speed: ~60ms per character, with slight randomness (40–80ms) for realism</li>
+      <li>Cursor blinks at each prompt until the next section activates</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Glitch & Flicker Effects</h3>
+  <div style="padding: 16px; background: rgba(0,255,136,0.03); border: 1px solid rgba(0,255,136,0.1); border-radius: 8px; line-height: 1.8; color: #ccc;">
+    <ul style="margin: 0; padding-left: 20px;">
+      <li>Name in hero: brief <strong>glitch effect</strong> on reveal — RGB split + horizontal offset for 300ms, then settles</li>
+      <li>Section headings: subtle glitch on hover</li>
+      <li><strong>Scanline overlay</strong>: very faint horizontal lines across the entire page (CRT monitor effect)</li>
+      <li>Occasional random "screen flicker" — whole page brightness dips for 50ms every 15–30 seconds</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Scroll-Triggered Reveals</h3>
+  <div style="padding: 16px; background: rgba(0,255,136,0.03); border: 1px solid rgba(0,255,136,0.1); border-radius: 8px; line-height: 1.8; color: #ccc;">
+    <ul style="margin: 0; padding-left: 20px;">
+      <li>Each section activates when it enters viewport (IntersectionObserver, threshold 0.2)</li>
+      <li>Command prompt types out → then content fades/slides in</li>
+      <li>Experience cards: staggered slide-in from left (100ms delay between each)</li>
+      <li>Skill bars: fill animation from 0% to target width over 800ms with easing</li>
+      <li>JSON about: each line appears sequentially (50ms between lines)</li>
+      <li>Contact links: fade in one by one</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Hover & Interaction Effects</h3>
+  <div style="padding: 16px; background: rgba(0,255,136,0.03); border: 1px solid rgba(0,255,136,0.1); border-radius: 8px; line-height: 1.8; color: #ccc;">
+    <ul style="margin: 0; padding-left: 20px;">
+      <li>Nav links: green underline slides in from left on hover</li>
+      <li>Experience cards: border glows brighter green, subtle box-shadow pulse</li>
+      <li>Skill bars: show exact label text on hover</li>
+      <li>Contact links: green glow + slight translate-x shift</li>
+      <li>Resume download: "downloading..." text animation on click before actual download starts</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Mobile Adaptations</h3>
+  <div style="padding: 16px; background: rgba(255,189,46,0.05); border: 1px solid rgba(255,189,46,0.15); border-radius: 8px; line-height: 1.8; color: #ccc;">
+    <ul style="margin: 0; padding-left: 20px;">
+      <li>Matrix rain: disabled (replaced with static dark gradient)</li>
+      <li>Typing animations: faster (30ms) or skip-to-complete on tap</li>
+      <li>Skills grid: single column stack</li>
+      <li>Terminal window: full-width, no visible title bar chrome</li>
+      <li>Nav: hamburger menu with terminal-style dropdown (<code>$ ls ./pages</code>)</li>
+      <li>Screen flicker: disabled</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Tech Stack</h3>
+  <div style="padding: 16px; background: rgba(107,159,255,0.05); border: 1px solid rgba(107,159,255,0.15); border-radius: 8px; line-height: 1.8; color: #ccc;">
+    <ul style="margin: 0; padding-left: 20px;">
+      <li><strong>HTML</strong> — semantic markup, single index.html</li>
+      <li><strong>CSS</strong> — heavy custom CSS, CSS variables for theme, keyframe animations, no frameworks</li>
+      <li><strong>JS</strong> — vanilla JavaScript, no libraries. Canvas API for matrix rain, IntersectionObserver for scroll triggers, requestAnimationFrame for smooth animations</li>
+      <li><strong>Hosting</strong> — static files, deployable to GitHub Pages</li>
+    </ul>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top: 24px;">Does the effects layer look good? Any effects you want to add, remove, or tone down?</p>

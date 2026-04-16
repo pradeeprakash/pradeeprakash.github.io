@@ -1,0 +1,195 @@
+<h2>Design: Content Sections</h2>
+<p class="subtitle">Section 2 of 4 — About, Experience, Skills, Contact</p>
+
+<!-- ABOUT SECTION -->
+<div class="section">
+  <h3>About Section — <code>$ cat about.json</code></h3>
+  <div class="mockup">
+    <div class="mockup-header">About</div>
+    <div class="mockup-body" style="background: #0a0a0a; color: #00ff88; font-family: 'Courier New', monospace; padding: 24px;">
+      <div style="margin-bottom: 12px;">
+        <span style="color: #00ff88;">pradeep@portfolio</span><span style="color: #555;">:</span><span style="color: #6b9fff;">~</span><span style="color: #fff;">$ </span><span style="color: #e0e0e0;">cat about.json</span>
+      </div>
+      <div style="background: #111; border: 1px solid #00ff8822; border-radius: 4px; padding: 16px; font-size: 13px; line-height: 1.8;">
+        <span style="color: #888;">{</span><br>
+        &nbsp;&nbsp;<span style="color: #ff6b6b;">"name"</span>: <span style="color: #ffd93d;">"Pradeep Prakash"</span>,<br>
+        &nbsp;&nbsp;<span style="color: #ff6b6b;">"role"</span>: <span style="color: #ffd93d;">"Software Engineer III"</span>,<br>
+        &nbsp;&nbsp;<span style="color: #ff6b6b;">"company"</span>: <span style="color: #ffd93d;">"Fynd (Reliance Retail)"</span>,<br>
+        &nbsp;&nbsp;<span style="color: #ff6b6b;">"location"</span>: <span style="color: #ffd93d;">"Bengaluru, India"</span>,<br>
+        &nbsp;&nbsp;<span style="color: #ff6b6b;">"experience"</span>: <span style="color: #ffd93d;">"7+ years"</span>,<br>
+        &nbsp;&nbsp;<span style="color: #ff6b6b;">"focus"</span>: [<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ffd93d;">"fault-tolerant data pipelines"</span>,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ffd93d;">"event-driven services"</span>,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ffd93d;">"multi-tenant platforms"</span><br>
+        &nbsp;&nbsp;],<br>
+        &nbsp;&nbsp;<span style="color: #ff6b6b;">"status"</span>: <span style="color: #27c93f;">"open_to_opportunities"</span><br>
+        <span style="color: #888;">}</span>
+      </div>
+    </div>
+  </div>
+  <p style="color: #aaa; margin-top: 8px;">Scroll-triggered: command types out, then JSON block renders line-by-line with syntax highlighting. Each key-value pair fades in sequentially.</p>
+</div>
+
+<!-- EXPERIENCE SECTION -->
+<div class="section">
+  <h3>Experience Section — <code>$ history --verbose</code></h3>
+  <div class="mockup">
+    <div class="mockup-header">Experience</div>
+    <div class="mockup-body" style="background: #0a0a0a; color: #00ff88; font-family: 'Courier New', monospace; padding: 24px;">
+      <div style="margin-bottom: 16px;">
+        <span style="color: #00ff88;">pradeep@portfolio</span><span style="color: #555;">:</span><span style="color: #6b9fff;">~</span><span style="color: #fff;">$ </span><span style="color: #e0e0e0;">history --verbose</span>
+      </div>
+
+      <!-- Job 1 -->
+      <div style="background: #111; border-left: 2px solid #00ff88; padding: 16px; margin-bottom: 16px; border-radius: 0 4px 4px 0; position: relative;">
+        <div style="position: absolute; left: -7px; top: 16px; width: 12px; height: 12px; background: #00ff88; border-radius: 50; box-shadow: 0 0 8px #00ff88;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div>
+            <span style="color: #fff; font-weight: bold; font-size: 14px;">Software Engineer III</span>
+            <span style="color: #00ff88; margin-left: 8px;">@ Fynd (Reliance Retail)</span>
+          </div>
+          <span style="color: #888; font-size: 11px; background: #1a1a1a; padding: 2px 8px; border-radius: 3px;">Sep 2022 → Present</span>
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;">
+          <span style="background: #00ff8815; border: 1px solid #00ff8833; border-radius: 3px; padding: 2px 8px; font-size: 10px; color: #00ff88;">Node.js</span>
+          <span style="background: #00ff8815; border: 1px solid #00ff8833; border-radius: 3px; padding: 2px 8px; font-size: 10px; color: #00ff88;">TypeScript</span>
+          <span style="background: #00ff8815; border: 1px solid #00ff8833; border-radius: 3px; padding: 2px 8px; font-size: 10px; color: #00ff88;">Kafka</span>
+          <span style="background: #00ff8815; border: 1px solid #00ff8833; border-radius: 3px; padding: 2px 8px; font-size: 10px; color: #00ff88;">MongoDB</span>
+          <span style="background: #00ff8815; border: 1px solid #00ff8833; border-radius: 3px; padding: 2px 8px; font-size: 10px; color: #00ff88;">K8s</span>
+        </div>
+        <div style="font-size: 12px; color: #ccc; line-height: 1.7;">
+          <div style="margin-bottom: 4px;"><span style="color: #00ff88;">→</span> Architected 6-stage fault-tolerant ingestion pipeline — 200-500 rec/s, p99 &lt;400ms</div>
+          <div style="margin-bottom: 4px;"><span style="color: #00ff88;">→</span> Cut pod memory ~80% (1.5GB → 300MB) via cursor streaming</div>
+          <div style="margin-bottom: 4px;"><span style="color: #00ff88;">→</span> Owned Fynd Coupons: 0 → 97K MAU, 99.9% availability</div>
+          <div><span style="color: #ffd93d;">★</span> Fynd Star 2023, 2024, 2025, 2026</div>
+        </div>
+      </div>
+
+      <!-- Job 2 -->
+      <div style="background: #111; border-left: 2px solid #555; padding: 16px; margin-bottom: 16px; border-radius: 0 4px 4px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div>
+            <span style="color: #fff; font-weight: bold; font-size: 14px;">Senior Software Engineer</span>
+            <span style="color: #888; margin-left: 8px;">@ Byju's</span>
+          </div>
+          <span style="color: #888; font-size: 11px; background: #1a1a1a; padding: 2px 8px; border-radius: 3px;">Jul 2021 → Aug 2022</span>
+        </div>
+        <div style="font-size: 12px; color: #999; line-height: 1.7;">
+          <div style="margin-bottom: 4px;"><span style="color: #555;">→</span> Teacher Tech platform — 10K+ tutors, payroll 3-4 days → 1 day</div>
+          <div><span style="color: #555;">→</span> Tutor CMS — dozens of tickets/month → near-zero</div>
+        </div>
+      </div>
+
+      <!-- Earlier roles condensed -->
+      <div style="color: #666; font-size: 11px; padding-left: 16px; border-left: 2px solid #333;">
+        <div style="margin-bottom: 4px;">Software Engineer @ Acube Tech <span style="color: #555;">// May 2020 – Jun 2021</span></div>
+        <div>Product Engineer @ Codingmart <span style="color: #555;">// Oct 2018 – May 2020</span></div>
+      </div>
+    </div>
+  </div>
+  <p style="color: #aaa; margin-top: 8px;">Timeline with glowing green left-border for current role, dimmer for past. Each role card slides in on scroll. Current role is expanded with full bullets; older roles progressively condensed. Hovering a role card brightens it with a subtle green glow.</p>
+</div>
+
+<!-- SKILLS SECTION -->
+<div class="section">
+  <h3>Skills Section — <code>$ top -systems</code></h3>
+  <div class="mockup">
+    <div class="mockup-header">Skills — System Monitor Style</div>
+    <div class="mockup-body" style="background: #0a0a0a; color: #00ff88; font-family: 'Courier New', monospace; padding: 24px;">
+      <div style="margin-bottom: 16px;">
+        <span style="color: #00ff88;">pradeep@portfolio</span><span style="color: #555;">:</span><span style="color: #6b9fff;">~</span><span style="color: #fff;">$ </span><span style="color: #e0e0e0;">top -systems</span>
+      </div>
+      <div style="background: #111; border: 1px solid #00ff8822; border-radius: 4px; padding: 16px; font-size: 12px; line-height: 1.4;">
+        <div style="color: #888; margin-bottom: 8px; font-size: 11px;">SYSTEM PROFICIENCY MONITOR — updated in real-time</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <!-- Category 1 -->
+          <div>
+            <div style="color: #ffd93d; margin-bottom: 6px; font-size: 11px;">▸ LANGUAGES</div>
+            <div style="margin-bottom: 4px;">
+              <span style="color: #ccc;">Node.js&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <span style="color: #00ff88;">████████████████████</span><span style="color: #333;">██</span>
+            </div>
+            <div style="margin-bottom: 4px;">
+              <span style="color: #ccc;">TypeScript&nbsp;</span>
+              <span style="color: #00ff88;">██████████████████</span><span style="color: #333;">████</span>
+            </div>
+            <div>
+              <span style="color: #ccc;">SQL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <span style="color: #00ff88;">████████████████</span><span style="color: #333;">██████</span>
+            </div>
+          </div>
+          <!-- Category 2 -->
+          <div>
+            <div style="color: #ffd93d; margin-bottom: 6px; font-size: 11px;">▸ DATA & INFRA</div>
+            <div style="margin-bottom: 4px;">
+              <span style="color: #ccc;">MongoDB&nbsp;&nbsp;&nbsp;</span>
+              <span style="color: #00ff88;">████████████████████</span><span style="color: #333;">██</span>
+            </div>
+            <div style="margin-bottom: 4px;">
+              <span style="color: #ccc;">PostgreSQL&nbsp;</span>
+              <span style="color: #00ff88;">██████████████████</span><span style="color: #333;">████</span>
+            </div>
+            <div>
+              <span style="color: #ccc;">Redis&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <span style="color: #00ff88;">██████████████████</span><span style="color: #333;">████</span>
+            </div>
+          </div>
+          <!-- Category 3 -->
+          <div>
+            <div style="color: #ffd93d; margin-bottom: 6px; font-size: 11px;">▸ STREAMING</div>
+            <div style="margin-bottom: 4px;">
+              <span style="color: #ccc;">Kafka&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <span style="color: #00ff88;">██████████████████</span><span style="color: #333;">████</span>
+            </div>
+            <div>
+              <span style="color: #ccc;">RabbitMQ&nbsp;&nbsp;</span>
+              <span style="color: #00ff88;">████████████████</span><span style="color: #333;">██████</span>
+            </div>
+          </div>
+          <!-- Category 4 -->
+          <div>
+            <div style="color: #ffd93d; margin-bottom: 6px; font-size: 11px;">▸ PLATFORM</div>
+            <div style="margin-bottom: 4px;">
+              <span style="color: #ccc;">Kubernetes</span>
+              <span style="color: #00ff88;">██████████████████</span><span style="color: #333;">████</span>
+            </div>
+            <div style="margin-bottom: 4px;">
+              <span style="color: #ccc;">Docker&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <span style="color: #00ff88;">████████████████████</span><span style="color: #333;">██</span>
+            </div>
+            <div>
+              <span style="color: #ccc;">GCP/AWS&nbsp;&nbsp;&nbsp;</span>
+              <span style="color: #00ff88;">████████████████</span><span style="color: #333;">██████</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p style="color: #aaa; margin-top: 8px;">Skills displayed as a <code>top</code>/<code>htop</code> system monitor. Progress bars animate in on scroll — they "fill up" like a loading bar. Categories: Languages, Data & Infra, Streaming, Platform. Bars have a subtle shimmer/pulse animation once filled.</p>
+</div>
+
+<!-- CONTACT SECTION -->
+<div class="section">
+  <h3>Contact Section — <code>$ whoami --contact</code></h3>
+  <div class="mockup">
+    <div class="mockup-header">Contact</div>
+    <div class="mockup-body" style="background: #0a0a0a; color: #00ff88; font-family: 'Courier New', monospace; padding: 24px;">
+      <div style="margin-bottom: 12px;">
+        <span style="color: #00ff88;">pradeep@portfolio</span><span style="color: #555;">:</span><span style="color: #6b9fff;">~</span><span style="color: #fff;">$ </span><span style="color: #e0e0e0;">whoami --contact</span>
+      </div>
+      <div style="background: #111; border: 1px solid #00ff8822; border-radius: 4px; padding: 20px; font-size: 13px; line-height: 2.2;">
+        <div><span style="color: #ff6b6b;">EMAIL</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6b9fff; text-decoration: underline; cursor: pointer;">pradeep00327@gmail.com</span></div>
+        <div><span style="color: #ff6b6b;">LINKEDIN</span>&nbsp;&nbsp;<span style="color: #6b9fff; text-decoration: underline; cursor: pointer;">linkedin.com/in/pradeep-prakash24</span></div>
+        <div><span style="color: #ff6b6b;">GITHUB</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6b9fff; text-decoration: underline; cursor: pointer;">github.com/pradeeprakash</span></div>
+        <div><span style="color: #ff6b6b;">RESUME</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ffd93d; text-decoration: underline; cursor: pointer;">📄 download resume.pdf</span></div>
+      </div>
+      <div style="margin-top: 16px; color: #555; font-size: 11px;">
+        <span style="color: #00ff88;">pradeep@portfolio</span><span style="color: #555;">:</span><span style="color: #6b9fff;">~</span><span style="color: #fff;">$ </span><span style="color: #888;">Connection closed. Thanks for visiting.</span><span style="animation: blink 1s infinite; color: #e0e0e0;"> ▋</span>
+      </div>
+    </div>
+  </div>
+  <p style="color: #aaa; margin-top: 8px;">Links glow on hover with green underline effect. Resume download triggers a "downloading..." animation. Ends with a "Connection closed" farewell message and blinking cursor.</p>
+</div>
+
+<p class="subtitle" style="margin-top: 24px;">Do these content sections look good? Any changes before I move on to effects & animations?</p>

@@ -1,0 +1,108 @@
+<h2>Design: Layout & Hero Section</h2>
+<p class="subtitle">Section 1 of 4 — review and approve before we move on</p>
+
+<div class="section">
+  <h3>Overall Page Structure</h3>
+  <div class="mockup">
+    <div class="mockup-header">Page Layout</div>
+    <div class="mockup-body" style="background: #0a0a0a; color: #00ff88; font-family: 'Courier New', monospace; padding: 0;">
+      <!-- Matrix rain background layer -->
+      <div style="background: linear-gradient(180deg, rgba(0,255,136,0.03) 0%, transparent 100%); padding: 20px; position: relative;">
+        <div style="text-align: center; font-size: 10px; color: #00ff8844; margin-bottom: 16px;">▓▓▓ MATRIX RAIN CANVAS (full viewport background, subtle green characters falling) ▓▓▓</div>
+
+        <!-- Terminal window -->
+        <div style="background: #0d0d0d; border: 1px solid #00ff8833; border-radius: 8px; overflow: hidden; max-width: 95%; margin: 0 auto;">
+          <!-- Title bar -->
+          <div style="background: #1a1a1a; padding: 8px 12px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #00ff8822;">
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #ff5f56;"></div>
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e;"></div>
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #27c93f;"></div>
+            <span style="margin-left: 8px; font-size: 11px; color: #666;">pradeep@portfolio ~ </span>
+          </div>
+
+          <!-- Terminal content -->
+          <div style="padding: 16px; font-size: 12px; line-height: 1.8;">
+            <div style="color: #666;">// Scrollable single-page content inside terminal window</div>
+            <div style="margin: 12px 0;">
+              <span style="color: #00ff88;">❯</span> <span style="color: #ffd93d;">Hero</span> — typing animation intro<br>
+              <span style="color: #00ff88;">❯</span> <span style="color: #ffd93d;">About</span> — $ cat about.json<br>
+              <span style="color: #00ff88;">❯</span> <span style="color: #ffd93d;">Experience</span> — $ history --verbose<br>
+              <span style="color: #00ff88;">❯</span> <span style="color: #ffd93d;">Skills</span> — $ top -systems<br>
+              <span style="color: #00ff88;">❯</span> <span style="color: #ffd93d;">Contact</span> — $ whoami --contact
+            </div>
+            <div style="color: #666;">// Nav: fixed top bar with terminal-style links</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Hero Section — First Thing Visitors See</h3>
+  <div class="mockup">
+    <div class="mockup-header">Hero: Typing Animation Sequence</div>
+    <div class="mockup-body" style="background: #0a0a0a; color: #00ff88; font-family: 'Courier New', monospace; padding: 30px; min-height: 280px;">
+      <div style="font-size: 11px; color: #555; margin-bottom: 20px;">Last login: Mon Apr 14 09:32:01 on ttys001</div>
+
+      <div style="margin-bottom: 6px;">
+        <span style="color: #00ff88;">pradeep@portfolio</span><span style="color: #555;">:</span><span style="color: #6b9fff;">~</span><span style="color: #fff;">$ </span><span style="color: #e0e0e0;">whoami</span>
+      </div>
+
+      <div style="margin-bottom: 20px; line-height: 1.8;">
+        <div style="font-size: 28px; font-weight: bold; color: #fff; margin: 8px 0; text-shadow: 0 0 10px rgba(0,255,136,0.3);">
+          <span style="color: #00ff88;">&gt;</span> Pradeep Prakash
+        </div>
+        <div style="font-size: 15px; color: #888;">
+          Backend Engineer · Distributed Systems · 7+ Years
+        </div>
+      </div>
+
+      <div style="margin-bottom: 6px;">
+        <span style="color: #00ff88;">pradeep@portfolio</span><span style="color: #555;">:</span><span style="color: #6b9fff;">~</span><span style="color: #fff;">$ </span><span style="color: #e0e0e0;">cat mission.txt</span>
+      </div>
+      <div style="color: #ccc; line-height: 1.6; padding-left: 2px; margin-bottom: 16px;">
+        Building fault-tolerant data pipelines, event-driven<br>
+        services, and multi-tenant platforms at scale.
+      </div>
+
+      <div>
+        <span style="color: #00ff88;">pradeep@portfolio</span><span style="color: #555;">:</span><span style="color: #6b9fff;">~</span><span style="color: #fff;">$ </span><span style="color: #e0e0e0; animation: blink 1s infinite;">▋</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 16px; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
+    <h4 style="margin: 0 0 8px 0;">Animation sequence:</h4>
+    <ol style="margin: 0; padding-left: 20px; line-height: 1.8; color: #aaa;">
+      <li>Page loads → matrix rain starts falling in background</li>
+      <li>"Last login..." line fades in</li>
+      <li><code>$ whoami</code> types out character by character</li>
+      <li>Name appears with a glitch/flicker effect + green glow</li>
+      <li>Subtitle fades in</li>
+      <li><code>$ cat mission.txt</code> types out → summary text streams in</li>
+      <li>Final prompt with blinking cursor remains</li>
+    </ol>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Navigation Bar (fixed top)</h3>
+  <div class="mockup">
+    <div class="mockup-header">Nav — Always visible on scroll</div>
+    <div class="mockup-body" style="background: #0d0d0d; color: #00ff88; font-family: 'Courier New', monospace; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #00ff8822;">
+      <div>
+        <span style="color: #00ff88;">❯</span> <span style="color: #fff; font-weight: bold;">pp</span><span style="color: #555; font-size: 11px;">.dev</span>
+      </div>
+      <div style="display: flex; gap: 20px; font-size: 13px;">
+        <span style="color: #00ff88; text-decoration: underline;">./about</span>
+        <span style="color: #888;">./experience</span>
+        <span style="color: #888;">./skills</span>
+        <span style="color: #888;">./contact</span>
+      </div>
+    </div>
+  </div>
+  <p style="color: #aaa; margin-top: 8px;">File-path style links (<code>./section</code>). Active section highlighted in green. Smooth scroll on click. Subtle scanline overlay across the nav.</p>
+</div>
+
+<p class="subtitle" style="margin-top: 24px;">Does this layout and hero section look right? I'll show the remaining sections next.</p>

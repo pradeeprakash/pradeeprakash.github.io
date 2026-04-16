@@ -1,0 +1,81 @@
+<h2>What visual style fits you?</h2>
+<p class="subtitle">Pick the vibe that feels right for a senior backend engineer's portfolio</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%); padding: 30px; min-height: 200px; font-family: 'Courier New', monospace; color: #00ff88;">
+        <div style="opacity: 0.4; font-size: 11px; margin-bottom: 8px;">$ cat about.json</div>
+        <div style="font-size: 13px; line-height: 1.6;">
+          <span style="color: #888;">{</span><br>
+          &nbsp;&nbsp;<span style="color: #ff6b6b;">"name"</span>: <span style="color: #ffd93d;">"Pradeep Prakash"</span>,<br>
+          &nbsp;&nbsp;<span style="color: #ff6b6b;">"role"</span>: <span style="color: #ffd93d;">"Backend Engineer"</span>,<br>
+          &nbsp;&nbsp;<span style="color: #ff6b6b;">"focus"</span>: <span style="color: #ffd93d;">"Distributed Systems"</span><br>
+          <span style="color: #888;">}</span>
+        </div>
+        <div style="margin-top: 12px; opacity: 0.6; font-size: 11px;">▋</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Dark Terminal / Hacker</h3>
+      <p>Dark background, monospace fonts, terminal-inspired UI with green/amber accents. Code blocks, typing animations, CLI-style navigation. Screams "I live in the terminal."</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background: #ffffff; padding: 30px; min-height: 200px; font-family: -apple-system, sans-serif; color: #1a1a1a;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 12px; margin-bottom: 20px;">
+          <div style="font-size: 18px; font-weight: 700; letter-spacing: -0.5px;">PP</div>
+          <div style="font-size: 12px; color: #666; display: flex; gap: 16px;">
+            <span>About</span><span>Work</span><span>Contact</span>
+          </div>
+        </div>
+        <div style="font-size: 28px; font-weight: 700; line-height: 1.2; letter-spacing: -1px;">Building reliable<br>systems at scale.</div>
+        <div style="font-size: 13px; color: #666; margin-top: 12px;">Backend Engineer · 7+ years</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Clean Minimal</h3>
+      <p>White/light background, strong typography, lots of whitespace. Inspired by Stripe, Linear, Vercel. Professional, modern, lets the content speak. No gimmicks.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background: linear-gradient(180deg, #0f0f23 0%, #1a1a3e 100%); padding: 30px; min-height: 200px; font-family: -apple-system, sans-serif; color: #e0e0ff; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 20px; right: 20px; width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%); filter: blur(15px);"></div>
+        <div style="position: absolute; bottom: 30px; left: 40px; width: 120px; height: 60px; border-radius: 50%; background: radial-gradient(circle, rgba(168,85,247,0.2) 0%, transparent 70%); filter: blur(20px);"></div>
+        <div style="position: relative; z-index: 1;">
+          <div style="font-size: 11px; color: #818cf8; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Portfolio</div>
+          <div style="font-size: 26px; font-weight: 700; line-height: 1.2; background: linear-gradient(135deg, #c7d2fe, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Pradeep Prakash</div>
+          <div style="font-size: 13px; color: #94a3b8; margin-top: 10px;">Architecting fault-tolerant systems</div>
+          <div style="display: flex; gap: 8px; margin-top: 16px;">
+            <span style="background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3); border-radius: 20px; padding: 4px 12px; font-size: 11px; color: #a5b4fc;">Kafka</span>
+            <span style="background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.3); border-radius: 20px; padding: 4px 12px; font-size: 11px; color: #c4b5fd;">K8s</span>
+            <span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 20px; padding: 4px 12px; font-size: 11px; color: #93c5fd;">Node.js</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Dark Modern / Glassmorphism</h3>
+      <p>Dark theme with subtle gradients, glowing accents, frosted glass cards, smooth animations. Think Linear meets Vercel's dark mode. Polished and contemporary.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="d" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background: #fafaf9; padding: 30px; min-height: 200px; font-family: Georgia, serif; color: #292524;">
+        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #78716c; margin-bottom: 16px;">Pradeep Prakash</div>
+        <div style="width: 40px; height: 2px; background: #292524; margin-bottom: 16px;"></div>
+        <div style="font-size: 22px; line-height: 1.4; font-style: italic;">"Engineering is the art of making<br>the complex feel inevitable."</div>
+        <div style="font-size: 12px; color: #78716c; margin-top: 16px; font-family: sans-serif;">Backend Engineer · Distributed Systems · 7+ Years</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>D — Editorial / Magazine</h3>
+      <p>Serif headings, refined typography, warm neutral palette. Inspired by Medium, Notion, editorial design. Intellectual, writing-forward, understated elegance.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,186 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: ❯
+      - generic [ref=e5]: pp
+      - generic [ref=e6]: .dev
+    - generic [ref=e7]:
+      - link "./about" [ref=e8] [cursor=pointer]:
+        - /url: "#about"
+      - link "./experience" [ref=e9] [cursor=pointer]:
+        - /url: "#experience"
+      - link "./skills" [ref=e10] [cursor=pointer]:
+        - /url: "#skills"
+      - link "./contact" [ref=e11] [cursor=pointer]:
+        - /url: "#contact"
+  - generic [ref=e12]:
+    - generic [ref=e18]: pradeep@portfolio ~
+    - generic [ref=e19]:
+      - region "Introduction" [ref=e20]:
+        - generic [ref=e21]: "Last login: Mon Apr 14 09:32:01 on ttys001"
+        - generic [ref=e23]: pradeep@portfolio:~$
+        - generic [ref=e25]: "> Pradeep Prakash"
+        - generic [ref=e26]: Full-Stack Engineer · Distributed Systems · 7+ Years
+        - generic [ref=e28]: pradeep@portfolio:~$
+        - generic [ref=e29]:
+          - text: Building scalable backend systems, fault-tolerant data pipelines,
+          - text: event-driven services, and intuitive frontend applications.
+        - generic [ref=e30]:
+          - generic [ref=e31]: pradeep@portfolio:~$
+          - text: ▋
+      - region "About me" [ref=e32]:
+        - generic [ref=e34]: pradeep@portfolio:~$
+        - generic [ref=e36]:
+          - generic [ref=e37]: "{"
+          - generic [ref=e38]: "\"name\": \"Pradeep Prakash\","
+          - generic [ref=e39]: "\"role\": \"Software Engineer III\","
+          - generic [ref=e40]: "\"company\": \"Fynd (Reliance Retail)\","
+          - generic [ref=e41]: "\"location\": \"Bengaluru, India\","
+          - generic [ref=e42]: "\"experience\": \"7+ years\","
+          - generic [ref=e43]: "\"focus\": ["
+          - generic [ref=e44]: "\"fault-tolerant data pipelines\","
+          - generic [ref=e45]: "\"event-driven services\","
+          - generic [ref=e46]: "\"responsive UI with React\","
+          - generic [ref=e47]: "\"full-stack system ownership\""
+          - generic [ref=e48]: "],"
+          - generic [ref=e49]: "\"status\": \"open_to_opportunities\""
+          - generic [ref=e50]: "}"
+        - generic [ref=e52]: pradeep@portfolio:~$
+        - generic [ref=e53]: Full-stack engineer with 7+ years of experience building scalable backend systems and intuitive frontend applications. Expertise in designing fault-tolerant data pipelines, event-driven services, and responsive UI using React. Comfortable owning systems end-to-end across design, development, scaling, and production reliability. Strong in Node.js, TypeScript, React, Kafka, MongoDB, PostgreSQL, Redis, and Kubernetes on GCP/AWS.
+      - region "Work experience" [ref=e54]:
+        - generic [ref=e56]: pradeep@portfolio:~$
+        - generic [ref=e57]:
+          - generic [ref=e58]:
+            - generic [ref=e60]:
+              - generic [ref=e61]:
+                - generic [ref=e62]: Software Engineer III
+                - generic [ref=e63]: "@ Fynd (Reliance Retail)"
+              - generic [ref=e64]: Sep 2022 → Present
+            - generic [ref=e65]:
+              - generic [ref=e66]: Node.js
+              - generic [ref=e67]: TypeScript
+              - generic [ref=e68]: React
+              - generic [ref=e69]: MongoDB
+              - generic [ref=e70]: Redis
+              - generic [ref=e71]: Kafka
+              - generic [ref=e72]: Kubernetes
+              - generic [ref=e73]: GCP
+            - generic [ref=e74]:
+              - generic [ref=e75]: → Architected 6-stage fault-tolerant ingestion pipeline — 200–500 rec/s at p99 200–400ms, 1M+ records migrated with zero duplication
+              - generic [ref=e76]: → Cut peak pod memory ~80% (1.5 GB → 300 MB) via cursor-based streaming and adaptive chunk sizing
+              - generic [ref=e77]: → Designed worker orchestration — token-bucket concurrency, back-pressure, priority queuing for 5–10 concurrent migrations
+              - generic [ref=e78]: → Tech-led Fynd Migrate (Shopify → Fynd) across 3–5 engineers; serves 50+ merchants, removed ~70% operational effort
+              - generic [ref=e79]: → Owned Fynd Coupons 0 → 97K MAU; 200–500 req/s at p99 150–300ms, 99.9% availability
+              - generic [ref=e80]: → Reduced production incidents by 40% via circuit breakers, health-signal probes, bounded error propagation
+              - generic [ref=e81]: → Established design-doc and code-review standards; mentored 3–6 engineers on distributed-systems fundamentals
+              - generic [ref=e82]: → Built React-based internal tools and dashboards for migration monitoring, improving pipeline visibility and reducing debugging time
+              - generic [ref=e83]: ★ Fynd Star 2023, 2024, 2025, 2026
+          - generic [ref=e84]:
+            - generic [ref=e85]:
+              - generic [ref=e86]:
+                - generic [ref=e87]: Senior Software Engineer
+                - generic [ref=e88]: "@ Byju's"
+              - generic [ref=e89]: Jul 2021 → Aug 2022
+            - generic [ref=e90]:
+              - generic [ref=e91]: Node.js
+              - generic [ref=e92]: PostgreSQL
+              - generic [ref=e93]: Redis
+              - generic [ref=e94]: React
+              - generic [ref=e95]: Microservices
+            - generic [ref=e96]:
+              - generic [ref=e97]: → Designed Teacher Tech — onboarding, scheduling, payroll for 10,000+ tutors; payroll 3–4 days → 1 day
+              - generic [ref=e98]: → Built Tutor CMS with React for course and batch management — dozens of eng-tickets/month → near-zero manual dependency
+          - generic [ref=e99]:
+            - generic [ref=e100]: Software Engineer @ Acube Tech May 2020 – Jun 2021
+            - generic [ref=e101]: Healthcare teleconsultation platform — concurrent real-time patient↔expert sessions
+            - generic [ref=e102]: Product Engineer @ Codingmart Oct 2018 – May 2020
+            - generic [ref=e103]: Event-driven microservices on RabbitMQ for BookMyShow's ticketing stack
+      - region "Technical skills" [ref=e104]:
+        - generic [ref=e106]: pradeep@portfolio:~$
+        - generic [ref=e107]:
+          - generic [ref=e108]: SYSTEM PROFICIENCY MONITOR — updated in real-time
+          - generic [ref=e109]:
+            - generic [ref=e110]:
+              - generic [ref=e111]: ▸ LANGUAGES
+              - generic [ref=e112]:
+                - generic [ref=e113]: Node.js
+                - generic [ref=e114]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e115]: 90%
+              - generic [ref=e116]:
+                - generic [ref=e117]: TypeScript
+                - generic [ref=e118]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e119]: 85%
+              - generic [ref=e120]:
+                - generic [ref=e121]: SQL
+                - generic [ref=e122]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e123]: 75%
+            - generic [ref=e124]:
+              - generic [ref=e125]: ▸ FRONTEND
+              - generic [ref=e126]:
+                - generic [ref=e127]: React
+                - generic [ref=e128]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e129]: 80%
+              - generic [ref=e130]:
+                - generic [ref=e131]: HTML/CSS
+                - generic [ref=e132]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e133]: 80%
+            - generic [ref=e134]:
+              - generic [ref=e135]: ▸ DATA & INFRA
+              - generic [ref=e136]:
+                - generic [ref=e137]: MongoDB
+                - generic [ref=e138]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e139]: 90%
+              - generic [ref=e140]:
+                - generic [ref=e141]: PostgreSQL
+                - generic [ref=e142]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e143]: 80%
+              - generic [ref=e144]:
+                - generic [ref=e145]: Redis
+                - generic [ref=e146]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e147]: 85%
+            - generic [ref=e148]:
+              - generic [ref=e149]: ▸ STREAMING
+              - generic [ref=e150]:
+                - generic [ref=e151]: Kafka
+                - generic [ref=e152]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e153]: 85%
+              - generic [ref=e154]:
+                - generic [ref=e155]: RabbitMQ
+                - generic [ref=e156]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e157]: 75%
+            - generic [ref=e158]:
+              - generic [ref=e159]: ▸ PLATFORM
+              - generic [ref=e160]:
+                - generic [ref=e161]: Kubernetes
+                - generic [ref=e162]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e163]: 80%
+              - generic [ref=e164]:
+                - generic [ref=e165]: Docker
+                - generic [ref=e166]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e167]: 90%
+              - generic [ref=e168]:
+                - generic [ref=e169]: GCP/AWS
+                - generic [ref=e170]: ░░░░░░░░░░░░░░░░░░░░
+                - generic [ref=e171]: 75%
+      - region "Contact information" [ref=e172]:
+        - generic [ref=e174]: pradeep@portfolio:~$
+        - generic [ref=e175]:
+          - generic [ref=e176]:
+            - generic [ref=e177]: EMAIL
+            - link "pradeep00327@gmail.com" [ref=e178] [cursor=pointer]:
+              - /url: mailto:pradeep00327@gmail.com
+          - generic [ref=e179]:
+            - generic [ref=e180]: LINKEDIN
+            - link "linkedin.com/in/pradeep-prakash24" [ref=e181] [cursor=pointer]:
+              - /url: https://linkedin.com/in/pradeep-prakash24
+          - generic [ref=e182]:
+            - generic [ref=e183]: GITHUB
+            - link "github.com/pradeeprakash" [ref=e184] [cursor=pointer]:
+              - /url: https://github.com/pradeeprakash
+          - generic [ref=e185]:
+            - generic [ref=e186]: RESUME
+            - link "📄 download resume.pdf" [ref=e187] [cursor=pointer]:
+              - /url: assets/Pradeep_Sr_Engineer_Resume.pdf
+        - generic [ref=e188]:
+          - generic [ref=e189]: pradeep@portfolio:~$
+          - text: Connection closed. Thanks for visiting. ▋
