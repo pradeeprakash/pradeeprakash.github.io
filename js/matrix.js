@@ -68,6 +68,8 @@
 
     canvas.classList.remove('mobile');
 
+    ctx.font = FONT_SIZE + 'px monospace';
+
     var colCount = Math.floor(w / FONT_SIZE);
     columns = [];
     for (var i = 0; i < colCount; i++) {
@@ -84,8 +86,6 @@
     // Fade previous frame
     ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
     ctx.fillRect(0, 0, canvas.width, h);
-
-    ctx.font = FONT_SIZE + 'px monospace';
 
     // Scroll boost: extra opacity and speed boost (0 = none, 1 = full boost)
     var opacityBoost = scrollBoost * 0.15;   // max +0.15 added to lead

@@ -58,16 +58,26 @@
     var resumeLink = document.querySelector('.contact-resume');
     if (!resumeLink) return;
 
+    var activeIntervalId = null;
+    var activeTimeoutId  = null;
+    var originalText     = resumeLink.textContent;
+
     resumeLink.addEventListener('click', function () {
-      var originalText = resumeLink.textContent;
-      var dotCount     = 0;
-      var intervalId   = setInterval(function () {
+      if (activeIntervalId !== null) {
+        clearInterval(activeIntervalId);
+        clearTimeout(activeTimeoutId);
+      }
+
+      var dotCount = 0;
+      activeIntervalId = setInterval(function () {
         dotCount = (dotCount % 3) + 1;
         resumeLink.textContent = 'downloading' + '.'.repeat(dotCount);
       }, 200);
 
-      setTimeout(function () {
-        clearInterval(intervalId);
+      activeTimeoutId = setTimeout(function () {
+        clearInterval(activeIntervalId);
+        activeIntervalId = null;
+        activeTimeoutId  = null;
         resumeLink.textContent = originalText;
       }, 1000);
     });

@@ -405,7 +405,7 @@ body {
 }
 
 .about-summary {
-  color: var(--fg);
+  color: var(--white);
   font-size: 14px;
   line-height: 1.7;
   margin-top: 0.6em;
@@ -438,7 +438,6 @@ body {
 
 .exp-card-current:hover {
   box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
-  border-left-color: var(--green);
 }
 
 .exp-card-past {
@@ -755,37 +754,6 @@ body {
 
 /* blink — already defined above for .cursor */
 
-/* shimmer — subtle brightness pulse on skill bars */
-@keyframes shimmer {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
-/* fadeIn */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* slideInLeft */
-@keyframes slideInLeft {
-  from {
-    transform: translateX(-30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
 
 /* ============================================================
    MOBILE RESPONSIVE
