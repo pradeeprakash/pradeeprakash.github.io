@@ -389,7 +389,7 @@ Add to `<head>`:
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Pradeep Prakash",
-    "jobTitle": "Staff Full-Stack Engineer",
+    "jobTitle": "Senior Full-Stack Engineer",
     "worksFor": { "@type": "Organization", "name": "Fynd (Reliance Retail)" },
     "address": { "@type": "PostalAddress", "addressLocality": "Bengaluru", "addressCountry": "IN" },
     "sameAs": [
