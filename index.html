@@ -75,6 +75,7 @@
       <div class="nav-links" id="nav-links">
         <a href="#about" class="nav-link active">./about</a>
         <a href="#experience" class="nav-link">./experience</a>
+        <a href="#projects" class="nav-link">./projects</a>
         <a href="#skills" class="nav-link">./skills</a>
         <a href="#contact" class="nav-link">./contact</a>
       </div>
@@ -141,6 +142,19 @@
         <div class="prompt-line">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
           <span class="cursor">▋</span>
+        </div>
+        <div class="hero-cube-wrap" aria-hidden="true">
+          <div class="hero-cube-scene">
+            <div class="hero-cube-3d" id="hero-cube-3d">
+              <div class="hc-face hc-face-front"></div>
+              <div class="hc-face hc-face-back"></div>
+              <div class="hc-face hc-face-right"></div>
+              <div class="hc-face hc-face-left"></div>
+              <div class="hc-face hc-face-top"></div>
+              <div class="hc-face hc-face-bottom"></div>
+            </div>
+          </div>
+          <div class="hero-cube-caption">render --glass cube.obj</div>
         </div>
       </section>
 
@@ -246,6 +260,86 @@
             <div class="exp-early-line">Product Engineer <span class="exp-company-dim">@ Codingmart</span> <span class="exp-date-dim">Oct 2018 – May 2020</span></div>
             <div class="exp-early-detail">Event-driven microservices on RabbitMQ for BookMyShow's ticketing stack</div>
           </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="section" id="projects" aria-label="Selected projects">
+        <div class="cd-breadcrumb" data-cd="projects"></div>
+        <div class="prompt-line section-trigger">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <span class="typed-command" data-text="ls -la projects/"></span>
+        </div>
+        <div class="section-content projects-grid">
+          <article class="project-card project-card-primary">
+            <div class="project-header">
+              <span class="project-title">Fynd Migrate</span>
+              <span class="project-role">Tech Lead</span>
+            </div>
+            <p class="project-desc">Shopify → Fynd merchant migration platform. 6-stage fault-tolerant ingestion pipeline, 1M+ records migrated with zero duplication, now serving 50+ merchants end-to-end.</p>
+            <div class="project-metrics">
+              <span class="project-metric">200–500 rec/s</span>
+              <span class="project-metric">p99 200–400ms</span>
+              <span class="project-metric">−70% ops effort</span>
+            </div>
+            <div class="project-tags">
+              <span class="tag">Node.js</span>
+              <span class="tag">Kafka</span>
+              <span class="tag">MongoDB</span>
+              <span class="tag">Kubernetes</span>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-header">
+              <span class="project-title">Fynd Coupons</span>
+              <span class="project-role">Owner · 0→1</span>
+            </div>
+            <p class="project-desc">Discount &amp; promotion service, taken from zero to 97K MAU. Circuit-breaker-guarded dependencies, bounded error propagation, and health-signal probes keep it above 99.9% availability.</p>
+            <div class="project-metrics">
+              <span class="project-metric">97K MAU</span>
+              <span class="project-metric">200–500 req/s</span>
+              <span class="project-metric">99.9% uptime</span>
+            </div>
+            <div class="project-tags">
+              <span class="tag">Node.js</span>
+              <span class="tag">Redis</span>
+              <span class="tag">PostgreSQL</span>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-header">
+              <span class="project-title">Ingestion Pipeline</span>
+              <span class="project-role">Architect</span>
+            </div>
+            <p class="project-desc">Cursor-based streaming with adaptive chunk sizing and token-bucket concurrency. Cut peak pod memory 80% (1.5&nbsp;GB → 300&nbsp;MB) and runs 5–10 migrations concurrently under back-pressure.</p>
+            <div class="project-metrics">
+              <span class="project-metric">−80% memory</span>
+              <span class="project-metric">5–10 concurrent</span>
+              <span class="project-metric">token-bucket</span>
+            </div>
+            <div class="project-tags">
+              <span class="tag">TypeScript</span>
+              <span class="tag">Kafka</span>
+              <span class="tag">Back-pressure</span>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-header">
+              <span class="project-title">Teacher Tech</span>
+              <span class="project-role">Full-stack Owner</span>
+            </div>
+            <p class="project-desc">Internal platform for 10,000+ tutors at Byju's: onboarding, scheduling, audit, payroll. Cut payroll cycle from 3–4 days to 1 and removed the engineering bottleneck for 3 ops teams.</p>
+            <div class="project-metrics">
+              <span class="project-metric">10K+ tutors</span>
+              <span class="project-metric">1-day cycle</span>
+              <span class="project-metric">3 teams freed</span>
+            </div>
+            <div class="project-tags">
+              <span class="tag">Node.js</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">React</span>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -377,10 +471,16 @@
     </div>
   </div>
 
+  <!-- Motion (pinned CDN module — exposes window.Motion; see CLAUDE.md "Motion") -->
+  <script type="module">
+    import * as Motion from "https://cdn.jsdelivr.net/npm/motion@11.13.5/+esm";
+    window.Motion = Motion;
+  </script>
   <script src="js/typing.js" defer></script>
   <script src="js/effects.js" defer></script>
   <script src="js/palette.js" defer></script>
   <script src="js/shell.js" defer></script>
   <script src="js/scroll.js" defer></script>
+  <script src="js/cube.js" defer></script>
 </body>
 </html>

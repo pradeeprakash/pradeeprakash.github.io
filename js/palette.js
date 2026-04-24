@@ -13,6 +13,7 @@
     { name: 'help',       aliases: ['?', 'h'],             desc: 'show all commands',      action: cmdHelp },
     { name: 'about',      aliases: ['cat about', 'whoami'], desc: 'cat about.json',         action: scrollTo('#about') },
     { name: 'experience', aliases: ['exp', 'work'],        desc: 'cat experience.log',     action: scrollTo('#experience') },
+    { name: 'projects',   aliases: ['proj', 'ls projects'], desc: 'ls -la projects/',       action: scrollTo('#projects') },
     { name: 'skills',     aliases: ['sk', 'stack'],        desc: 'cat skills.md',          action: scrollTo('#skills') },
     { name: 'contact',    aliases: ['mail'],               desc: 'cat contact.txt',        action: scrollTo('#contact') },
     { name: 'resume',     aliases: ['cv', 'download'],     desc: '[pdf] download resume',  action: cmdResume },

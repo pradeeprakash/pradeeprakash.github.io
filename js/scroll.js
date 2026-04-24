@@ -14,7 +14,54 @@
   var isMobile  = function () { return window.matchMedia('(max-width: 768px)').matches; };
   var isReduced = function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; };
 
-  var delay = window.delay;
+  var delay = window.delay || function (ms) {
+    return new Promise(function (r) { setTimeout(r, ms); });
+  };
+
+  // ----------------------------------------------------------
+  // Motion-driven reveal helpers
+  //
+  // revealStagger — fades + lifts a list of elements with a
+  // Motion.stagger delay. Falls back to class toggles + manual
+  // delays if Motion isn't loaded or reduced-motion is active.
+  // ----------------------------------------------------------
+  function motionReady() {
+    return window.Motion && typeof window.Motion.animate === 'function';
+  }
+
+  async function revealStagger(els, opts) {
+    if (!els || !els.length) return;
+    var o = opts || {};
+    var dx = o.x || 0;
+    var dy = o.y !== undefined ? o.y : 12;
+    var dur = o.duration || 0.6;
+    var stagger = o.stagger || 0.08;
+    var startScale = o.scale;
+
+    if (isReduced() || !motionReady()) {
+      for (var i = 0; i < els.length; i++) {
+        els[i].classList.remove('hidden');
+        els[i].classList.add('visible');
+        if (!isReduced()) await delay(Math.round(stagger * 1000));
+      }
+      return;
+    }
+
+    // Strip the pre-hide class so Motion owns the starting state.
+    for (var j = 0; j < els.length; j++) els[j].classList.remove('hidden');
+
+    var keyframes = { opacity: [0, 1], y: [dy, 0] };
+    if (dx) keyframes.x = [dx, 0];
+    if (startScale !== undefined) keyframes.scale = [startScale, 1];
+
+    var controls = window.Motion.animate(els, keyframes, {
+      duration: dur,
+      delay: window.Motion.stagger(stagger),
+      ease: [0.19, 1, 0.22, 1]
+    });
+    try { await controls.finished; } catch (_) {}
+    for (var k = 0; k < els.length; k++) els[k].classList.add('visible');
+  }
 
   // ----------------------------------------------------------
   // ABOUT — line-by-line JSON reveal
@@ -34,11 +81,7 @@
   }
 
   async function revealAboutLines(lineEls) {
-    for (var i = 0; i < lineEls.length; i++) {
-      lineEls[i].classList.remove('hidden');
-      lineEls[i].classList.add('visible');
-      await delay(40);
-    }
+    await revealStagger(lineEls, { y: 6, duration: 0.35, stagger: 0.035 });
   }
 
   // ----------------------------------------------------------
@@ -71,41 +114,35 @@
   async function animateExperience(sectionContent) {
     sectionContent.classList.remove('hidden');
     sectionContent.classList.add('visible');
-    var cards = sectionContent.querySelectorAll('.exp-card');
+    var cards = Array.from(sectionContent.querySelectorAll('.exp-card'));
     var timelineDot = sectionContent.querySelector('.exp-dot');
-    for (var i = 0; i < cards.length; i++) {
-      var card = cards[i];
-      card.classList.remove('hidden');
-      card.classList.add('visible');
-      // Pulse on the current-role card + the timeline dot exactly once
-      if (card.classList.contains('exp-card-current') && !isReduced()) {
-        card.classList.add('pulse');
-        if (timelineDot) timelineDot.classList.add('pulse');
-      }
-      await delay(80);
+    await revealStagger(cards, { x: -28, y: 8, scale: 0.98, duration: 0.7, stagger: 0.1 });
+    var current = cards.find(function (c) { return c.classList.contains('exp-card-current'); });
+    if (current && !isReduced()) {
+      current.classList.add('pulse');
+      if (timelineDot) timelineDot.classList.add('pulse');
     }
+  }
+
+  async function animateProjects(sectionContent) {
+    sectionContent.classList.remove('hidden');
+    sectionContent.classList.add('visible');
+    var cards = Array.from(sectionContent.querySelectorAll('.project-card'));
+    await revealStagger(cards, { y: 20, scale: 0.97, duration: 0.6, stagger: 0.09 });
   }
 
   async function animateSkills(sectionContent) {
     sectionContent.classList.remove('hidden');
     sectionContent.classList.add('visible');
-    var cats = sectionContent.querySelectorAll('.skill-category');
-    for (var i = 0; i < cats.length; i++) {
-      cats[i].classList.remove('hidden');
-      cats[i].classList.add('visible');
-      await delay(60);
-    }
+    var cats = Array.from(sectionContent.querySelectorAll('.skill-category'));
+    await revealStagger(cats, { y: 10, duration: 0.5, stagger: 0.07 });
   }
 
   async function animateContact(sectionContent) {
     sectionContent.classList.remove('hidden');
     sectionContent.classList.add('visible');
-    var lines = sectionContent.querySelectorAll('.contact-line');
-    for (var i = 0; i < lines.length; i++) {
-      lines[i].classList.remove('hidden');
-      lines[i].classList.add('visible');
-      await delay(100);
-    }
+    var lines = Array.from(sectionContent.querySelectorAll('.contact-line'));
+    await revealStagger(lines, { y: 10, duration: 0.5, stagger: 0.09 });
     await delay(120);
     var farewell = sectionContent.parentElement
       ? sectionContent.parentElement.querySelector('.contact-farewell')
@@ -124,6 +161,7 @@
     switch (id) {
       case 'about':      return animateAbout(sectionContent);
       case 'experience': return animateExperience(sectionContent);
+      case 'projects':   return animateProjects(sectionContent);
       case 'skills':     return animateSkills(sectionContent);
       case 'contact':    return animateContact(sectionContent);
     }
@@ -291,6 +329,7 @@
     var farewell = document.querySelector('.contact-farewell');
     if (farewell) farewell.classList.add('hidden');
     document.querySelectorAll('.skill-category').forEach(function (c) { c.classList.add('hidden'); });
+    document.querySelectorAll('.project-card').forEach(function (c) { c.classList.add('hidden'); });
 
     // Prep about lines
     var aboutContent = document.querySelector('#about .section-content');
