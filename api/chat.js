@@ -1,15 +1,16 @@
-import agentContext from '../data/agent-context.md?raw';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-export const config = { runtime: 'edge' };
+const agentContext = readFileSync(join(process.cwd(), 'data', 'agent-context.md'), 'utf-8');
 
-// Simple in-memory rate limiter (resets on cold start, which is fine for edge)
+// Simple in-memory rate limiter (resets on cold start)
 const rateLimitMap = new Map();
 const RATE_LIMIT = 20;
 const RATE_WINDOW = 60 * 1000;
 
 function isRateLimited(ip) {
-  var now = Date.now();
-  var entry = rateLimitMap.get(ip);
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
   if (!entry || now - entry.start > RATE_WINDOW) {
     rateLimitMap.set(ip, { start: now, count: 1 });
     return false;
@@ -19,59 +20,47 @@ function isRateLimited(ip) {
 }
 
 function getClientIp(req) {
-  return req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-         req.headers.get('x-real-ip') ||
-         'unknown';
+  const forwarded = req.headers['x-forwarded-for'];
+  if (forwarded) return forwarded.split(',')[0].trim();
+  return req.headers['x-real-ip'] || 'unknown';
 }
 
 function stripHtml(str) {
   return str.replace(/<[^>]*>/g, '');
 }
 
-export default async function handler(req) {
+export default async function handler(req, res) {
+  // CORS
+  res.setHeader('Access-Control-Allow-Origin', 'https://pradeeprakash.github.io');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
   if (req.method === 'OPTIONS') {
-    return new Response(null, { status: 204 });
+    return res.status(204).end();
   }
 
   if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-      status: 405,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   const ip = getClientIp(req);
   if (isRateLimited(ip)) {
-    return new Response(JSON.stringify({ error: 'Too many requests. Wait a moment.' }), {
-      status: 429,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(429).json({ error: 'Too many requests. Wait a moment.' });
   }
 
-  let body;
-  try {
-    body = await req.json();
-  } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+  const body = req.body;
+  if (!body) {
+    return res.status(400).json({ error: 'Invalid JSON' });
   }
 
   const messages = body.messages;
   if (!Array.isArray(messages) || messages.length === 0 || messages.length > 20) {
-    return new Response(JSON.stringify({ error: 'Invalid messages array' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(400).json({ error: 'Invalid messages array' });
   }
 
   const lastMessage = messages[messages.length - 1];
   if (!lastMessage || lastMessage.role !== 'user' || !lastMessage.content || lastMessage.content.length > 500) {
-    return new Response(JSON.stringify({ error: 'Invalid message' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(400).json({ error: 'Invalid message' });
   }
 
   // Sanitize all user messages
@@ -84,10 +73,7 @@ export default async function handler(req) {
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return new Response(JSON.stringify({ error: 'Something went wrong. Try again.' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(500).json({ error: 'Something went wrong. Try again.' });
   }
 
   let claudeRes;
@@ -108,32 +94,28 @@ export default async function handler(req) {
       }),
     });
   } catch {
-    return new Response(JSON.stringify({ error: 'Something went wrong. Try again.' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(500).json({ error: 'Something went wrong. Try again.' });
   }
 
   if (!claudeRes.ok) {
-    return new Response(JSON.stringify({ error: 'Something went wrong. Try again.' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(500).json({ error: 'Something went wrong. Try again.' });
   }
 
-  // Pipe Claude's SSE stream to client, transforming to our simpler format
+  // Stream SSE response
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
   const reader = claudeRes.body.getReader();
   const decoder = new TextDecoder();
-  const encoder = new TextEncoder();
   let sseBuffer = '';
 
-  const stream = new ReadableStream({
-    async pull(controller) {
+  try {
+    while (true) {
       const { done, value } = await reader.read();
       if (done) {
-        controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-        controller.close();
-        return;
+        res.write('data: [DONE]\n\n');
+        break;
       }
 
       sseBuffer += decoder.decode(value, { stream: true });
@@ -149,22 +131,18 @@ export default async function handler(req) {
         try {
           const event = JSON.parse(data);
           if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
-            controller.enqueue(encoder.encode(
+            res.write(
               `data: ${JSON.stringify({ type: 'content_block_delta', delta: { text: event.delta.text } })}\n\n`
-            ));
+            );
           }
         } catch {
-          // Skip
+          // Skip unparseable lines
         }
       }
-    },
-  });
+    }
+  } catch {
+    // Stream interrupted
+  }
 
-  return new Response(stream, {
-    headers: {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive',
-    },
-  });
+  res.end();
 }
