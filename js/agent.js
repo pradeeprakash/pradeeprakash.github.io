@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  var API_URL = '/api/chat';
+  var API_URL = 'https://portfolio-nu-six-g0nsnyjwbz.vercel.app/api/chat';
   var MAX_PAIRS = 10;
   var MAX_MSG_LEN = 500;
 

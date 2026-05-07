@@ -31,7 +31,13 @@ function stripHtml(str) {
 
 export default async function handler(req, res) {
   // CORS
-  res.setHeader('Access-Control-Allow-Origin', 'https://pradeeprakash.github.io');
+  const origin = req.headers['origin'] || '';
+  const allowed = ['https://pradeeprakash.github.io', 'https://portfolio-nu-six-g0nsnyjwbz.vercel.app'];
+  if (allowed.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', allowed[0]);
+  }
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
