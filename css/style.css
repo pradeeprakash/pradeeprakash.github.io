@@ -1345,7 +1345,7 @@ html.js-ready .hero-cube-wrap { display: flex; }
   outline: none;
 }
 
-/* Floating trigger button */
+/* Floating trigger button — ASCII face */
 .agent-fab {
   position: fixed;
   bottom: 24px;
@@ -1353,18 +1353,28 @@ html.js-ready .hero-cube-wrap { display: flex; }
   z-index: 9000;
   background: var(--bg-terminal);
   border: 1px solid var(--green);
-  border-radius: 4px;
+  border-radius: 50%;
   color: var(--green);
   font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  padding: 8px 14px;
+  font-size: 16px;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), var(--phosphor-glow);
-  transition: background var(--t-fast), box-shadow var(--t-fast);
+  transition: background var(--t-fast), box-shadow var(--t-fast), transform 0.2s var(--ease-out-expo);
 }
 
 .agent-fab:hover {
   background: rgba(34, 216, 139, 0.08);
+  transform: scale(1.1);
+}
+
+.agent-fab:active {
+  transform: scale(0.95);
 }
 
 .agent-fab:focus-visible {
@@ -1409,6 +1419,14 @@ html.js-ready .hero-cube-wrap { display: flex; }
   .agent-cursor {
     animation: none;
   }
+
+  .agent-fab {
+    transition: none;
+  }
+
+  .agent-fab:hover {
+    transform: none;
+  }
 }
 
 /* No-JS: agent never renders (JS-created), but guard */
@@ -1423,7 +1441,7 @@ html:not(.js-ready) .agent-fab {
   display: none;
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  left: 20px;
   width: auto;
   min-width: 56px;
   height: 56px;

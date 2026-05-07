@@ -54,12 +54,125 @@
     return bd;
   }
 
+  // ----------------------------------------------------------
+  // ASCII face expressions
+  // ----------------------------------------------------------
+  var FACES = {
+    idle:     '(o_o)',
+    blink:    '(- -)',
+    happy:    '(^_^)',
+    curious:  '(o.o)',
+    wave:     '(^_^)/',
+    think:    '(>_<)',
+    sleepy:   '(~_~)',
+  };
+
+  // Section → expression mapping for scroll reactivity
+  var SECTION_FACES = {
+    hero:       'idle',
+    about:      'curious',
+    experience: 'happy',
+    projects:   'happy',
+    skills:     'curious',
+    contact:    'wave',
+  };
+
+  var currentFace = 'idle';
+  var blinkTimer = null;
+  var scrollFace = 'idle';
+
+  function setFace(name) {
+    currentFace = name;
+    if (fab) fab.textContent = FACES[name] || FACES.idle;
+  }
+
+  function startBlinking() {
+    if (blinkTimer) return;
+    function doBlink() {
+      if (isOpen) return;
+      // Blink: close eyes briefly
+      setFace('blink');
+      setTimeout(function () {
+        if (!isOpen) setFace(scrollFace);
+      }, 150);
+    }
+    // Blink every 3-5 seconds (randomized)
+    function scheduleNext() {
+      var delay = 3000 + Math.random() * 2000;
+      blinkTimer = setTimeout(function () {
+        doBlink();
+        scheduleNext();
+      }, delay);
+    }
+    scheduleNext();
+  }
+
+  function stopBlinking() {
+    if (blinkTimer) {
+      clearTimeout(blinkTimer);
+      blinkTimer = null;
+    }
+  }
+
+  function initScrollReaction() {
+    var sections = ['hero', 'about', 'experience', 'projects', 'skills', 'contact'];
+    var sectionEls = [];
+    sections.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) sectionEls.push({ id: id, el: el });
+    });
+
+    if (!sectionEls.length) return;
+
+    function onScroll() {
+      if (isOpen) return;
+      var viewMid = window.innerHeight / 2;
+      var closest = sectionEls[0].id;
+      var closestDist = Infinity;
+
+      for (var i = 0; i < sectionEls.length; i++) {
+        var rect = sectionEls[i].el.getBoundingClientRect();
+        var dist = Math.abs(rect.top - viewMid);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = sectionEls[i].id;
+        }
+      }
+
+      var face = SECTION_FACES[closest] || 'idle';
+      if (face !== scrollFace) {
+        scrollFace = face;
+        setFace(face);
+      }
+    }
+
+    var scrollTimeout;
+    window.addEventListener('scroll', function () {
+      if (scrollTimeout) return;
+      scrollTimeout = setTimeout(function () {
+        scrollTimeout = null;
+        onScroll();
+      }, 100);
+    }, { passive: true });
+
+    onScroll();
+  }
+
   function buildFab() {
     var btn = document.createElement('button');
     btn.className = 'agent-fab';
     btn.type = 'button';
     btn.setAttribute('aria-label', 'Open AI agent');
-    btn.textContent = '[ AI ]';
+    btn.textContent = FACES.idle;
+
+    // Desktop hover reaction
+    btn.addEventListener('mouseenter', function () {
+      if (!isOpen) setFace('happy');
+    });
+    btn.addEventListener('mouseleave', function () {
+      if (!isOpen) setFace(scrollFace);
+    });
+
     return btn;
   }
 
@@ -94,6 +207,8 @@
     lastFocused = document.activeElement;
     backdrop.classList.add('open');
     backdrop.setAttribute('aria-hidden', 'false');
+    stopBlinking();
+    setFace('think');
 
     if (conversation.length === 0) {
       appendMessage('agent', "Pradeep's AI. Ask me about his experience, skills, or projects — or paste a job description and I'll tell you why he's a fit.");
@@ -111,6 +226,9 @@
     // Clear conversation on close
     conversation = [];
     if (messagesEl) messagesEl.innerHTML = '';
+
+    setFace(scrollFace);
+    if (!reducedMotion) startBlinking();
 
     if (lastFocused && typeof lastFocused.focus === 'function') {
       lastFocused.focus();
@@ -328,6 +446,12 @@
     fab = buildFab();
     document.body.appendChild(fab);
     fab.addEventListener('click', open);
+
+    // Start face animations (skip for reduced-motion)
+    if (!reducedMotion) {
+      startBlinking();
+      initScrollReaction();
+    }
 
     // Pre-mount the panel (hidden)
     mount();
