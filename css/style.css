@@ -1346,6 +1346,13 @@ html.js-ready .hero-cube-wrap { display: flex; }
 }
 
 /* Floating trigger button — ASCII face */
+@keyframes agent-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25%      { transform: translateY(-6px) rotate(1.5deg); }
+  50%      { transform: translateY(-2px) rotate(0deg); }
+  75%      { transform: translateY(-8px) rotate(-1.5deg); }
+}
+
 .agent-fab {
   position: fixed;
   bottom: 24px;
@@ -1365,15 +1372,18 @@ html.js-ready .hero-cube-wrap { display: flex; }
   padding: 0;
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), var(--phosphor-glow);
-  transition: background var(--t-fast), box-shadow var(--t-fast), transform 0.2s var(--ease-out-expo);
+  animation: agent-float 4s ease-in-out infinite;
+  transition: background var(--t-fast), box-shadow var(--t-fast);
 }
 
 .agent-fab:hover {
   background: rgba(34, 216, 139, 0.08);
+  animation-play-state: paused;
   transform: scale(1.1);
 }
 
 .agent-fab:active {
+  animation-play-state: paused;
   transform: scale(0.95);
 }
 
@@ -1421,6 +1431,7 @@ html.js-ready .hero-cube-wrap { display: flex; }
   }
 
   .agent-fab {
+    animation: none;
     transition: none;
   }
 
