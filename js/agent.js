@@ -40,7 +40,7 @@
           '<span>&gt; agent_session</span>' +
           '<button class="agent-close" type="button" aria-label="Close agent">[x]</button>' +
         '</div>' +
-        '<div class="agent-messages" id="agent-messages"></div>' +
+        '<div class="agent-messages" id="agent-messages" aria-live="off"></div>' +
         '<div class="agent-inputrow">' +
           '<span class="agent-input-prefix">&gt;</span>' +
           '<input type="text" class="agent-input" id="agent-input" ' +
@@ -199,6 +199,10 @@
         cursorDiv.className = 'agent-msg agent-msg-agent';
         cursorDiv.innerHTML = formatResponse(fullText);
 
+        // Announce to screen readers now that response is complete
+        messagesEl.setAttribute('aria-live', 'polite');
+        setTimeout(function () { messagesEl.setAttribute('aria-live', 'off'); }, 100);
+
         // Add to conversation
         conversation.push({ role: 'assistant', content: fullText });
 
@@ -224,10 +228,13 @@
     var decoder = new TextDecoder();
     var buffer = '';
 
-    // Build text content node for streaming chars
-    var textNode = document.createTextNode('');
+    // For reduced-motion, collect all text without live DOM updates
+    var textNode = null;
     var cursor = cursorDiv.querySelector('.agent-cursor');
-    cursorDiv.insertBefore(textNode, cursor);
+    if (!reducedMotion) {
+      textNode = document.createTextNode('');
+      cursorDiv.insertBefore(textNode, cursor);
+    }
 
     function pump() {
       return reader.read().then(function (result) {
@@ -249,8 +256,10 @@
             if (parsed.type === 'content_block_delta' && parsed.delta && parsed.delta.text) {
               var chunk = parsed.delta.text;
               onChunk(chunk);
-              textNode.textContent += chunk;
-              messagesEl.scrollTop = messagesEl.scrollHeight;
+              if (!reducedMotion && textNode) {
+                textNode.textContent += chunk;
+                messagesEl.scrollTop = messagesEl.scrollHeight;
+              }
             }
           } catch (e) {
             // Skip unparseable lines
@@ -283,6 +292,7 @@
     } else if (e.key === 'Tab') {
       // Focus trap: cycle between input and close button
       e.preventDefault();
+      if (e.shiftKey) return; // Already at first focusable
       if (closeBtn) closeBtn.focus();
     }
   }

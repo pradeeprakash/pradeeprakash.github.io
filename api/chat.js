@@ -125,6 +125,7 @@ export default async function handler(req) {
   const reader = claudeRes.body.getReader();
   const decoder = new TextDecoder();
   const encoder = new TextEncoder();
+  let sseBuffer = '';
 
   const stream = new ReadableStream({
     async pull(controller) {
@@ -135,12 +136,14 @@ export default async function handler(req) {
         return;
       }
 
-      const chunk = decoder.decode(value, { stream: true });
-      const lines = chunk.split('\n');
+      sseBuffer += decoder.decode(value, { stream: true });
+      const lines = sseBuffer.split('\n');
+      sseBuffer = lines.pop() || '';
 
       for (const line of lines) {
-        if (!line.startsWith('data: ')) continue;
-        const data = line.slice(6).trim();
+        const trimmed = line.trim();
+        if (!trimmed.startsWith('data: ')) continue;
+        const data = trimmed.slice(6).trim();
         if (!data || data === '[DONE]') continue;
 
         try {
