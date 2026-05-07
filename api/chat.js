@@ -63,32 +63,33 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid message' });
   }
 
-  // Sanitize all user messages
-  const sanitizedMessages = messages.map(function (m) {
-    return {
-      role: m.role,
-      content: m.role === 'user' ? stripHtml(m.content) : m.content,
-    };
-  });
+  // Sanitize all user messages, prepend system prompt as first message
+  const sanitizedMessages = [
+    { role: 'system', content: agentContext },
+    ...messages.map(function (m) {
+      return {
+        role: m.role,
+        content: m.role === 'user' ? stripHtml(m.content) : m.content,
+      };
+    }),
+  ];
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'Something went wrong. Try again.' });
   }
 
-  let claudeRes;
+  let llmRes;
   try {
-    claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
+    llmRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
+        'Authorization': 'Bearer ' + apiKey,
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'llama-3.3-70b-versatile',
         max_tokens: 500,
-        system: agentContext,
         messages: sanitizedMessages,
         stream: true,
       }),
@@ -97,16 +98,16 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Something went wrong. Try again.' });
   }
 
-  if (!claudeRes.ok) {
+  if (!llmRes.ok) {
     return res.status(500).json({ error: 'Something went wrong. Try again.' });
   }
 
-  // Stream SSE response
+  // Stream SSE response — Groq uses OpenAI-compatible format
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
 
-  const reader = claudeRes.body.getReader();
+  const reader = llmRes.body.getReader();
   const decoder = new TextDecoder();
   let sseBuffer = '';
 
@@ -130,9 +131,12 @@ export default async function handler(req, res) {
 
         try {
           const event = JSON.parse(data);
-          if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
+          // Groq/OpenAI format: choices[0].delta.content
+          const text = event.choices?.[0]?.delta?.content;
+          if (text) {
+            // Re-emit in our normalized format for the frontend
             res.write(
-              `data: ${JSON.stringify({ type: 'content_block_delta', delta: { text: event.delta.text } })}\n\n`
+              `data: ${JSON.stringify({ type: 'content_block_delta', delta: { text } })}\n\n`
             );
           }
         } catch {
