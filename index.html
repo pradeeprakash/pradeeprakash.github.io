@@ -9,7 +9,10 @@
   <meta name="theme-color" content="#0a0a0a">
 
   <!-- Security: CSP for GitHub Pages (no custom HTTP headers available) -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://cdn.jsdelivr.net https://portfolio-nu-six-g0nsnyjwbz.vercel.app; frame-ancestors 'none'; base-uri 'self'; form-action 'none'">
+  <!-- script-src hash covers the JSON-LD block below; regenerate with:
+       python3 -c "import hashlib,base64,re;c=open('index.html','rb').read();m=re.search(rb'<script type=\"application/ld\+json\">(.*?)</script>',c,re.DOTALL);print('sha256-'+base64.b64encode(hashlib.sha256(m.group(1)).digest()).decode())"
+       …if you edit that block. style-src 'unsafe-inline' is intentionally retained — element-level style props set by JS would break otherwise. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-X5hPVT85ldEWaDaWxx6wMu8Y9M6DDhWiu7FOXsKKSCk='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://cdn.jsdelivr.net https://portfolio-nu-six-g0nsnyjwbz.vercel.app; frame-ancestors 'none'; base-uri 'self'; form-action 'none'">
 
   <!-- Social preview -->
   <meta property="og:type" content="website">
@@ -122,13 +125,17 @@
           <span class="hero-status-dot" aria-hidden="true"></span>
           open to opportunities
         </div>
+        <div class="hero-now" aria-label="Currently working on">
+          <span class="hero-now-prefix" aria-hidden="true">~</span>
+          <span class="hero-now-label">now:</span>
+          <span class="hero-now-text">scaling Fynd Migrate to 100+ merchants</span>
+        </div>
         <div class="prompt-line">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
           <span class="typed-command" data-text="cat mission.txt"></span>
         </div>
         <div class="hero-mission">
-          Building scalable backend systems, fault-tolerant data pipelines,<br>
-          event-driven services, and the React frontends that surface them.
+          Building event-driven backends and the React frontends that surface them.
         </div>
         <div class="hero-cta-row">
           <a class="hero-cta" href="assets/Pradeep_Sr_Engineer_Resume.pdf" download data-command="resume">
@@ -466,10 +473,7 @@
   </div>
 
   <!-- Motion (pinned CDN module — exposes window.Motion; see CLAUDE.md "Motion") -->
-  <script type="module">
-    import * as Motion from "https://cdn.jsdelivr.net/npm/motion@11.13.5/+esm";
-    window.Motion = Motion;
-  </script>
+  <script type="module" src="js/motion-bootstrap.mjs"></script>
   <script src="js/typing.js" defer></script>
   <script src="js/effects.js" defer></script>
   <script src="js/palette.js" defer></script>

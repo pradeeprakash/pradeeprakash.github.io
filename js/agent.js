@@ -279,6 +279,25 @@
   }
 
   // ----------------------------------------------------------
+  // Rate-limit jokes (HTTP 429)
+  // ----------------------------------------------------------
+  var RATE_LIMIT_JOKES = [
+    'ERR 429: you type faster than I think. give me a sec.',
+    'rate_limit_exceeded — even chatbots need a coffee break.',
+    'whoa, slow down speed-runner. the API is wheezing.',
+    'kernel panic: enthusiasm overflow. take a breath.',
+    '429 too many requests — i\'m flattered, really, but pace yourself.',
+    'sigh… i\'m an LLM, not a vending machine. wait a moment.',
+    'rate limited. blame my tiny serverless brain, not me.',
+    '> sudo chill --duration=60s',
+    'busy buffering my excuses. try again shortly.',
+  ];
+
+  function pickRateLimitJoke() {
+    return RATE_LIMIT_JOKES[Math.floor(Math.random() * RATE_LIMIT_JOKES.length)];
+  }
+
+  // ----------------------------------------------------------
   // Streaming response
   // ----------------------------------------------------------
   function streamResponse(userText) {
@@ -304,8 +323,15 @@
     })
       .then(function (res) {
         if (!res.ok) {
+          var status = res.status;
           return res.json().then(function (data) {
-            throw new Error(data.error || 'Request failed');
+            var err = new Error(data.error || 'Request failed');
+            err.status = status;
+            throw err;
+          }, function () {
+            var err = new Error('Request failed');
+            err.status = status;
+            throw err;
           });
         }
         return readStream(res.body, cursorDiv, function (chunk) {
@@ -330,7 +356,9 @@
       })
       .catch(function (err) {
         cursorDiv.className = 'agent-msg agent-msg-error';
-        cursorDiv.textContent = err.message || 'Something went wrong. Try again.';
+        cursorDiv.textContent = err.status === 429
+          ? pickRateLimitJoke()
+          : (err.message || 'Something went wrong. Try again.');
 
         // Remove failed user message from conversation
         conversation.pop();
