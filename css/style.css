@@ -1409,14 +1409,6 @@ html.js-ready .hero-cube-wrap { display: flex; }
   }
 }
 
-/* Print: hide agent UI */
-@media print {
-  .agent-backdrop,
-  .agent-fab {
-    display: none !important;
-  }
-}
-
 /* No-JS: agent never renders (JS-created), but guard */
 html:not(.js-ready) .agent-fab {
   display: none;
