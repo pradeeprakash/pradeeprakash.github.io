@@ -175,10 +175,6 @@ window.delay = function (ms) {
       // Snap everything to final state
       if (firstCommand) firstCommand.textContent = firstCommand.dataset.text || '';
       if (secondCommand) secondCommand.textContent = secondCommand.dataset.text || '';
-      if (heroWelcome) {
-        var wc = heroWelcome.querySelector('.hero-welcome-content');
-        if (wc) wc.textContent = '> welcome recruiters. browse my journey, or ask my AI agent anything.';
-      }
       revealTargets.forEach(function (el) {
         if (el) { el.classList.remove('hidden'); el.classList.add('visible'); }
       });
@@ -199,11 +195,7 @@ window.delay = function (ms) {
     if (heroSubtitle) { heroSubtitle.classList.remove('hidden'); heroSubtitle.classList.add('visible'); }
 
     await delay(200);
-    if (heroWelcome) {
-      heroWelcome.classList.remove('hidden');
-      heroWelcome.classList.add('visible');
-      await window.typeText(heroWelcome.querySelector('.hero-welcome-content'), '> welcome recruiters. browse my journey, or ask my AI agent anything.', 35);
-    }
+    if (heroWelcome) { heroWelcome.classList.remove('hidden'); heroWelcome.classList.add('visible'); }
 
     await delay(180);
     if (heroStatus) { heroStatus.classList.remove('hidden'); heroStatus.classList.add('visible'); }
