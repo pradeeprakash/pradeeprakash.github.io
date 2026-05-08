@@ -3,16 +3,41 @@ import { join } from 'path';
 
 const agentContext = readFileSync(join(process.cwd(), 'data', 'agent-context.md'), 'utf-8');
 
-// Simple in-memory rate limiter (resets on cold start)
-const rateLimitMap = new Map();
+// Per-IP rate limit. Backed by Upstash Redis when env vars are configured;
+// falls back to a per-instance in-memory Map for local `vercel dev` (which
+// resets across instances, so it's only useful for offline dev).
 const RATE_LIMIT = 20;
-const RATE_WINDOW = 60 * 1000;
+const RATE_WINDOW_S = 60;
+const localRateLimitMap = new Map();
 
-function isRateLimited(ip) {
+async function isRateLimited(ip) {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+  if (url && token) {
+    // Fixed-window counter via Upstash REST pipeline (INCR + EXPIRE in one round-trip).
+    const window = Math.floor(Date.now() / 1000 / RATE_WINDOW_S);
+    const key = `rl:${ip}:${window}`;
+    try {
+      const res = await fetch(`${url}/pipeline`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify([['INCR', key], ['EXPIRE', key, RATE_WINDOW_S + 10]]),
+      });
+      if (!res.ok) return false; // fail-open on Upstash outage
+      const data = await res.json();
+      const count = Number(data?.[0]?.result ?? 0);
+      return count > RATE_LIMIT;
+    } catch {
+      return false; // fail-open on network error
+    }
+  }
+
+  // Local fallback (only effective per warm instance).
   const now = Date.now();
-  const entry = rateLimitMap.get(ip);
-  if (!entry || now - entry.start > RATE_WINDOW) {
-    rateLimitMap.set(ip, { start: now, count: 1 });
+  const entry = localRateLimitMap.get(ip);
+  if (!entry || now - entry.start > RATE_WINDOW_S * 1000) {
+    localRateLimitMap.set(ip, { start: now, count: 1 });
     return false;
   }
   entry.count++;
@@ -30,13 +55,13 @@ function stripHtml(str) {
 }
 
 export default async function handler(req, res) {
-  // CORS
+  // CORS — only echo ACAO for whitelisted origins; unknown origins get no header
+  // so the browser blocks the response cleanly.
   const origin = req.headers['origin'] || '';
   const allowed = ['https://pradeeprakash.github.io', 'https://portfolio-nu-six-g0nsnyjwbz.vercel.app'];
   if (allowed.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
-  } else {
-    res.setHeader('Access-Control-Allow-Origin', allowed[0]);
+    res.setHeader('Vary', 'Origin');
   }
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -50,8 +75,8 @@ export default async function handler(req, res) {
   }
 
   const ip = getClientIp(req);
-  if (isRateLimited(ip)) {
-    return res.status(429).json({ error: 'Too many requests. Wait a moment.' });
+  if (await isRateLimited(ip)) {
+    return res.status(429).json({ error: 'rate_limit_exceeded — even chatbots need a coffee break.' });
   }
 
   const body = req.body;
@@ -140,7 +165,10 @@ export default async function handler(req, res) {
           // Groq/OpenAI format: choices[0].delta.content
           const text = event.choices?.[0]?.delta?.content;
           if (text) {
-            // Re-emit in our normalized format for the frontend
+            // Emit Anthropic-shaped 'content_block_delta' events for the frontend reader.
+            // Naming is historical: the API was Anthropic-backed before commit e7e4016
+            // switched to Groq. Frontend agent.js parses this exact shape — do not rename
+            // without a coordinated client release (stale cached agent.js would break).
             res.write(
               `data: ${JSON.stringify({ type: 'content_block_delta', delta: { text } })}\n\n`
             );

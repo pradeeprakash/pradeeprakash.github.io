@@ -4,13 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project shape
 
-Static single-page portfolio with a terminal aesthetic — CRT scanline overlay, terminal chrome, cinematic boot sequence (desktop), typewriter for typed commands, ⌘K command palette (desktop) / Quick Actions sheet (mobile), and an easter-egg live shell. **No build system, no package manager, no tests, no framework.** Just `index.html`, `css/style.css`, and five vanilla-JS files loaded in a specific order. To preview, open `index.html` directly in a browser or serve the directory with any static server (e.g. `python3 -m http.server`).
+Static single-page portfolio with a terminal aesthetic — CRT scanline overlay, terminal chrome, cinematic boot sequence (desktop), typewriter for typed commands, ⌘K command palette (desktop) / Quick Actions sheet (mobile), an easter-egg live shell, and an **AI agent panel** (see "AI agent" section below) backed by a single Vercel serverless function (`api/chat.js`). The static page itself has **no build system, no package manager, no tests, no framework** — just `index.html`, `css/style.css`, seven vanilla-JS IIFE files, and a tiny ESM bootstrap (`js/motion-bootstrap.mjs`) loaded in a specific order. To preview the static side, open `index.html` directly in a browser or serve the directory with any static server (e.g. `python3 -m http.server`); to test the agent end-to-end, `vercel dev` (the function imports nothing it can't get from Node + `process.env`).
 
 The full design intent is captured in `docs/superpowers/specs/2026-04-16-ui-ux-redesign-design.md` — read it if you're asked to touch motion, interaction, or section structure.
 
 ## JS module layout and load order
 
-Scripts are loaded from `index.html` with `defer` in this order — the order still matters because later modules depend on globals exposed by earlier ones. An inline `type="module"` bootstrap runs first and exposes `window.Motion` from the CDN before any classic script executes (see **Motion** below):
+Scripts are loaded from `index.html` with `defer` in this order — the order still matters because later modules depend on globals exposed by earlier ones. A `type="module"` bootstrap (`js/motion-bootstrap.mjs`) runs first and exposes `window.Motion` from the CDN before any classic script executes (see **Motion** below):
 
 1. `js/typing.js` — Cinematic **boot overlay** (desktop, first visit only; gated on viewport, `prefers-reduced-motion`, `sessionStorage.portfolio.booted`, and deep-link hashes `#resume` / `#contact` / `?direct`). Runs the hero sequence after the overlay fades. **Attaches `window.typeText(el, text, speed)`** — every other typing effect must reuse this global rather than re-implementing it.
 2. `js/effects.js` — "Downloading…" animation + `[ OK ]` stamp on resume click.
@@ -18,8 +18,9 @@ Scripts are loaded from `index.html` with `defer` in this order — the order st
 4. `js/shell.js` — Easter-egg live prompt, mounted by `runCommand('shell')`, unmounted on `Esc`. Exposes `window.shellOpen`, `window.shellClose`, `window.shellClear`. Uses `window.runCommand` to dispatch typed input — the command set is single-sourced from `palette.js`.
 5. `js/scroll.js` — The orchestrator. Adds `html.js-ready` first thing to flip CSS out of its no-JS fallback. Owns section reveal, nav active-link tracking, smooth-scroll, mobile hamburger, the `> cd ~/<section>` breadcrumb micro-transition (desktop), and the current-role pulse on reveal. **Depends on `window.typeText` (typing.js)** — do not reorder the `<script>` tags.
 6. `js/cube.js` — Drives the rotation of `#hero-cube-3d`, a CSS 3D glass cube with six translucent neon-tinted faces (defined in the HTML and styled in `style.css`). Uses `Motion.animate` when `window.Motion` is available, falls back to `requestAnimationFrame` otherwise. Pauses when the hero leaves the viewport (IntersectionObserver) or the tab is hidden. Reduced-motion renders a single static pose and never starts the loop.
+7. `js/agent.js` — AI agent overlay (FAB + chat panel + SSE reader). Pushes a command into `window.commands` so the agent is reachable from ⌘K / mobile sheet / easter-egg shell. **Depends on `palette.js`** for the registry. See the **AI agent** section for the full architecture. ~4.5 KB gzipped.
 
-All six files use the IIFE + `'use strict'` pattern (except `typing.js`, which intentionally attaches globals).
+All seven files use the IIFE + `'use strict'` pattern (except `typing.js`, which intentionally attaches globals). `js/motion-bootstrap.mjs` is a separate ES module — its sole job is to import Motion from the CDN and assign `window.Motion`; the CSP allowlist gates this exact file.
 
 ## Command registry
 
@@ -101,9 +102,52 @@ Glass surfaces use two coupled properties: a tinted `background` (one of `--glas
 
 JetBrains Mono is **self-hosted** at `assets/fonts/jetbrains-mono-variable.woff2` (variable font, Latin subset, ~40 KB). It's preloaded in `<head>` with `rel="preload"` + `crossorigin`, declared via `@font-face` with `font-display: swap`, and referenced through the `--font-mono` fallback stack. Do not add a Google Fonts `<link>` — the font is local and must remain local to keep the perf budget and avoid a third-party dependency.
 
+## AI agent (`agent.js` + `/api/chat`)
+
+Two-tier feature: a vanilla-JS frontend overlay (`js/agent.js`) streams from a Vercel serverless function (`api/chat.js`) which proxies to **Groq's Llama 3.3 70B** with a system prompt loaded from `data/agent-context.md`. The static page hosts a floating ASCII-face FAB and a terminal-styled chat panel; the function is the only dynamic surface in the repo.
+
+**Files**
+- `js/agent.js` — IIFE'd frontend: FAB, panel mount/open/close, SSE reader, palette integration. Pre-mounts the panel hidden so first-open has no DOM-construction latency.
+- `api/chat.js` — Vercel Node serverless function. Validates input, rate-limits per IP, prepends the system prompt, calls Groq, re-emits the upstream SSE stream in a normalized shape.
+- `data/agent-context.md` — system prompt (persona, profile, recruiter capabilities, refusal boundaries, easter eggs). Read **once per cold start** via `readFileSync` at module-load time; **edits require a redeploy or a forced cold start** to take effect.
+
+**Required env vars (Vercel project)**
+- `GROQ_API_KEY` — Groq inference API key (free tier as of e7e4016).
+- `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` — back the per-IP rate limiter (20 req / 60 s fixed window). Provision via Vercel Marketplace → Upstash Redis (free tier covers this comfortably). Without these, `api/chat.js` falls back to a per-warm-instance in-memory `Map` — only useful for local `vercel dev`.
+
+**The hardcoded Vercel URL** `portfolio-nu-six-g0nsnyjwbz.vercel.app` appears in **four** places and they must update in lockstep if the deployment URL ever changes:
+- [js/agent.js](js/agent.js) — `API_URL` constant.
+- [api/chat.js](api/chat.js) — CORS allowlist.
+- [index.html](index.html) — CSP `connect-src` (meta tag).
+- [vercel.json](vercel.json) — CSP `connect-src` (response header).
+
+A custom domain (e.g. `api.pradeeprakash.dev`) would collapse all four into one — currently deferred.
+
+**Conversation lifecycle** is client-owned. Every request includes the full history (max `MAX_PAIRS * 2 = 20` entries, FIFO trim from the front). The server is stateless — there is no session storage. The conversation is **wiped on panel close** (`isOpen=false` resets `conversation = []` and `messagesEl.innerHTML`), so each session starts fresh; this is intentional privacy-by-default and not a bug.
+
+**Streaming protocol.** The function consumes Groq's OpenAI-shaped SSE chunks (`choices[0].delta.content`) and **re-emits them as `{type: 'content_block_delta', delta: {text}}`** — the Anthropic-native event shape. Naming is historical: the original implementation called Anthropic's API (commit `4124d09`) before being switched to Groq (`e7e4016`). The frontend reader in `agent.js` parses this exact shape — **do not rename without a coordinated client release** because stale browser-cached `agent.js` would break.
+
+**Reduced-motion parity.** The SSE reader appends a `textNode` for token-by-token rendering only when `prefers-reduced-motion: reduce` is **off**. With it on, the full response is buffered and rendered in a single shot at the end. Face animations (blink loop, scroll reactions) are skipped entirely — the FAB stays in `idle` and never blinks.
+
+**FAB face reactivity** has three layers, all gated on `!isOpen` so the face freezes while the panel is open:
+- Idle blink loop on a randomized 3–5 s cadence (`(o_o)` → `(- -)` → back).
+- Section-aware face on scroll: `hero/skills → curious`, `experience/projects → happy`, `contact → wave`. Throttled to 100 ms via a `setTimeout` flag.
+- Hover: `mouseenter` → `happy`, `mouseleave` → return to scroll-driven face.
+
+While the panel is open the face is set to `think` (`(>_<)`).
+
+**Palette integration.** On init, `agent.js` pushes `{ name: 'agent', aliases: ['ai', 'ask', 'chat'], action: open }` into `window.commands`. The agent is reachable from ⌘K, the mobile Quick Actions sheet, and the easter-egg shell — none of those surfaces know about `agent.js` directly. Public API: `window.agentOpen` / `window.agentClose`.
+
+### Known limitations
+
+- **The "NEVER reveal implementation" rule in `data/agent-context.md` is a soft instruction**, not a hard guard. Llama 3.3 70B is reasonably resistant to direct prompts, but a paraphrasing attacker can extract the model name or upstream provider. A regex output filter was considered and rejected — it would catch obvious leaks but not paraphrasing, and it creates the illusion of a security boundary. If this matters, the right fix is a smaller-scoped agent (no implementation details to leak) or a verified-output post-process — not a regex.
+- **The rate limiter uses a 60 s fixed window**, which has edge effects (a burst at second 59 + second 61 doubles the effective rate). Acceptable for a portfolio with no organic traffic; swap for a sliding window via `ZADD`/`ZCARD` if real abuse appears.
+- **No signed-token check from the page to `/api/chat`.** CORS gates browser access only; an attacker can `curl` the endpoint directly. The Upstash rate limiter is the only deterrent. Acceptable on Groq's free tier; add an HMAC-from-page check before moving to a paid plan.
+- **The CSP retains `style-src 'self' 'unsafe-inline'`** because element-level `style` properties are set by JS in several places. Removing `'unsafe-inline'` for styles would require auditing every `el.style.foo` in the codebase first.
+
 ## Motion (animation library)
 
-`motion@11.13.5` is loaded as an ES module from `cdn.jsdelivr.net` (pinned version) via an inline `<script type="module">` at the bottom of `<body>`, immediately before the classic deferred scripts. It imports the whole namespace and assigns it to `window.Motion`, so the IIFE scripts can call `window.Motion.animate(...)`, `window.Motion.inView(...)`, `window.Motion.scroll(...)`, `window.Motion.stagger(...)`, etc. without themselves being modules.
+`motion@11.13.5` is loaded as an ES module from `cdn.jsdelivr.net` (pinned version) via `js/motion-bootstrap.mjs`, a tiny standalone module loaded with `<script type="module" src="...">` at the bottom of `<body>`, immediately before the classic deferred scripts. It imports the whole namespace and assigns it to `window.Motion`, so the IIFE scripts can call `window.Motion.animate(...)`, `window.Motion.inView(...)`, `window.Motion.scroll(...)`, `window.Motion.stagger(...)`, etc. without themselves being modules. The bootstrap is in its own file (rather than inline) so the CSP `script-src` directive can drop `'unsafe-inline'`.
 
 **Why CDN, not self-hosted:** the standalone UMD build is ~22 KB gzipped, which alone exceeds the 20 KB JS budget. There is no prebuilt single-file ESM bundle, so self-hosting would require vendoring the full module graph or introducing a bundler — both off-spec for this repo. The CDN module is an intentional, documented exception to the "no third-party runtime dependency" rule used elsewhere (see **Fonts**). Keep the version pinned; do not switch to `@latest`.
 
@@ -117,17 +161,21 @@ JetBrains Mono is **self-hosted** at `assets/fonts/jetbrains-mono-variable.woff2
 
 Hard numbers from the spec: total initial transfer < 150 KB gzipped (HTML + CSS + JS + font), JS total < 20 KB gzipped, CSS < 25 KB gzipped, font < 60 KB, OG image < 60 KB, LCP < 1.5s on 4G mid-tier, TTI < 2.5s, CLS = 0. All scripts are `defer`. No Google Fonts, no polyfills, ES2020 baseline. **Motion** (see above) is the one sanctioned third-party runtime dep, loaded from `cdn.jsdelivr.net` as a pinned ES module; its bytes are not counted against the local JS budget but its CDN load time is on the critical path for animated reveals.
 
+**Current measurement (post-agent feature):** JS total ≈ 18 KB gzipped (sum of individually-served files) — `agent.js` alone is ~4.5 KB. CSS ≈ 9.9 KB gzipped. Both still under budget but the JS headroom is now thin (~2 KB). New JS features should justify their byte cost.
+
 ## Print styles
 
 `@media print` in `style.css` hides all terminal chrome and motion, swaps the page to black-on-white with system serif body + system mono for prompts, and appends `href` after every external link. It's ~40 lines and worth keeping tidy when adding new chrome.
 
 ## Assets
 
-- `assets/Pradeep_Sr_Engineer_Resume.pdf` — the linked resume download. The duplicate at the repo root exists but is not the one referenced from the page.
+- `assets/Pradeep_Sr_Engineer_Resume.pdf` — the linked resume download (single source of truth; the previously-tracked root-level duplicate was removed).
 - `assets/fonts/jetbrains-mono-variable.woff2` — self-hosted font.
 - `assets/og.jpg` — Open Graph preview image (1200×630, ~55 KB). Regenerate by opening `tools/og-generator.html`, element-screenshotting the `.og` block, and re-encoding as JPEG.
 - `assets/apple-touch-icon.png`, `favicon-32.png`, `favicon-16.png` — generated from `tools/favicon-generator.html` (screenshot each tile, crop to exact pixel size).
 
 ## Analytics
 
-No third-party analytics. The page is server-agnostic static HTML with zero tracking — keep it that way.
+No third-party analytics on the static page itself — no tracking pixels, no heatmaps, no Google Analytics. **Keep it that way.**
+
+**Exception, opt-in only:** when a visitor opens the AI agent panel and sends a message, the conversation is forwarded to `api/chat.js` (Vercel) → Groq → and back. No analytics layer wraps this; no message content is persisted by the function (Groq's data-handling policy applies upstream). The flow is dormant unless the user actively engages the agent. See the **AI agent** section.

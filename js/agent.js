@@ -11,6 +11,12 @@
   var MAX_PAIRS = 10;
   var MAX_MSG_LEN = 500;
 
+  var SUGGESTIONS = [
+    "Tell me about Fynd Migrate's architecture",
+    "Why is Pradeep a fit for a senior backend role?",
+    "What's his strongest technical depth?"
+  ];
+
   var backdrop = null;
   var panel = null;
   var messagesEl = null;
@@ -212,9 +218,47 @@
 
     if (conversation.length === 0) {
       appendMessage('agent', "Pradeep's AI. Ask me about his experience, skills, or projects — or paste a job description and I'll tell you why he's a fit.");
+      appendSuggestions();
     }
 
     setTimeout(function () { inputEl.focus(); }, 10);
+  }
+
+  function appendSuggestions() {
+    var wrap = document.createElement('div');
+    wrap.className = 'agent-suggestions';
+    wrap.setAttribute('role', 'list');
+
+    var label = document.createElement('span');
+    label.className = 'agent-suggestions-label';
+    label.textContent = 'try:';
+    wrap.appendChild(label);
+
+    SUGGESTIONS.forEach(function (text) {
+      var btn = document.createElement('button');
+      btn.className = 'agent-suggestion';
+      btn.type = 'button';
+      btn.setAttribute('role', 'listitem');
+      btn.textContent = text;
+      btn.addEventListener('click', function () { onSuggestionClick(text); });
+      wrap.appendChild(btn);
+    });
+
+    messagesEl.appendChild(wrap);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function removeSuggestions() {
+    if (!messagesEl) return;
+    var s = messagesEl.querySelector('.agent-suggestions');
+    if (s && s.parentNode) s.parentNode.removeChild(s);
+  }
+
+  function onSuggestionClick(prompt) {
+    if (streaming) return;
+    removeSuggestions();
+    appendMessage('user', prompt);
+    streamResponse(prompt);
   }
 
   function close() {
@@ -279,6 +323,25 @@
   }
 
   // ----------------------------------------------------------
+  // Rate-limit jokes (HTTP 429)
+  // ----------------------------------------------------------
+  var RATE_LIMIT_JOKES = [
+    'ERR 429: you type faster than I think. give me a sec.',
+    'rate_limit_exceeded — even chatbots need a coffee break.',
+    'whoa, slow down speed-runner. the API is wheezing.',
+    'kernel panic: enthusiasm overflow. take a breath.',
+    '429 too many requests — i\'m flattered, really, but pace yourself.',
+    'sigh… i\'m an LLM, not a vending machine. wait a moment.',
+    'rate limited. blame my tiny serverless brain, not me.',
+    '> sudo chill --duration=60s',
+    'busy buffering my excuses. try again shortly.',
+  ];
+
+  function pickRateLimitJoke() {
+    return RATE_LIMIT_JOKES[Math.floor(Math.random() * RATE_LIMIT_JOKES.length)];
+  }
+
+  // ----------------------------------------------------------
   // Streaming response
   // ----------------------------------------------------------
   function streamResponse(userText) {
@@ -304,8 +367,15 @@
     })
       .then(function (res) {
         if (!res.ok) {
+          var status = res.status;
           return res.json().then(function (data) {
-            throw new Error(data.error || 'Request failed');
+            var err = new Error(data.error || 'Request failed');
+            err.status = status;
+            throw err;
+          }, function () {
+            var err = new Error('Request failed');
+            err.status = status;
+            throw err;
           });
         }
         return readStream(res.body, cursorDiv, function (chunk) {
@@ -330,7 +400,9 @@
       })
       .catch(function (err) {
         cursorDiv.className = 'agent-msg agent-msg-error';
-        cursorDiv.textContent = err.message || 'Something went wrong. Try again.';
+        cursorDiv.textContent = err.status === 429
+          ? pickRateLimitJoke()
+          : (err.message || 'Something went wrong. Try again.');
 
         // Remove failed user message from conversation
         conversation.pop();
@@ -405,6 +477,7 @@
       var value = inputEl.value.trim();
       if (!value || streaming) return;
       inputEl.value = '';
+      removeSuggestions();
       appendMessage('user', value);
       streamResponse(value);
     } else if (e.key === 'Tab') {

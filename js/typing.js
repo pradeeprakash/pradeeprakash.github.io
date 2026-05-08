@@ -160,13 +160,14 @@ window.delay = function (ms) {
     var heroName       = heroSection.querySelector('.hero-name');
     var heroSubtitle   = heroSection.querySelector('.hero-subtitle');
     var heroStatus     = heroSection.querySelector('.hero-status');
+    var heroNow        = heroSection.querySelector('.hero-now');
     var secondPromptLine = promptLines[1];
     var secondCommand    = secondPromptLine && secondPromptLine.querySelector('.typed-command');
     var heroMission    = heroSection.querySelector('.hero-mission');
     var heroCta        = heroSection.querySelector('.hero-cta-row');
     var finalPrompt    = promptLines[2];
 
-    var revealTargets = [lastLogin, heroName, heroSubtitle, heroStatus, heroMission, heroCta, finalPrompt];
+    var revealTargets = [lastLogin, heroName, heroSubtitle, heroStatus, heroNow, heroMission, heroCta, finalPrompt];
     revealTargets.forEach(function (el) { if (el) el.classList.add('hidden'); });
 
     if (fast) {
@@ -194,6 +195,9 @@ window.delay = function (ms) {
 
     await delay(180);
     if (heroStatus) { heroStatus.classList.remove('hidden'); heroStatus.classList.add('visible'); }
+
+    await delay(140);
+    if (heroNow) { heroNow.classList.remove('hidden'); heroNow.classList.add('visible'); }
 
     await delay(400);
     if (secondCommand) await window.typeText(secondCommand, secondCommand.dataset.text, 55);

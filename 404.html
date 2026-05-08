@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — file not found · Pradeep Prakash</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0a0a0a">
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'none'">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='14' font-family='monospace' fill='%2322d88b'%3E%E2%9D%AF%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+
+  <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-404">
+  <a class="skip-link" href="#error-main">Skip to content</a>
+
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <main class="error-page" id="error-main">
+    <div class="terminal error-terminal">
+      <div class="terminal-titlebar">
+        <div class="terminal-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <span class="terminal-title">pradeep@portfolio ~ </span>
+        <span class="terminal-status" aria-hidden="true">
+          tty1<span class="dim">·</span><span class="error-status-code">err 404</span>
+        </span>
+      </div>
+
+      <div class="terminal-body error-body">
+        <div class="terminal-line faded">Last login: Mon Apr 14 09:32:01 on ttys001</div>
+
+        <div class="prompt-line">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <span class="error-cmd">cat <span data-error-path>/</span></span>
+        </div>
+        <div class="error-output">
+          cat: <span data-error-path>/</span>: No such file or directory
+        </div>
+
+        <div class="prompt-line">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <span class="error-cmd">cd ~ &amp;&amp; ls</span>
+        </div>
+        <nav class="error-ls" aria-label="Available sections">
+          <a href="/#about">about/</a>
+          <a href="/#experience">experience/</a>
+          <a href="/#projects">projects/</a>
+          <a href="/#skills">skills/</a>
+          <a href="/#contact">contact/</a>
+        </nav>
+
+        <div class="prompt-line">
+          <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
+          <a href="/" class="error-home">cd ~</a><span class="cursor" aria-hidden="true">▋</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/error.js" defer></script>
+</body>
+</html>
