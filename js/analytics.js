@@ -14,7 +14,8 @@
   // explicit decision (no project rename). Update when adding a custom
   // domain or renaming the Vercel project.
   var CANONICAL_HOSTS = [
-    'portfolio-nu-six-g0nsnyjwbz.vercel.app',
+    'pradeeprakash.github.io',
+    'portfolio-pvmsppd3m-pradeeprakashs-projects.vercel.app',
   ];
 
   function isProductionHost() {
