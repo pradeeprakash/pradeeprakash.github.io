@@ -627,13 +627,23 @@
     };
   }
 
+  function checkMicPermission() {
+    if (navigator.permissions && navigator.permissions.query) {
+      return navigator.permissions.query({ name: 'microphone' }).then(function (result) {
+        return result.state; // 'granted', 'prompt', or 'denied'
+      });
+    }
+    return Promise.resolve('prompt');
+  }
+
   function requestMicPermission() {
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return Promise.resolve();
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      return Promise.reject(new Error('unsupported'));
+    }
     return navigator.mediaDevices.getUserMedia({ audio: true })
       .then(function (stream) {
         stream.getTracks().forEach(function (t) { t.stop(); });
-      })
-      .catch(function () {}); // Silently handled by recognition.onerror
+      });
   }
 
   function toggleMic() {
@@ -646,18 +656,30 @@
     }
     if (streaming) return;
 
-    // Request permission first so the browser shows a clean prompt
-    requestMicPermission().then(function () {
-      isListening = true;
-      var btn = backdrop.querySelector('.agent-mic');
-      if (btn) btn.classList.add('listening');
-      try {
-        recognition.start();
-      } catch (e) {
-        isListening = false;
-        if (btn) btn.classList.remove('listening');
+    checkMicPermission().then(function (state) {
+      if (state === 'denied') {
+        appendMessage('error', 'mic is blocked — click the lock icon in the url bar, set microphone to "allow", then try again');
+        if (inputEl) inputEl.focus();
+        return;
       }
+      requestMicPermission().then(function () {
+        startListening();
+      }).catch(function () {
+        // Permission denied by user
+      });
     });
+  }
+
+  function startListening() {
+    isListening = true;
+    var btn = backdrop.querySelector('.agent-mic');
+    if (btn) btn.classList.add('listening');
+    try {
+      recognition.start();
+    } catch (e) {
+      isListening = false;
+      if (btn) btn.classList.remove('listening');
+    }
   }
 
   // ----------------------------------------------------------
