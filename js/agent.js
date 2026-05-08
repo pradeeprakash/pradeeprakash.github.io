@@ -615,11 +615,25 @@
       isListening = false;
       var btn = backdrop && backdrop.querySelector('.agent-mic');
       if (btn) btn.classList.remove('listening');
-      if (e.error !== 'no-speech' && e.error !== 'aborted') {
-        appendMessage('error', 'mic error: ' + e.error);
+      if (e.error === 'no-speech' || e.error === 'aborted') {
+        if (inputEl) inputEl.focus();
+        return;
       }
+      var msg = e.error === 'not-allowed'
+        ? 'mic blocked — allow microphone access in your browser and try again'
+        : 'mic error: ' + e.error;
+      appendMessage('error', msg);
       if (inputEl) inputEl.focus();
     };
+  }
+
+  function requestMicPermission() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return Promise.resolve();
+    return navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(function (stream) {
+        stream.getTracks().forEach(function (t) { t.stop(); });
+      })
+      .catch(function () {}); // Silently handled by recognition.onerror
   }
 
   function toggleMic() {
@@ -632,10 +646,18 @@
     }
     if (streaming) return;
 
-    isListening = true;
-    var btn = backdrop.querySelector('.agent-mic');
-    if (btn) btn.classList.add('listening');
-    recognition.start();
+    // Request permission first so the browser shows a clean prompt
+    requestMicPermission().then(function () {
+      isListening = true;
+      var btn = backdrop.querySelector('.agent-mic');
+      if (btn) btn.classList.add('listening');
+      try {
+        recognition.start();
+      } catch (e) {
+        isListening = false;
+        if (btn) btn.classList.remove('listening');
+      }
+    });
   }
 
   // ----------------------------------------------------------
