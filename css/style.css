@@ -36,6 +36,7 @@
 
   /* effects */
   --phosphor-glow: 0 0 12px rgba(34, 216, 139, 0.18);
+  --claude-purple: #a78bfa;
 
   /* typography */
   --font-mono: 'JetBrains Mono', 'Berkeley Mono', 'IBM Plex Mono', ui-monospace, 'Menlo', 'Consolas', monospace;
@@ -411,8 +412,8 @@ body {
 .hero-name {
   font-size: var(--fs-lg);
   font-weight: 700;
-  color: var(--green-bright);
-  text-shadow: 0 0 14px rgba(91, 255, 176, 0.22);
+  color: var(--claude-purple);
+  text-shadow: 0 0 14px rgba(167, 139, 250, 0.35);
   margin: 12px 0 4px;
   display: inline-block;
   letter-spacing: -0.01em;
