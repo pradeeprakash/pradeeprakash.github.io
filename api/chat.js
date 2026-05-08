@@ -58,7 +58,7 @@ export default async function handler(req, res) {
   // CORS — only echo ACAO for whitelisted origins; unknown origins get no header
   // so the browser blocks the response cleanly.
   const origin = req.headers['origin'] || '';
-  const allowed = ['https://pradeeprakash.github.io', 'https://portfolio-nu-six-g0nsnyjwbz.vercel.app'];
+  const allowed = [];
   if (allowed.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
     res.setHeader('Vary', 'Origin');
