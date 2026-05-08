@@ -51,7 +51,7 @@ function getClientIp(req) {
 }
 
 function stripHtml(str) {
-  return str.replace(/<[^>]*>/g, '');
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 export default async function handler(req, res) {

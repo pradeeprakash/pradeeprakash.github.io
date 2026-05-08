@@ -257,8 +257,8 @@ to the per-line comments in `agent.js` and `chat.js`.
 
 4. **Fetch.** `fetch(API_URL, { method: 'POST', body:
    JSON.stringify({ messages: conversation }) })`
-   ([js/agent.js:319-323](../../js/agent.js#L319-L323)). The URL is the
-   hardcoded production Vercel domain — see §6.
+    ([js/agent.js:319-323](../../js/agent.js#L319-L323)). The URL is a
+    relative path (`/api/chat`) — see §6.
 
 5. **Server-side validation + rate limit.**
    [api/chat.js:57-95](../../api/chat.js#L57-L95):
@@ -416,8 +416,8 @@ There are no env vars on the frontend.
 
 | Value | Location | Notes |
 |---|---|---|
-| `API_URL` = `https://portfolio-nu-six-g0nsnyjwbz.vercel.app/api/chat` | [js/agent.js:10](../../js/agent.js#L10) | Pinned to a specific Vercel deployment. Blocks local-dev wiring against a relative path. Tracked in §9. |
-| CORS allow-list | [api/chat.js:61](../../api/chat.js#L61) | `pradeeprakash.github.io` and the same Vercel domain. |
+| `API_URL` = `'/api/chat'` (relative) | [js/agent.js:10](../../js/agent.js#L10) | Same-origin after analytics migration (2026-05-08). Works with any host without config. |
+| CORS allow-list | [api/chat.js:61](../../api/chat.js#L61) | Empty — production is same-origin, no ACAO needed. Only blocks cross-origin requests, which is correct. |
 | `RATE_LIMIT` = 20 / `RATE_WINDOW_S` = 60 | [api/chat.js:9-10](../../api/chat.js#L9-L10) | Per-IP, fixed window. |
 | Upstash key shape | [api/chat.js:19-20](../../api/chat.js#L19-L20) | `rl:{ip}:{floor(now/60)}` with `EXPIRE = 70s` (window + 10s slack). |
 | Model | [api/chat.js:122](../../api/chat.js#L122) | `llama-3.3-70b-versatile` |
@@ -477,9 +477,9 @@ The whole site is served with these headers
 
 - **Content-Security-Policy** — `default-src 'none'`, with explicit
   allow-lists for `script-src`, `style-src`, `font-src`, `img-src`, and
-  `connect-src`. The hardcoded production Vercel domain is in
-  `connect-src` so the agent's `fetch` is permitted; `cdn.jsdelivr.net`
-  is allow-listed for the Motion ESM module.
+  `connect-src`. The policy uses `connect-src 'self'` so the agent's
+  `fetch` to `/api/chat` is permitted; `cdn.jsdelivr.net` is
+  allow-listed for the Motion ESM module.
 - **X-Frame-Options: DENY** + CSP `frame-ancestors 'none'` —
   no embedding.
 - **Strict-Transport-Security** — `max-age=63072000; includeSubDomains;
@@ -593,9 +593,9 @@ implementation choices captured here for traceability.
 | # | Concern | Spec intent | As-built | Why / impact |
 |---|---|---|---|---|
 | 1 | LLM provider | Anthropic Claude Haiku 4.5 | Groq Llama 3.3-70b ([api/chat.js:122](../../api/chat.js#L122)) | Cost / first-token-latency choice. The frontend still parses Anthropic-shaped SSE because the server normalizes Groq's OpenAI-shaped chunks ([api/chat.js:172-174](../../api/chat.js#L172-L174)). Provider can be swapped without touching the frontend. |
-| 2 | API URL | Relative (so the same code runs on any host) | Hardcoded production Vercel domain ([js/agent.js:10](../../js/agent.js#L10)) | Blocks local development against a relative path. Tech-debt; safe to fix without architectural change. |
+| 2 | API URL | Relative (so the same code runs on any host) | Relative path `/api/chat` ([js/agent.js:10](../../js/agent.js#L10)) | Same-origin after analytics migration (2026-05-08). Works on any host. |
 | 3 | Floating button | A simple `[ AI ]` terminal-styled button | Animated ASCII-face FAB with seven expressions, blinking, hover reactions, scroll-driven section mapping ([js/agent.js:60-177](../../js/agent.js#L60-L177)) | Richer mascot; aligns with the project's terminal aesthetic and gives the agent visible "personality" before the panel is opened. |
-| 4 | Security headers | Not in original spec | CSP, X-Frame-Options, HSTS preload, Referrer-Policy, Permissions-Policy, X-Content-Type-Options, X-DNS-Prefetch-Control ([vercel.json:5-21](../../vercel.json#L5-L21)); added in commit `39e6a05`. | Added defensively after the agent went live. Worth reading the CSP `connect-src` line before relocating the API endpoint — the production Vercel domain is hardcoded there too. |
+| 4 | Security headers | Not in original spec | CSP, X-Frame-Options, HSTS preload, Referrer-Policy, Permissions-Policy, X-Content-Type-Options, X-DNS-Prefetch-Control ([vercel.json:5-21](../../vercel.json#L5-L21)); added in commit `39e6a05`. | Added defensively after the agent went live. `connect-src 'self'` permits the relative `/api/chat` endpoint. |
 | 5 | Rate limiting | "In-memory counter per IP" | Upstash Redis fixed-window counter (durable across cold starts) with in-memory fallback for offline `vercel dev` ([api/chat.js:13-45](../../api/chat.js#L13-L45)) | The spec's in-memory limiter was effective per warm instance only — Upstash makes the limit hold across cold starts and across Vercel routing. Fail-open on Upstash outage is an explicit choice (see §7.4). |
 | 6 | 429 UX | Generic error text | One of nine random `RATE_LIMIT_JOKES` rendered client-side; server JSON ignored on 429 ([js/agent.js:284-298, 358-361](../../js/agent.js#L284-L298)) | Cosmetic; matches the project's terminal humour. |
 | 7 | Conversation depth cap | "10 message pairs" in the spec | 10 pairs / 20 messages. Matches the spec on this point. | No drift — included for completeness. |

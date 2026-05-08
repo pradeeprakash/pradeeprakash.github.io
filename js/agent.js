@@ -267,6 +267,8 @@
     backdrop.classList.remove('open');
     backdrop.setAttribute('aria-hidden', 'true');
 
+    document.removeEventListener('keydown', onDocKey);
+
     // Clear conversation on close
     conversation = [];
     if (messagesEl) messagesEl.innerHTML = '';

@@ -239,6 +239,8 @@
       var li = document.createElement('li');
       li.className = 'palette-item';
       li.setAttribute('role', 'option');
+      li.setAttribute('aria-setsize', filtered.length);
+      li.setAttribute('aria-posinset', i + 1);
       li.setAttribute('aria-selected', i === selectedIdx ? 'true' : 'false');
       li.id = 'palette-item-' + i;
       li.innerHTML =
