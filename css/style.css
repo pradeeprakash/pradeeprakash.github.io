@@ -435,6 +435,18 @@ body {
   margin-bottom: 14px;
 }
 
+.hero-welcome {
+  color: var(--gray);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  margin-bottom: 14px;
+  min-height: 1.55em;
+}
+
+.hero-welcome-content {
+  color: var(--gray);
+}
+
 .hero-status {
   display: inline-flex;
   align-self: flex-start;
@@ -2191,7 +2203,7 @@ html:not(.js-ready) .nav-kbd-hint {
   .prompt, .prompt-symbol, .json-key, .json-string, .json-bracket,
   .json-status, .tag, .bullet-arrow, .contact-label, .contact-link,
   .contact-resume, .skill-category-label, .exp-role, .exp-company,
-  .hero-subtitle, .hero-mission, .exp-current-pill, .hero-status,
+  .hero-subtitle, .hero-welcome, .hero-mission, .exp-current-pill, .hero-status,
   .hero-now, .hero-now-prefix, .hero-now-label, .hero-now-text {
     color: #000 !important;
     background: none !important;
