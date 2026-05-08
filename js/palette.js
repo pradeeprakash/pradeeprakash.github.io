@@ -74,21 +74,6 @@
   }
 
   // ----------------------------------------------------------
-  // Analytics — single source of truth for which commands are tracked.
-  // Returns null for commands that should NOT fire an event.
-  // ----------------------------------------------------------
-  var TRACKED = {
-    resume:   { name: 'resume_download' },
-    email:    { name: 'contact_click', props: { channel: 'email' } },
-    linkedin: { name: 'contact_click', props: { channel: 'linkedin' } },
-    github:   { name: 'contact_click', props: { channel: 'github' } },
-  };
-
-  function mapToTrackEvent(commandName) {
-    return TRACKED[commandName] || null;
-  }
-
-  // ----------------------------------------------------------
   // Public API
   // ----------------------------------------------------------
   window.commands = commands;
@@ -99,10 +84,6 @@
     var cmd = findCommand(token);
     if (!cmd) {
       return { ok: false, output: "command not found: " + token + ". try 'help'." };
-    }
-    if (window.track) {
-      var ev = mapToTrackEvent(token);
-      if (ev) window.track(ev.name, ev.props);
     }
     var out;
     try { out = cmd.action(); } catch (e) { out = 'error: ' + e.message; }
@@ -127,17 +108,7 @@
       if (!el) return;
       var name = el.getAttribute('data-command');
       if (!name) return;
-      // Plain anchors already navigate; fire tracking inline (runCommand
-      // would invoke cmd.action() which conflicts with native anchor
-      // behavior — e.g. resume's link.click() would open the file twice).
-      // Gate tracking on e.isTrusted so synthetic clicks dispatched by
-      // cmdResume's link.click() don't double-fire (runCommand already
-      // tracked the resume_download in that path).
       if (el.tagName === 'A' && !e.defaultPrevented) {
-        if (e.isTrusted && window.track) {
-          var ev = mapToTrackEvent(name);
-          if (ev) window.track(ev.name, ev.props);
-        }
         return;
       }
       if (el.tagName === 'BUTTON') e.preventDefault();
