@@ -1470,6 +1470,7 @@ html.js-ready .hero-cube-wrap { display: flex; }
 }
 
 .agent-fab.entered {
+  opacity: 1;
   animation: agent-float 4s ease-in-out infinite;
 }
 
