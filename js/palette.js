@@ -127,8 +127,16 @@
       if (!el) return;
       var name = el.getAttribute('data-command');
       if (!name) return;
-      // Plain anchors already navigate; let the browser handle them.
-      if (el.tagName === 'A' && !e.defaultPrevented) return;
+      // Plain anchors already navigate; fire tracking inline (runCommand
+      // would invoke cmd.action() which conflicts with native anchor
+      // behavior — e.g. resume's link.click() would open the file twice).
+      if (el.tagName === 'A' && !e.defaultPrevented) {
+        if (window.track) {
+          var ev = mapToTrackEvent(name);
+          if (ev) window.track(ev.name, ev.props);
+        }
+        return;
+      }
       if (el.tagName === 'BUTTON') e.preventDefault();
       window.runCommand(name);
     });
