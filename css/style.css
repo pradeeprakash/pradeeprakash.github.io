@@ -1421,6 +1421,57 @@ html.js-ready .hero-cube-wrap { display: flex; }
   outline: none;
 }
 
+/* Voice buttons */
+.agent-mic,
+.agent-speaker {
+  flex-shrink: 0;
+  background: none;
+  border: 1px solid var(--green-dim);
+  border-radius: 3px;
+  color: var(--gray);
+  font-size: 14px;
+  padding: 2px 6px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color var(--t-fast), border-color var(--t-fast), box-shadow var(--t-fast);
+  font-family: inherit;
+}
+
+.agent-mic:hover,
+.agent-speaker:hover:not(:disabled) {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+.agent-mic:focus-visible,
+.agent-speaker:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+.agent-mic.listening {
+  color: var(--red);
+  border-color: var(--red);
+  box-shadow: 0 0 12px rgba(255, 107, 107, 0.3);
+  animation: mic-pulse 1s ease-in-out infinite;
+}
+
+.agent-speaker:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.agent-speaker.speaking {
+  color: var(--green-bright);
+  border-color: var(--green-bright);
+  box-shadow: 0 0 10px rgba(91, 255, 176, 0.25);
+}
+
+@keyframes mic-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(255, 107, 107, 0.2); }
+  50%      { box-shadow: 0 0 16px rgba(255, 107, 107, 0.5); }
+}
+
 /* Floating trigger button — ASCII face */
 @keyframes agent-entrance {
   0%   { opacity: 0; transform: translateX(60px) scale(0.6); }
@@ -1606,6 +1657,14 @@ html.js-ready .hero-cube-wrap { display: flex; }
   .agent-suggestion:focus-visible {
     transform: none;
     text-shadow: none;
+  }
+
+  .agent-mic.listening {
+    animation: none;
+  }
+
+  .agent-speaker.speaking {
+    animation: none;
   }
 }
 

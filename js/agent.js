@@ -30,6 +30,10 @@
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var tooltip = null;
   var attentionTimer = null;
+  var recognition = null;
+  var isListening = false;
+  var speechSupported = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
+  var ttsSupported = 'speechSynthesis' in window;
 
   // ----------------------------------------------------------
   // DOM builders
@@ -41,6 +45,13 @@
     bd.setAttribute('aria-modal', 'true');
     bd.setAttribute('aria-label', 'AI Agent');
     bd.setAttribute('aria-hidden', 'true');
+
+    var micBtn = speechSupported
+      ? '<button class="agent-mic" type="button" aria-label="Voice input" title="Voice input">🎤</button>'
+      : '';
+    var speakerBtn = ttsSupported
+      ? '<button class="agent-speaker" type="button" aria-label="Read response aloud" title="Read aloud" disabled>🔊</button>'
+      : '';
 
     bd.innerHTML =
       '<div class="agent-panel">' +
@@ -56,6 +67,8 @@
             'aria-label="Message the AI agent" ' +
             'autocomplete="off" spellcheck="false" ' +
             'maxlength="' + MAX_MSG_LEN + '">' +
+          micBtn +
+          speakerBtn +
         '</div>' +
       '</div>';
 
@@ -238,6 +251,15 @@
     });
     closeBtn.addEventListener('click', close);
     inputEl.addEventListener('keydown', onInputKey);
+
+    var micBtn = backdrop.querySelector('.agent-mic');
+    if (micBtn) micBtn.addEventListener('click', toggleMic);
+
+    var speakerBtn = backdrop.querySelector('.agent-speaker');
+    if (speakerBtn) speakerBtn.addEventListener('click', function () {
+      var lastMsg = messagesEl.querySelector('.agent-msg-agent:last-of-type');
+      if (lastMsg) speakResponse(lastMsg.textContent);
+    });
 
     document.addEventListener('keydown', onDocKey);
   }
@@ -548,6 +570,123 @@
         }
       });
     }
+  }
+
+  // ----------------------------------------------------------
+  // Voice input (Speech Recognition)
+  // ----------------------------------------------------------
+  function initRecognition() {
+    if (!speechSupported) return;
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SR();
+    recognition.lang = 'en-US';
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+
+    recognition.onresult = function (e) {
+      var transcript = '';
+      for (var i = e.resultIndex; i < e.results.length; i++) {
+        transcript += e.results[i][0].transcript;
+        if (e.results[i].isFinal) {
+          inputEl.value = transcript;
+          inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      }
+      if (!transcript) return;
+      inputEl.value = transcript;
+    };
+
+    recognition.onend = function () {
+      isListening = false;
+      var btn = backdrop && backdrop.querySelector('.agent-mic');
+      if (btn) btn.classList.remove('listening');
+      if (inputEl) inputEl.focus();
+      // Auto-submit if we got a final result
+      var val = inputEl && inputEl.value.trim();
+      if (val) {
+        inputEl.value = '';
+        removeSuggestions();
+        appendMessage('user', val);
+        streamResponse(val);
+      }
+    };
+
+    recognition.onerror = function (e) {
+      isListening = false;
+      var btn = backdrop && backdrop.querySelector('.agent-mic');
+      if (btn) btn.classList.remove('listening');
+      if (e.error !== 'no-speech' && e.error !== 'aborted') {
+        appendMessage('error', 'mic error: ' + e.error);
+      }
+      if (inputEl) inputEl.focus();
+    };
+  }
+
+  function toggleMic() {
+    if (!recognition) initRecognition();
+    if (!recognition) return;
+
+    if (isListening) {
+      recognition.stop();
+      return;
+    }
+    if (streaming) return;
+
+    isListening = true;
+    var btn = backdrop.querySelector('.agent-mic');
+    if (btn) btn.classList.add('listening');
+    recognition.start();
+  }
+
+  // ----------------------------------------------------------
+  // Voice output (Speech Synthesis)
+  // ----------------------------------------------------------
+  var speaking = false;
+  var currentUtterance = null;
+
+  function speakResponse(text) {
+    if (!ttsSupported) return;
+    if (speaking) {
+      speechSynthesis.cancel();
+      speaking = false;
+      updateSpeakerBtn();
+      return;
+    }
+
+    // Strip HTML for cleaner reading
+    var clean = text.replace(/<[^>]+>/g, '');
+    if (!clean.trim()) return;
+    // Trim to avoid extremely long speech
+    clean = clean.slice(0, 1000);
+
+    currentUtterance = new SpeechSynthesisUtterance(clean);
+    currentUtterance.rate = 1.0;
+    currentUtterance.pitch = 1.0;
+
+    currentUtterance.onstart = function () {
+      speaking = true;
+      updateSpeakerBtn();
+    };
+
+    currentUtterance.onend = function () {
+      speaking = false;
+      updateSpeakerBtn();
+    };
+
+    currentUtterance.onerror = function () {
+      speaking = false;
+      updateSpeakerBtn();
+    };
+
+    speechSynthesis.speak(currentUtterance);
+  }
+
+  function updateSpeakerBtn() {
+    var btn = backdrop && backdrop.querySelector('.agent-speaker');
+    if (!btn) return;
+    btn.classList.toggle('speaking', speaking);
+    btn.textContent = speaking ? '🔊' : '🔊';
+    btn.setAttribute('aria-label', speaking ? 'Stop reading' : 'Read response aloud');
   }
 
   // ----------------------------------------------------------
