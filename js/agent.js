@@ -11,6 +11,12 @@
   var MAX_PAIRS = 10;
   var MAX_MSG_LEN = 500;
 
+  var SUGGESTIONS = [
+    "Tell me about Fynd Migrate's architecture",
+    "Why is Pradeep a fit for a senior backend role?",
+    "What's his strongest technical depth?"
+  ];
+
   var backdrop = null;
   var panel = null;
   var messagesEl = null;
@@ -212,9 +218,47 @@
 
     if (conversation.length === 0) {
       appendMessage('agent', "Pradeep's AI. Ask me about his experience, skills, or projects — or paste a job description and I'll tell you why he's a fit.");
+      appendSuggestions();
     }
 
     setTimeout(function () { inputEl.focus(); }, 10);
+  }
+
+  function appendSuggestions() {
+    var wrap = document.createElement('div');
+    wrap.className = 'agent-suggestions';
+    wrap.setAttribute('role', 'list');
+
+    var label = document.createElement('span');
+    label.className = 'agent-suggestions-label';
+    label.textContent = 'try:';
+    wrap.appendChild(label);
+
+    SUGGESTIONS.forEach(function (text) {
+      var btn = document.createElement('button');
+      btn.className = 'agent-suggestion';
+      btn.type = 'button';
+      btn.setAttribute('role', 'listitem');
+      btn.textContent = text;
+      btn.addEventListener('click', function () { onSuggestionClick(text); });
+      wrap.appendChild(btn);
+    });
+
+    messagesEl.appendChild(wrap);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function removeSuggestions() {
+    if (!messagesEl) return;
+    var s = messagesEl.querySelector('.agent-suggestions');
+    if (s && s.parentNode) s.parentNode.removeChild(s);
+  }
+
+  function onSuggestionClick(prompt) {
+    if (streaming) return;
+    removeSuggestions();
+    appendMessage('user', prompt);
+    streamResponse(prompt);
   }
 
   function close() {
@@ -433,6 +477,7 @@
       var value = inputEl.value.trim();
       if (!value || streaming) return;
       inputEl.value = '';
+      removeSuggestions();
       appendMessage('user', value);
       streamResponse(value);
     } else if (e.key === 'Tab') {

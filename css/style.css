@@ -454,6 +454,27 @@ body {
   50%      { opacity: 0.5; transform: scale(0.9); }
 }
 
+.hero-now {
+  display: inline-flex;
+  align-self: flex-start;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  margin-top: -10px;
+  margin-bottom: 22px;
+  letter-spacing: 0.01em;
+}
+
+.hero-now-prefix,
+.hero-now-label {
+  color: var(--green-dim);
+}
+
+.hero-now-text {
+  color: var(--white-soft);
+}
+
 .hero-mission {
   color: var(--white);
   line-height: var(--lh-loose);
@@ -1309,6 +1330,51 @@ html.js-ready .hero-cube-wrap { display: flex; }
   animation: blink-cursor 1s step-end infinite;
 }
 
+.agent-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin: 2px 0 14px;
+}
+
+.agent-suggestions-label {
+  color: var(--green-dim);
+  font-size: var(--fs-xs);
+  margin-right: 2px;
+}
+
+.agent-suggestion {
+  font: inherit;
+  font-size: var(--fs-xs);
+  color: var(--green);
+  background: rgba(34, 216, 139, 0.04);
+  border: 1px solid var(--green-dim);
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background var(--t-fast) linear,
+    border-color var(--t-fast) linear,
+    color var(--t-fast) linear,
+    transform var(--t-fast) var(--ease-out-expo);
+}
+
+.agent-suggestion:hover,
+.agent-suggestion:focus-visible {
+  background: rgba(34, 216, 139, 0.10);
+  border-color: var(--green-bright);
+  color: var(--green-bright);
+  text-shadow: var(--phosphor-glow);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.agent-suggestion:active {
+  transform: translateY(0);
+}
+
 @keyframes blink-cursor {
   50% { opacity: 0; }
 }
@@ -1437,6 +1503,16 @@ html.js-ready .hero-cube-wrap { display: flex; }
 
   .agent-fab:hover {
     transform: none;
+  }
+
+  .agent-suggestion {
+    transition: none;
+  }
+
+  .agent-suggestion:hover,
+  .agent-suggestion:focus-visible {
+    transform: none;
+    text-shadow: none;
   }
 }
 
@@ -1756,6 +1832,100 @@ html:not(.js-ready) .nav-kbd-hint {
 }
 
 /* ============================================================
+   404 PAGE
+   ============================================================ */
+.page-404 {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.error-page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px 60px;
+}
+
+.error-terminal {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.error-body {
+  padding: 22px 24px 26px;
+}
+
+.error-status-code {
+  color: var(--red);
+  letter-spacing: 0.04em;
+}
+
+.error-cmd {
+  color: var(--green);
+}
+
+.error-output {
+  color: var(--red);
+  font-size: var(--fs-sm);
+  margin: 6px 0 18px;
+  padding-left: 2px;
+  opacity: 0.92;
+}
+
+.error-output [data-error-path] {
+  color: var(--white-soft);
+  word-break: break-all;
+}
+
+.error-cmd [data-error-path] {
+  color: var(--white);
+  word-break: break-all;
+}
+
+.error-ls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 6px 0 18px;
+  padding-left: 2px;
+}
+
+.error-ls a {
+  color: var(--green);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color var(--t-fast) linear, border-color var(--t-fast) linear, text-shadow var(--t-fast) linear;
+}
+
+.error-ls a:hover,
+.error-ls a:focus-visible {
+  color: var(--green-bright);
+  border-bottom-color: var(--green-bright);
+  text-shadow: var(--phosphor-glow);
+}
+
+.error-home {
+  color: var(--green-bright);
+  text-decoration: none;
+  border-bottom: 1px solid var(--green-dim);
+  transition: border-color var(--t-fast) linear, text-shadow var(--t-fast) linear;
+}
+
+.error-home:hover,
+.error-home:focus-visible {
+  border-bottom-color: var(--green-bright);
+  text-shadow: var(--phosphor-glow);
+}
+
+@media (max-width: 768px) {
+  .error-page { padding: 40px 14px 40px; }
+  .error-body { padding: 18px 16px 20px; }
+}
+
+/* ============================================================
    PRINT
    ============================================================ */
 @media print {
@@ -1803,7 +1973,8 @@ html:not(.js-ready) .nav-kbd-hint {
   .prompt, .prompt-symbol, .json-key, .json-string, .json-bracket,
   .json-status, .tag, .bullet-arrow, .contact-label, .contact-link,
   .contact-resume, .skill-category-label, .exp-role, .exp-company,
-  .hero-subtitle, .hero-mission, .exp-current-pill, .hero-status {
+  .hero-subtitle, .hero-mission, .exp-current-pill, .hero-status,
+  .hero-now, .hero-now-prefix, .hero-now-label, .hero-now-text {
     color: #000 !important;
     background: none !important;
     border-color: #888 !important;
