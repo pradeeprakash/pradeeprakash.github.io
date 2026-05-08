@@ -130,8 +130,11 @@
       // Plain anchors already navigate; fire tracking inline (runCommand
       // would invoke cmd.action() which conflicts with native anchor
       // behavior — e.g. resume's link.click() would open the file twice).
+      // Gate tracking on e.isTrusted so synthetic clicks dispatched by
+      // cmdResume's link.click() don't double-fire (runCommand already
+      // tracked the resume_download in that path).
       if (el.tagName === 'A' && !e.defaultPrevented) {
-        if (window.track) {
+        if (e.isTrusted && window.track) {
           var ev = mapToTrackEvent(name);
           if (ev) window.track(ev.name, ev.props);
         }
