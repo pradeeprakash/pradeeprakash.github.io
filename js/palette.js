@@ -74,6 +74,21 @@
   }
 
   // ----------------------------------------------------------
+  // Analytics — single source of truth for which commands are tracked.
+  // Returns null for commands that should NOT fire an event.
+  // ----------------------------------------------------------
+  var TRACKED = {
+    resume:   { name: 'resume_download' },
+    email:    { name: 'contact_click', props: { channel: 'email' } },
+    linkedin: { name: 'contact_click', props: { channel: 'linkedin' } },
+    github:   { name: 'contact_click', props: { channel: 'github' } },
+  };
+
+  function mapToTrackEvent(commandName) {
+    return TRACKED[commandName] || null;
+  }
+
+  // ----------------------------------------------------------
   // Public API
   // ----------------------------------------------------------
   window.commands = commands;
@@ -84,6 +99,10 @@
     var cmd = findCommand(token);
     if (!cmd) {
       return { ok: false, output: "command not found: " + token + ". try 'help'." };
+    }
+    if (window.track) {
+      var ev = mapToTrackEvent(token);
+      if (ev) window.track(ev.name, ev.props);
     }
     var out;
     try { out = cmd.action(); } catch (e) { out = 'error: ' + e.message; }
