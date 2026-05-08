@@ -115,13 +115,12 @@ Two-tier feature: a vanilla-JS frontend overlay (`js/agent.js`) streams from a V
 - `GROQ_API_KEY` — Groq inference API key (free tier as of e7e4016).
 - `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` — back the per-IP rate limiter (20 req / 60 s fixed window). Provision via Vercel Marketplace → Upstash Redis (free tier covers this comfortably). Without these, `api/chat.js` falls back to a per-warm-instance in-memory `Map` — only useful for local `vercel dev`.
 
-**The hardcoded Vercel URL** `portfolio-nu-six-g0nsnyjwbz.vercel.app` appears in **four** places and they must update in lockstep if the deployment URL ever changes:
-- [js/agent.js](js/agent.js) — `API_URL` constant.
-- [api/chat.js](api/chat.js) — CORS allowlist.
-- [index.html](index.html) — CSP `connect-src` (meta tag).
-- [vercel.json](vercel.json) — CSP `connect-src` (response header).
+**Same-origin after the analytics migration (2026-05-08).** The static page and the function now share an origin, so the absolute Vercel deployment URL no longer appears in code:
+- `js/agent.js` uses `API_URL = '/api/chat'` (relative).
+- `index.html` and `vercel.json` use `connect-src 'self'` for `/api/chat` and `/_vercel/insights/event`.
+- `api/chat.js`'s CORS allowlist is empty (production traffic is same-origin and needs no ACAO).
 
-A custom domain (e.g. `api.pradeeprakash.dev`) would collapse all four into one — currently deferred.
+The only place the canonical host appears is `CANONICAL_HOSTS` in `js/analytics.js` — used for production-vs-preview filtering, not for routing. Adding a custom domain means appending an entry to that array; old entries can stay during a transition window.
 
 **Conversation lifecycle** is client-owned. Every request includes the full history (max `MAX_PAIRS * 2 = 20` entries, FIFO trim from the front). The server is stateless — there is no session storage. The conversation is **wiped on panel close** (`isOpen=false` resets `conversation = []` and `messagesEl.innerHTML`), so each session starts fresh; this is intentional privacy-by-default and not a bug.
 
@@ -176,6 +175,16 @@ Hard numbers from the spec: total initial transfer < 150 KB gzipped (HTML + CSS 
 
 ## Analytics
 
-No third-party analytics on the static page itself — no tracking pixels, no heatmaps, no Google Analytics. **Keep it that way.**
+Vercel Web Analytics is enabled on the project. Cookieless, IP-anonymized, GDPR-compliant by default — no consent banner. Three event types are emitted:
 
-**Exception, opt-in only:** when a visitor opens the AI agent panel and sends a message, the conversation is forwarded to `api/chat.js` (Vercel) → Groq → and back. No analytics layer wraps this; no message content is persisted by the function (Groq's data-handling policy applies upstream). The flow is dormant unless the user actively engages the agent. See the **AI agent** section.
+- `pageview` — auto-emitted by `/_vercel/insights/script.js` on each load (built-in: device, country, referrer).
+- `contact_click` with property `{ channel: 'email' | 'linkedin' | 'github' }` — fired when a contact-section link or button is clicked.
+- `resume_download` — fired when the resume link is clicked.
+
+Custom events are wired through a single hook at the top of `runCommand` in `js/palette.js`, which looks up the command name in a `TRACKED` table and forwards to `window.track(name, props)`. Anchor `<a data-command>` clicks (where `runCommand` is bypassed so the browser handles native navigation) fire the same `window.track` call inline before the early-return — covers the resume hero CTA and the contact section's email/LinkedIn/GitHub anchors. The shim in `js/analytics.js` (~0.3 KB gzipped) only forwards to Vercel's `va()` when `location.hostname` is in `CANONICAL_HOSTS` — so previews and `localhost` never pollute the production dashboard.
+
+The Vercel script is loaded from `/_vercel/insights/script.js` (same-origin, ~1.5 KB gzipped, third-party — does not count against the 20 KB local-JS budget). If the script fails to load (CDN down, blocker, offline), `window.track` no-ops and the page works exactly as before.
+
+Section reach, AI agent usage, and other surfaces are intentionally not tracked — keep the dashboard focused on the recruiter funnel (visits, contacts, downloads).
+
+**AI agent message flow is separately not analytics-instrumented.** When a visitor opens the agent panel and sends a message, the conversation is forwarded to `api/chat.js` (Vercel) → Groq → and back. No analytics layer wraps this; no message content is persisted by the function (Groq's data-handling policy applies upstream). The flow is dormant unless the user actively engages the agent. See the **AI agent** section.

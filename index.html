@@ -12,7 +12,7 @@
   <!-- script-src hash covers the JSON-LD block below; regenerate with:
        python3 -c "import hashlib,base64,re;c=open('index.html','rb').read();m=re.search(rb'<script type=\"application/ld\+json\">(.*?)</script>',c,re.DOTALL);print('sha256-'+base64.b64encode(hashlib.sha256(m.group(1)).digest()).decode())"
        …if you edit that block. style-src 'unsafe-inline' is intentionally retained — element-level style props set by JS would break otherwise. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-X5hPVT85ldEWaDaWxx6wMu8Y9M6DDhWiu7FOXsKKSCk='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://cdn.jsdelivr.net https://portfolio-nu-six-g0nsnyjwbz.vercel.app; frame-ancestors 'none'; base-uri 'self'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-X5hPVT85ldEWaDaWxx6wMu8Y9M6DDhWiu7FOXsKKSCk='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://cdn.jsdelivr.net; frame-ancestors 'none'; base-uri 'self'; form-action 'none'">
 
   <!-- Social preview -->
   <meta property="og:type" content="website">
@@ -474,9 +474,11 @@
 
   <!-- Motion (pinned CDN module — exposes window.Motion; see CLAUDE.md "Motion") -->
   <script type="module" src="js/motion-bootstrap.mjs"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
   <script src="js/typing.js" defer></script>
   <script src="js/effects.js" defer></script>
   <script src="js/palette.js" defer></script>
+  <script src="js/analytics.js" defer></script>
   <script src="js/shell.js" defer></script>
   <script src="js/scroll.js" defer></script>
   <script src="js/cube.js" defer></script>
