@@ -28,6 +28,8 @@
   var lastFocused = null;
   var streaming = false;
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var tooltip = null;
+  var attentionTimer = null;
 
   // ----------------------------------------------------------
   // DOM builders
@@ -180,6 +182,41 @@
     });
 
     return btn;
+  }
+
+  function buildTooltip() {
+    var t = document.createElement('div');
+    t.className = 'agent-tooltip';
+    t.innerHTML = '<span class="agent-tooltip-prompt">></span> ask me anything <kbd>⌘K</kbd>';
+    return t;
+  }
+
+  function showTooltip() {
+    if (tooltip) return;
+    if (sessionStorage.getItem('portfolio.agent.tooltip')) return;
+    tooltip = buildTooltip();
+    document.body.appendChild(tooltip);
+    // Fade in, then auto-remove after 5s
+    requestAnimationFrame(function () { tooltip.classList.add('show'); });
+    setTimeout(function () {
+      if (!tooltip) return;
+      tooltip.classList.remove('show');
+      tooltip.addEventListener('transitionend', function handler() {
+        if (tooltip && tooltip.parentNode) tooltip.parentNode.removeChild(tooltip);
+        tooltip = null;
+        tooltip.removeEventListener('transitionend', handler);
+      });
+    }, 5000);
+    sessionStorage.setItem('portfolio.agent.tooltip', '1');
+  }
+
+  function startAttention() {
+    if (reducedMotion) return;
+    fab.classList.add('attention');
+    attentionTimer = setTimeout(function () {
+      fab.classList.remove('attention');
+      attentionTimer = null;
+    }, 4000);
   }
 
   // ----------------------------------------------------------
@@ -522,10 +559,17 @@
     document.body.appendChild(fab);
     fab.addEventListener('click', open);
 
+    // Entrance: slide in after mount
+    requestAnimationFrame(function () { fab.classList.add('entered'); });
+
     // Start face animations (skip for reduced-motion)
     if (!reducedMotion) {
       startBlinking();
       initScrollReaction();
+      // Attention-grabbing pulse for first few seconds
+      startAttention();
+      // Tooltip on first session visit
+      setTimeout(showTooltip, 2000);
     }
 
     // Pre-mount the panel (hidden)

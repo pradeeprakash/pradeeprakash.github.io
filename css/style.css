@@ -1422,11 +1422,27 @@ html.js-ready .hero-cube-wrap { display: flex; }
 }
 
 /* Floating trigger button — ASCII face */
+@keyframes agent-entrance {
+  0%   { opacity: 0; transform: translateX(60px) scale(0.6); }
+  60%  { opacity: 1; transform: translateX(-6px) scale(1.05); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
 @keyframes agent-float {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   25%      { transform: translateY(-6px) rotate(1.5deg); }
   50%      { transform: translateY(-2px) rotate(0deg); }
   75%      { transform: translateY(-8px) rotate(-1.5deg); }
+}
+
+@keyframes agent-attention {
+  0%   { box-shadow: 0 4px 16px rgba(0,0,0,0.4), var(--phosphor-glow); transform: scale(1); }
+  15%  { box-shadow: 0 4px 24px rgba(34,216,139,0.5), 0 0 40px rgba(34,216,139,0.25); transform: scale(1.12); }
+  30%  { box-shadow: 0 4px 16px rgba(0,0,0,0.4), var(--phosphor-glow); transform: scale(1); }
+  45%  { box-shadow: 0 4px 24px rgba(34,216,139,0.5), 0 0 40px rgba(34,216,139,0.25); transform: scale(1.12); }
+  60%  { box-shadow: 0 4px 16px rgba(0,0,0,0.4), var(--phosphor-glow); transform: scale(1); }
+  75%  { box-shadow: 0 4px 24px rgba(34,216,139,0.5), 0 0 40px rgba(34,216,139,0.25); transform: scale(1.08); }
+  100% { box-shadow: 0 4px 16px rgba(0,0,0,0.4), var(--phosphor-glow); transform: scale(1); }
 }
 
 .agent-fab {
@@ -1448,8 +1464,17 @@ html.js-ready .hero-cube-wrap { display: flex; }
   padding: 0;
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), var(--phosphor-glow);
-  animation: agent-float 4s ease-in-out infinite;
+  opacity: 0;
+  animation: agent-entrance 500ms var(--ease-out-expo) forwards;
   transition: background var(--t-fast), box-shadow var(--t-fast);
+}
+
+.agent-fab.entered {
+  animation: agent-float 4s ease-in-out infinite;
+}
+
+.agent-fab.attention {
+  animation: agent-attention 4s ease-in-out 1 !important;
 }
 
 .agent-fab:hover {
@@ -1466,6 +1491,51 @@ html.js-ready .hero-cube-wrap { display: flex; }
 .agent-fab:focus-visible {
   outline: 2px solid var(--green);
   outline-offset: 2px;
+}
+
+/* Tooltip — terminal-styled callout next to the FAB */
+@keyframes tooltip-in {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.agent-tooltip {
+  position: fixed;
+  bottom: 42px;
+  right: 82px;
+  z-index: 8999;
+  background: var(--bg-terminal);
+  border: 1px solid var(--green-dim);
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--gray);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(12px);
+  pointer-events: none;
+  transition: opacity 300ms var(--ease-out-expo), transform 300ms var(--ease-out-expo);
+}
+
+.agent-tooltip.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.agent-tooltip-prompt {
+  color: var(--green);
+  margin-right: 6px;
+}
+
+.agent-tooltip kbd {
+  color: var(--green-dim);
+  border: 1px solid var(--green-dim);
+  border-radius: 2px;
+  padding: 0 5px;
+  margin-left: 4px;
+  font-family: inherit;
+  font-size: 10px;
 }
 
 /* Mobile: agent panel goes full-screen sheet */
@@ -1490,6 +1560,10 @@ html.js-ready .hero-cube-wrap { display: flex; }
     bottom: 80px;
     right: 16px;
   }
+
+  .agent-tooltip {
+    display: none;
+  }
 }
 
 /* Reduced motion */
@@ -1507,11 +1581,19 @@ html.js-ready .hero-cube-wrap { display: flex; }
   }
 
   .agent-fab {
-    animation: none;
+    opacity: 1;
+    transform: none;
+    animation: none !important;
     transition: none;
   }
 
   .agent-fab:hover {
+    transform: none;
+  }
+
+  .agent-tooltip {
+    transition: none;
+    opacity: 1;
     transform: none;
   }
 
