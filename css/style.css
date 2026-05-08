@@ -412,12 +412,21 @@ body {
 .hero-name {
   font-size: var(--fs-lg);
   font-weight: 700;
-  color: var(--claude-purple);
-  text-shadow: 0 0 14px rgba(167, 139, 250, 0.35);
   margin: 12px 0 4px;
   display: inline-block;
   letter-spacing: -0.01em;
   line-height: var(--lh-tight);
+  background: linear-gradient(135deg, #a78bfa, #f472b6, #fbbf24, #34d399, #60a5fa, #a78bfa);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow-shift 6s ease-in-out infinite alternate;
+}
+
+@keyframes rainbow-shift {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
 .hero-subtitle {
@@ -1824,6 +1833,15 @@ html:not(.js-ready) .nav-kbd-hint {
   .exp-card-current.pulse { animation: none; }
   .exp-dot.pulse::after { display: none; }
 
+  .hero-name {
+    background: linear-gradient(135deg, #a78bfa, #f472b6, #fbbf24, #34d399, #60a5fa) !important;
+    background-size: 100% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    animation: none !important;
+  }
+
   .hidden, .slide-in-left {
     opacity: 1 !important;
     transform: none !important;
@@ -2021,6 +2039,9 @@ html:not(.js-ready) .nav-kbd-hint {
   .hero-name {
     color: #000 !important;
     text-shadow: none !important;
+    -webkit-text-fill-color: #000 !important;
+    background: none !important;
+    animation: none !important;
     font-family: Georgia, serif;
     font-size: 22pt;
   }
