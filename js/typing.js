@@ -159,7 +159,6 @@ window.delay = function (ms) {
     var firstCommand   = firstPrompt && firstPrompt.querySelector('.typed-command');
     var heroName       = heroSection.querySelector('.hero-name');
     var heroSubtitle   = heroSection.querySelector('.hero-subtitle');
-    var heroWelcome    = heroSection.querySelector('.hero-welcome');
     var heroStatus     = heroSection.querySelector('.hero-status');
     var heroNow        = heroSection.querySelector('.hero-now');
     var secondPromptLine = promptLines[1];
@@ -168,7 +167,7 @@ window.delay = function (ms) {
     var heroCta        = heroSection.querySelector('.hero-cta-row');
     var finalPrompt    = promptLines[2];
 
-    var revealTargets = [lastLogin, heroName, heroSubtitle, heroWelcome, heroStatus, heroNow, heroMission, heroCta, finalPrompt];
+    var revealTargets = [lastLogin, heroName, heroSubtitle, heroStatus, heroNow, heroMission, heroCta, finalPrompt];
     revealTargets.forEach(function (el) { if (el) el.classList.add('hidden'); });
 
     if (fast) {
@@ -193,9 +192,6 @@ window.delay = function (ms) {
 
     await delay(300);
     if (heroSubtitle) { heroSubtitle.classList.remove('hidden'); heroSubtitle.classList.add('visible'); }
-
-    await delay(200);
-    if (heroWelcome) { heroWelcome.classList.remove('hidden'); heroWelcome.classList.add('visible'); }
 
     await delay(180);
     if (heroStatus) { heroStatus.classList.remove('hidden'); heroStatus.classList.add('visible'); }

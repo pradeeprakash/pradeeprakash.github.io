@@ -439,7 +439,7 @@ body {
   color: var(--gray);
   font-size: var(--fs-sm);
   line-height: var(--lh-body);
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .hero-status {
@@ -567,39 +567,6 @@ body {
 .hero-quicklinks .sep {
   color: var(--dark-gray);
   user-select: none;
-}
-
-/* ----- Rotating ASCII wireframe cube (desktop decoration) ----- */
-.hero-cube-wrap {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  margin: 28px 0 4px;
-}
-
-html.js-ready .hero-cube-wrap { display: flex; }
-
-.hero-cube {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  line-height: 1;
-  color: var(--green);
-  opacity: 0.55;
-  text-shadow: var(--phosphor-glow);
-  white-space: pre;
-  margin: 0;
-  letter-spacing: 0;
-  user-select: none;
-  pointer-events: none;
-  min-height: 176px; /* 16 rows × 11px — prevents CLS before first render */
-}
-
-.hero-cube-caption {
-  color: var(--dark-gray);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.04em;
-  opacity: 0.7;
 }
 
 /* ============================================================
@@ -1876,8 +1843,6 @@ html:not(.js-ready) .nav-kbd-hint {
   .nav-links { display: none; }
   .nav-kbd-hint { display: none; }
 
-  .hero-cube-wrap { display: none !important; }
-
   .nav-links.open {
     display: flex;
     flex-direction: column;
@@ -2447,63 +2412,6 @@ body {
 }
 
 /* ============================================================
-   3D GLASS CUBE — replaces the ASCII render.
-   Six translucent faces, each tinted a different neon color,
-   rotating in CSS 3D space. Driven by js/cube.js (Motion if
-   available, else rAF).
-   ============================================================ */
-.hero-cube-wrap {
-  margin: 36px 0 4px;
-}
-.hero-cube-scene {
-  width: 180px;
-  height: 180px;
-  perspective: 720px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.55));
-}
-.hero-cube-3d {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  transform-style: preserve-3d;
-  transform: rotateX(-18deg) rotateY(32deg);
-  will-change: transform;
-}
-.hc-face {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.02) 60%),
-    rgba(18, 24, 28, 0.35);
-  backdrop-filter: blur(10px) saturate(1.4);
-  -webkit-backdrop-filter: blur(10px) saturate(1.4);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 8px;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.14) inset;
-}
-.hc-face::after {
-  content: '';
-  position: absolute;
-  inset: 8px;
-  border-radius: 4px;
-  border: 1px dashed rgba(255, 255, 255, 0.10);
-  pointer-events: none;
-}
-.hc-face-front  { transform: translateZ(60px);                   box-shadow: 0 1px 0 rgba(255,255,255,0.14) inset, inset 0 0 32px rgba(91, 255, 176, 0.28), 0 0 22px rgba(91, 255, 176, 0.18); border-color: rgba(91, 255, 176, 0.45); }
-.hc-face-back   { transform: translateZ(-60px) rotateY(180deg);  box-shadow: 0 1px 0 rgba(255,255,255,0.14) inset, inset 0 0 32px rgba(91, 229, 255, 0.28), 0 0 22px rgba(91, 229, 255, 0.18); border-color: rgba(91, 229, 255, 0.45); }
-.hc-face-right  { transform: rotateY(90deg)  translateZ(60px);   box-shadow: 0 1px 0 rgba(255,255,255,0.14) inset, inset 0 0 32px rgba(255, 91, 209, 0.28), 0 0 22px rgba(255, 91, 209, 0.18); border-color: rgba(255, 91, 209, 0.45); }
-.hc-face-left   { transform: rotateY(-90deg) translateZ(60px);   box-shadow: 0 1px 0 rgba(255,255,255,0.14) inset, inset 0 0 32px rgba(178, 91, 255, 0.28), 0 0 22px rgba(178, 91, 255, 0.18); border-color: rgba(178, 91, 255, 0.45); }
-.hc-face-top    { transform: rotateX(90deg)  translateZ(60px);   box-shadow: 0 1px 0 rgba(255,255,255,0.14) inset, inset 0 0 32px rgba(255, 193, 91, 0.28), 0 0 22px rgba(255, 193, 91, 0.18); border-color: rgba(255, 193, 91, 0.45); }
-.hc-face-bottom { transform: rotateX(-90deg) translateZ(60px);   box-shadow: 0 1px 0 rgba(255,255,255,0.14) inset, inset 0 0 32px rgba(255, 255, 255, 0.14), 0 0 22px rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.28); }
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-cube-3d { transform: rotateX(-18deg) rotateY(32deg) !important; }
-}
-
-/* ============================================================
    PROJECTS SECTION
    ============================================================ */
 .projects-grid {
@@ -2589,12 +2497,4 @@ body {
 @media (max-width: 768px) {
   .projects-grid { grid-template-columns: 1fr; gap: 14px; }
   .project-card { padding: 16px 18px; }
-  .hero-cube-scene { width: 140px; height: 140px; }
-  .hero-cube-3d { width: 96px; height: 96px; }
-  .hc-face-front  { transform: translateZ(48px); }
-  .hc-face-back   { transform: translateZ(-48px) rotateY(180deg); }
-  .hc-face-right  { transform: rotateY(90deg)  translateZ(48px); }
-  .hc-face-left   { transform: rotateY(-90deg) translateZ(48px); }
-  .hc-face-top    { transform: rotateX(90deg)  translateZ(48px); }
-  .hc-face-bottom { transform: rotateX(-90deg) translateZ(48px); }
 }
