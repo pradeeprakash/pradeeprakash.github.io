@@ -416,7 +416,9 @@ body {
   display: inline-block;
   letter-spacing: -0.01em;
   line-height: var(--lh-tight);
-  background: linear-gradient(135deg, #a78bfa, #f472b6, #fbbf24, #34d399, #60a5fa, #a78bfa);
+  text-transform: uppercase;
+  background:
+    linear-gradient(135deg, #a78bfa, #f472b6, #fbbf24, #34d399, #60a5fa, #a78bfa);
   background-size: 400% 400%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -2159,7 +2161,6 @@ html:not(.js-ready) .nav-kbd-hint {
     font-family: Georgia, serif;
     font-size: 22pt;
   }
-
   .prompt, .prompt-symbol, .json-key, .json-string, .json-bracket,
   .json-status, .tag, .bullet-arrow, .contact-label, .contact-link,
   .contact-resume, .skill-category-label, .exp-role, .exp-company,
