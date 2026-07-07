@@ -23,7 +23,7 @@ portfolio/
 │   ├── scroll.js       # IntersectionObserver scroll triggers + nav tracking
 │   └── effects.js      # Glitch, flicker, scanlines, hover enhancements
 ├── assets/
-│   └── Pradeep_Sr_Engineer_Resume.pdf
+│   └── Pradeep_Senior_Engineer_Resume.pdf
 ```
 
 - `index.html` — all HTML structure, section content, script/link tags
@@ -257,7 +257,7 @@ Create `index.html` with all sections stubbed out. Every section includes its co
           <div class="contact-line"><span class="contact-label">EMAIL</span><a href="mailto:pradeep00327@gmail.com" class="contact-value contact-link">pradeep00327@gmail.com</a></div>
           <div class="contact-line"><span class="contact-label">LINKEDIN</span><a href="https://linkedin.com/in/pradeep-prakash24" target="_blank" rel="noopener" class="contact-value contact-link">linkedin.com/in/pradeep-prakash24</a></div>
           <div class="contact-line"><span class="contact-label">GITHUB</span><a href="https://github.com/pradeeprakash" target="_blank" rel="noopener" class="contact-value contact-link">github.com/pradeeprakash</a></div>
-          <div class="contact-line"><span class="contact-label">RESUME</span><a href="assets/Pradeep_Sr_Engineer_Resume.pdf" download class="contact-value contact-link contact-resume">📄 download resume.pdf</a></div>
+          <div class="contact-line"><span class="contact-label">RESUME</span><a href="assets/Pradeep_Senior_Engineer_Resume.pdf" download class="contact-value contact-link contact-resume">📄 download resume.pdf</a></div>
         </div>
         <div class="contact-farewell">
           <span class="prompt">pradeep@portfolio<span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$ </span></span>
@@ -502,7 +502,7 @@ Verify intermediate layout works — skills grid may stay 2-column, nav can stay
 - [ ] **Step 3: Copy resume PDF to assets**
 
 ```bash
-cp /path/to/Pradeep_Sr_Engineer_Resume.pdf assets/
+cp /path/to/Pradeep_Senior_Engineer_Resume.pdf assets/
 ```
 
 Ensure the resume download link works.
